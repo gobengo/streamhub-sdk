@@ -35,6 +35,7 @@ function ($, jasmine, StreamClient) {
                 console.log(mockData);
                 var spy = spyOn($, "getJSON").andCallFake(function(url, cb) {
                     cb({"data": mockData});
+                    return {fail: function() {}};
                 });
                 spy.fail = function() {};
                 
