@@ -2,6 +2,7 @@ require.config({
   paths: {
     jquery: '/lib/jquery/jquery',
     text: '/lib/requirejs-text/text',
+    base64: '/lib/base64/base64',
     jasmine: '/lib/jasmine/lib/jasmine-core/jasmine',
     'jasmine-html': '/lib/jasmine/lib/jasmine-core/jasmine-html',
     'jasmine-jquery': '/lib/jasmine-jquery/lib/jasmine-jquery',
