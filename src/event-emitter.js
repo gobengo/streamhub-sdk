@@ -17,9 +17,9 @@ define(function() {
   };
 
   EventEmitter.prototype.emit = function(name) {
-
-    var listeners = this._listeners[name] || [],
-        args = slice.call(arguments, 1);
+    var listeners = this._listeners[name] || [];
+    var args = slice.call(arguments, 1);
+    
     for(var i = 0, len = listeners.length; i < len; ++i) {
       try {
         listeners[i].apply(this, args); 
@@ -38,7 +38,7 @@ define(function() {
 
       // destructuring emit
       ee.emit.apply(ee, [name].concat(emit));
-      return result; 
+      return result;
     };
   };
   

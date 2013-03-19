@@ -31,6 +31,7 @@ define([
     /**
      * Helper method for easily setting up Livefyre streams
      * @param opts {Object} A set of options used in the creation of the individual streams
+     * @return 
      */
     Hub.createLivefyreStreams = function(opts, callback) {
         LivefyreBootstrapClient.getContent(opts, function(err, data) {
