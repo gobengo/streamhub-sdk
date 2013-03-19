@@ -1,4 +1,4 @@
-define(['jquery', 'streamhub-sdk/events'], function($, EventEmitter) {
+define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
     
     /**
      * Defines a base stream object that can be triggered to read from its source and
@@ -10,9 +10,9 @@ define(['jquery', 'streamhub-sdk/events'], function($, EventEmitter) {
     var Stream = function(opts) {
         this.opts = opts || {};
         this.buffer = [];
-        EventEmitter();
+        EventEmitter.call(this);
     };
-    $.extends(Stream.prototype, EventEmitter.prototype);
+    $.extend(Stream.prototype, EventEmitter.prototype);
     
     Stream.prototype.start = function() {
         if (!this._isReading) {

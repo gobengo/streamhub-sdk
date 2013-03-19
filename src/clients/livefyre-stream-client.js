@@ -25,7 +25,11 @@ define(['jquery'], function($) {
         ].join("");
 
         $.getJSON(url, function(data, status, jqXhr) {
-            // todo: (genehallman) check livefyre stream status in data.status
+            if (data.timeout) {
+                return callback("Timeout");
+            } else if (data.status == "error") {
+                return callback(data.msg);
+            }
             callback(null, data.data);
         }).fail(function(jqXhr, status, err) {
             callback(err);

@@ -1,6 +1,6 @@
 define(['jquery',
-    '../stream',
-    '../clients/livefyre-bootstrap-client' 
+    'streamhub-sdk/stream',
+    'streamhub-sdk/clients/livefyre-bootstrap-client' 
 ], function($, Stream, LivefyreBootstrapClient) {
 
     /**
@@ -16,11 +16,12 @@ define(['jquery',
         this.articleId = opts.articleId;
         this.environment = opts.environment;
         this.page = opts.page;
-        Stream();
+        Stream.call(this);
     };
-    $.extends(LivefyreReverseStream.prototype, Stream.prototype);
+    $.extend(LivefyreReverseStream.prototype, Stream.prototype);
     
     LivefyreReverseStream.prototype._read = function() {
+        var self = this;
         var opts = {
             network: this.network,
             siteId: this.siteId,
@@ -33,17 +34,17 @@ define(['jquery',
 
         LivefyreBootstrapClient.getContent(opts, function(err, data) {
             if (err) {
-                this.emit('error', err);
-                this._endRead();
+                self.emit('error', err);
+                self._endRead();
                 return;
             }
             for (i in data.states) {
-                this._push(data.states[i]);
+                self._push(data.states[i]);
             }
-            this._endRead();
+            self._endRead();
         });
     };
     
-    return LivefyreStream;
+    return LivefyreReverseStream;
 
 });

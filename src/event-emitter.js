@@ -43,4 +43,4 @@ define(function() {
   };
   
   return EventEmitter;
-};
+});

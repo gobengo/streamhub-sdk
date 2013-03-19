@@ -1,7 +1,7 @@
 define(['jquery',
-    '../stream',
-    '../clients/livefyre-stream-client',
-    '../clients/livefyre-write-client'
+    'streamhub-sdk/stream',
+    'streamhub-sdk/clients/livefyre-stream-client',
+    'streamhub-sdk/clients/livefyre-write-client'
 ], function($, Stream, LivefyreStreamClient, LivefyreWriteClient) {
 
     /**
@@ -14,27 +14,40 @@ define(['jquery',
         this.network = opts.network;
         this.collectionId = opts.collectionId;
         this.commentId = opts.commentId;
-        Stream();
+        Stream.call(this);
     };
-    $.extends(LivefyreStream.prototype, Stream.prototype);
+    $.extend(LivefyreStream.prototype, Stream.prototype);
     
+    /**
+     * Reads data from the Livefyre stream endpoint.
+     * @private
+     */
     LivefyreStream.prototype._read = function() {
+        var self = this;
+        
         var opts = {
             network: this.network,
             collectionId: this.collectionId,
-            commentId = this.commentId
+            commentId: this.commentId
         };
 
         LivefyreStreamClient.getContent(opts, function(err, data) {
             if (err) {
-                this.emit('error', err);
-                this._endRead();
+                self.emit('error', err);
+                self._endRead();
                 return;
             }
+            var latestEvent = 0;
+            
             for (i in data.states) {
-                this._push(data.states[i]);
+                var state = data.states[i];
+                if (state.event > latestEvent) {
+                    latestEvent = state.event;
+                }
+                self._push(state);
             }
-            this._endRead();
+            self.commentId = latestEvent;
+            self._endRead();
         });
     };
     
