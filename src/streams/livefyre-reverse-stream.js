@@ -20,6 +20,10 @@ define(['jquery',
     };
     $.extend(LivefyreReverseStream.prototype, Stream.prototype);
     
+    /**
+     * Reads data from a Livefyre bootstrap page endpoint.
+     * @private
+     */
     LivefyreReverseStream.prototype._read = function() {
         var self = this;
         var opts = {
@@ -46,5 +50,4 @@ define(['jquery',
     };
     
     return LivefyreReverseStream;
-
 });

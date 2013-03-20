@@ -54,5 +54,4 @@ define(['jquery',
     };
     
     return LivefyreStream;
-
 });
