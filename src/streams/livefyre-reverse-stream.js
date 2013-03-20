@@ -38,8 +38,8 @@ define(['jquery',
                 self._endRead();
                 return;
             }
-            for (i in data.states) {
-                self._push(data.states[i]);
+            for (i in data.content) {
+                self._push(data.content[i]);
             }
             self._endRead();
         });
