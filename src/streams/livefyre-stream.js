@@ -53,5 +53,21 @@ define(['jquery',
         });
     };
     
+    /**
+     * Writes data to the Livefyre stream.
+     * @private
+     */
+    LivefyreStream.prototype._write = function(opts) {
+        var self = this;
+        
+        var params = {
+            network: this.network,
+            collectionId: this.collectionId,
+            lftoken: opts.lftoken,
+            body: opts.body
+        };
+        
+        LivefyreWriteClient.postContent(params);
+    };
     return LivefyreStream;
 });
