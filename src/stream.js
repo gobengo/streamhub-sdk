@@ -8,9 +8,9 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
      * @constructor
      */
     var Stream = function(opts) {
+        EventEmitter.call(this);
         this.opts = opts || {};
         this.buffer = [];
-        EventEmitter.call(this);
     };
     $.extend(Stream.prototype, EventEmitter.prototype);
     

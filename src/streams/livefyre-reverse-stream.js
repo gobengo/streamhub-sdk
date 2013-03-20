@@ -10,13 +10,13 @@ define(['jquery',
      * @constructor
      */
     var LivefyreReverseStream = function(opts) {
+        Stream.call(this);
         this.opts = opts || {};
         this.network = opts.network;
         this.siteId = opts.siteId;
         this.articleId = opts.articleId;
         this.environment = opts.environment;
         this.page = opts.page;
-        Stream.call(this);
     };
     $.extend(LivefyreReverseStream.prototype, Stream.prototype);
     

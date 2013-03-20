@@ -10,16 +10,16 @@ define(['jquery',
      * @constructor
      */
     var LivefyreStream = function(opts) {
+        Stream.call(this);
         this.opts = opts || {};
         this.network = opts.network;
         this.collectionId = opts.collectionId;
         this.commentId = opts.commentId;
-        Stream.call(this);
     };
     $.extend(LivefyreStream.prototype, Stream.prototype);
     
     /**
-     * Reads data from the Livefyre stream endpoint.
+     * Streams data from the Livefyre stream endpoint until an error occurs.
      * @private
      */
     LivefyreStream.prototype._read = function() {
@@ -30,7 +30,7 @@ define(['jquery',
             collectionId: this.collectionId,
             commentId: this.commentId
         };
-
+        
         LivefyreStreamClient.getContent(opts, function(err, data) {
             if (err) {
                 self.emit('error', err);
@@ -47,7 +47,9 @@ define(['jquery',
                 self._push(state);
             }
             self.commentId = latestEvent;
-            self._endRead();
+            
+            // continually read until error
+            setTimeout(function() { self._read() }, 1);
         });
     };
     
