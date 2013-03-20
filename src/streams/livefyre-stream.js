@@ -55,6 +55,7 @@ define(['jquery',
     
     /**
      * Writes data to the Livefyre stream.
+     * @param opts {Object} Options to pass to the LivefyreWriteClient
      * @private
      */
     LivefyreStream.prototype._write = function(opts) {
