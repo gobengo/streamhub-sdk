@@ -2,21 +2,20 @@ define([
     'jquery',
     'jasmine',
     'streamhub-sdk/view',
+    'streamhub-sdk/stream',
     'jasmine-jquery'],
-function ($, jasmine, View) {
+function ($, jasmine, View, Stream) {
     describe('A base View', function () {
         var view, opts;
         
-        beforeEach(function() {
+        it ("should call on() on all streams when constructed", function () {
             opts = {
                 streams: {
                     main: { start: jasmine.createSpy(), on: jasmine.createSpy() },
                     reverse: { start: jasmine.createSpy(), on: jasmine.createSpy() }
                 }
             };
-        });
 
-        it ("should call on() on all streams when constructed", function () {
             view = new View(opts);
     
             waitsFor(function() {
@@ -32,6 +31,15 @@ function ($, jasmine, View) {
         
         describe('after construction', function () {
             beforeEach(function() {
+                opts = {
+                    streams: {
+                        main: new Stream(),
+                        reverse: new Stream
+                    }
+                };
+                opts.streams.main.start = jasmine.createSpy();
+                opts.streams.reverse.start = jasmine.createSpy();
+            
 	            view = new View(opts);
 	        });
 	        
@@ -47,6 +55,34 @@ function ($, jasmine, View) {
 	            });                            
 	        });
 
+            it ("should call start() on all streams when startStreams() is called with '*'", function () {
+                view.startStreams("*");
+        
+                waitsFor(function() {
+                    return opts.streams.main.start.callCount > 0 &&  opts.streams.reverse.start.callCount > 0;
+                });
+                runs(function() {
+                    expect(opts.streams.main.start).toHaveBeenCalled();
+                    expect(opts.streams.main.start.callCount).toBe(1);
+                    expect(opts.streams.reverse.start).toHaveBeenCalled();
+                    expect(opts.streams.reverse.start.callCount).toBe(1);
+                });                            
+            });
+
+            it ("should call start() on main & reverse streams when startStreams() is called with ['main, 'reverse']", function () {
+                view.startStreams(['main', 'reverse']);
+        
+                waitsFor(function() {
+                    return opts.streams.main.start.callCount > 0 && opts.streams.reverse.start.callCount > 0;
+                });
+                runs(function() {
+                    expect(opts.streams.main.start).toHaveBeenCalled();
+                    expect(opts.streams.main.start.callCount).toBe(1);
+                    expect(opts.streams.reverse.start).toHaveBeenCalled();
+                    expect(opts.streams.reverse.start.callCount).toBe(1);
+                });                            
+            });
+
             it ("should call start() on reverse stream when streamOlder()", function () {
                 view.streamOlder();
         
@@ -58,8 +94,27 @@ function ($, jasmine, View) {
                     expect(opts.streams.reverse.start.callCount).toBe(1);
                 });                            
             });
-	        
-	    });
 
+            it ("should emit('add') when a stream pushes new content", function () {
+                window.view = view;
+
+                var mockObj = "mockObj";
+                var spy = jasmine.createSpy();
+                view.on('add', spy);
+                
+                opts.streams.main._push(mockObj);
+        
+                waitsFor(function() {
+                    return spy.callCount > 0;
+                });
+                runs(function() {
+                    expect(spy).toHaveBeenCalled();
+                    expect(view.contentSet.length).toBe(1);
+                    expect(view.contentSet[0]).toBeDefined();
+                });
+            });
+
+        });
+            
     }); 
 });

@@ -15,15 +15,17 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
         this.opts = opts || {};
         this.streams = opts.streams;
         this.el = opts.el;
-        this.content = [];
+        this.contentSet = [];
         
+        var self = this;
         var keys = Object.keys(this.streams);
         for (i in keys) {
             var stream = this.streams[keys[i]];
             
             stream.on('readable', function() {
-                var content = stream.read();
-                this.emit('add', content, stream);
+                var content = this.read();
+                self.contentSet.push(content);
+                self.emit('add', content, stream);
             });
         }
     };
