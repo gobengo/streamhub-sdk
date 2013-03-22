@@ -38,12 +38,14 @@ define(['jquery',
                 return;
             }
             var latestEvent = 0;
+            var authors = data.authors;
             
             for (i in data.states) {
                 var state = data.states[i];
                 if (state.event > latestEvent) {
                     latestEvent = state.event;
                 }
+                state.author = authors[state.content.authorId];
                 self._push(state);
             }
             self.commentId = latestEvent;

@@ -113,8 +113,6 @@ function ($, jasmine, View, Stream) {
                     expect(view.contentSet[0]).toBeDefined();
                 });
             });
-
         });
-            
     }); 
 });
