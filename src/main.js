@@ -36,7 +36,7 @@ define([
     Hub.createLivefyreStreams = function(opts, callback) {
         LivefyreBootstrapClient.getContent(opts, function(err, data) {
             if (err) {
-                callback(err);
+                return callback(err);
             }
 
             var pages = data.archiveInfo.pageInfo;

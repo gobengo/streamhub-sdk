@@ -12,6 +12,10 @@ define(['jquery',
         return this.htmlString;
     };
 
+    Content.prototype.update = function(json) {
+        //todo: (gene) make this work
+    };
+
     Content._contentTypes = [];    
 
     Content.register = function(contentType) {
