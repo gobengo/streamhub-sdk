@@ -1,5 +1,5 @@
 define(['jquery', 'base64'], function($) {
-    LivefyreBootstrapClient = {};
+    var LivefyreBootstrapClient = {};
     
     /**
      * Fetches data from the livefyre bootstrap service with the arguments given.

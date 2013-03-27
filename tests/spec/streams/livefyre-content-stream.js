@@ -33,8 +33,9 @@ function ($, jasmine, LivefyreContentStream, LivefyreStream) {
                 return readableSpy.callCount > 0;
             });
             runs(function() {
+                var content = stream.read();
                 expect(readableSpy).toHaveBeenCalled();
-                expect(stream.read()).toBe(mockData);
+                expect(content.htmlString).toBe(mockData);
             });
         });
     }); 

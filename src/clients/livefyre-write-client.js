@@ -1,5 +1,5 @@
 define(['jquery', 'base64'], function($) {
-    LivefyreWriteClient = {};
+    var LivefyreWriteClient = {};
     
     /**
      * Posts a piece of content to a Livefyre collection.

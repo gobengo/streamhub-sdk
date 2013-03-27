@@ -2,8 +2,9 @@ define([
     'jquery',
     'jasmine',
     'streamhub-sdk',
+    'streamhub-sdk/clients/livefyre-bootstrap-client',
     'jasmine-jquery'],
-function ($, jasmine, Hub) {
+function ($, jasmine, Hub, LivefyreBootstrapClient) {
     describe('A Streamhub SDK', function () {
 
         var callback, opts;

@@ -1,6 +1,6 @@
 define(['jquery'], function($) {
 
-    LivefyreStreamClient = {};
+    var LivefyreStreamClient = {};
     
     /**
      * Fetches content from the livefyre conversation stream with the supplied arguments.

@@ -1,7 +1,8 @@
 define(['jquery',
     'streamhub-sdk/stream',
+    'streamhub-sdk/content',
     'streamhub-sdk/streams/livefyre-stream'
-], function($, Stream, LivefyreStream) {
+], function($, Stream, Content, LivefyreStream) {
 
     /**
      * Defines a livefyre content stream that turns livefyre emitted content into
@@ -28,7 +29,9 @@ define(['jquery',
      * @private
      */
     LivefyreContentStream.prototype._readStream = function() {
-        var content = this.stream.read();
+        var contentData = this.stream.read();
+        var content = Content.create(contentData);
+        
         this._push(content);
     };
     
