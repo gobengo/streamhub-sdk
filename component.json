@@ -11,6 +11,6 @@
     "jasmine": "*",
     "jasmine-jquery": "*",
     "base64": "~0.1.1",
-    "zepto": "~1.0.0rc1"
+    "zepto": "git://github.com/genehallman/streamhub-zepto.git"
   }
 }
