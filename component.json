@@ -10,6 +10,7 @@
     "requirejs-text": "~2.0.5",
     "jasmine": "*",
     "jasmine-jquery": "*",
-    "base64": "~0.1.1"
+    "base64": "~0.1.1",
+    "zepto": "~1.0.0rc1"
   }
 }
