@@ -18,7 +18,9 @@ define(['jquery', 'streamhub-sdk/view'], function($, View) {
     $.extend(FeedView.prototype, View.prototype);
 
     FeedView.prototype._add = function(content, stream) {
-        $(this.el).append($(document.createElement('div')).html(content.html()));
+        var contentEl = $(document.createElement('div'));
+        contentEl.html(content.html());
+        $(this.el).append(contentEl);
     };
 
     return FeedView;

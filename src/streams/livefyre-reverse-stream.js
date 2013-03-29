@@ -42,8 +42,11 @@ define(['jquery',
                 self._endRead();
                 return;
             }
+            var authors = data.authors;
             for (i in data.content) {
-                self._push(data.content[i]);
+                var content = data.content[i];
+                content.author = authors[content.content.authorId];
+                self._push(content);
             }
             self._endRead();
         });

@@ -32,25 +32,27 @@ define(['jquery',
         };
         
         LivefyreStreamClient.getContent(opts, function(err, data) {
-            if (err) {
+            if (err && err != "Timeout") {
                 self.emit('error', err);
                 self._endRead();
                 return;
+            } else if (!err) {
+	            var latestEvent = 0;
+	            var authors = data.authors;
+	            
+	            for (i in data.states) {
+	                var state = data.states[i];
+	                if (state.event > latestEvent) {
+	                    latestEvent = state.event;
+	                }
+	                state.author = authors[state.content.authorId];
+	                self._push(state);
+	            }
+	            self.commentId = latestEvent;
             }
-            var latestEvent = 0;
-            var authors = data.authors;
-            
-            for (i in data.states) {
-                var state = data.states[i];
-                if (state.event > latestEvent) {
-                    latestEvent = state.event;
-                }
-                state.author = authors[state.content.authorId];
-                self._push(state);
-            }
-            self.commentId = latestEvent;
             
             // continually read until error
+            // also, put it in a setTimeout so that we clear the stack
             setTimeout(function() { self._read() }, 1);
         });
     };

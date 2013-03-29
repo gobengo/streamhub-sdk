@@ -15,6 +15,7 @@ define(['jquery', 'base64'], function($) {
     LivefyreBootstrapClient.getContent = function(opts, callback) {
         opts = opts || {};
         callback = callback || function() {};
+        
         var url = [
             "http://bootstrap.",
             opts.network,
@@ -29,12 +30,19 @@ define(['jquery', 'base64'], function($) {
             opts.page || "init",
             ".json"
         ].join("");
-
-        $.getJSON(url, function(data, status, jqXhr) {
-            // todo: (genehallman) check livefyre stream status in data.status
-            callback(null, data);
-        }).fail(function(jqXhr, status, err) {
-            callback(err);
+        
+        
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            success: function(data, status, jqXhr) {
+                // todo: (genehallman) check livefyre stream status in data.status
+                callback(null, data);
+            },
+            error: function(jqXhr, status, err) {
+                callback(err);
+            }
         });
     };
     

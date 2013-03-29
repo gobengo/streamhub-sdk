@@ -12,11 +12,11 @@ define(['jquery',
      */
     var LivefyreContentStream = function(opts) {
         Stream.call(this);
-        var contentCache = {};
+        this.contentCache = {};
         
         var self = this;
 
-        this.stream = new LivefyreStream(opts);
+        this.stream = new opts.upstream(opts);
         this.stream.on('readable', function() {
             self._readStream();
         });
@@ -32,7 +32,6 @@ define(['jquery',
      */
     LivefyreContentStream.prototype._readStream = function() {
         var contentData = this.stream.read();
-        
         if (contentData.content.targetId) {
             if (this.contentCache[content.targetId]) {
                 this.contentCache[content.targetId].update(contentData);

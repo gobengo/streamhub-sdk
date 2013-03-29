@@ -9,10 +9,12 @@
   "version": "1.0.0",
   "dependencies": {
     "bower": "*",
-    "http-server": "*"
+    "http-server": "*",
+    "requirejs": "*"
   },
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install",
-    "start": "./node_modules/http-server/bin/http-server ."
+    "start": "./node_modules/http-server/bin/http-server .",
+    "build": "./node_modules/requirejs/bin/r.js -o ./streamhub-sdk.build.js"
   }
 }
