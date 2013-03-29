@@ -22,5 +22,5 @@
       unsafe: true
     },
     mangle: true
-  },
+  }
 })
