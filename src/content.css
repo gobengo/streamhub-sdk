@@ -1,0 +1,16 @@
+.content {
+  padding: 5px;
+}
+.content-byline {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.content-author-avatar {
+  float: left;
+  margin-right: 5px;
+}
+.content-main:after {
+  content: "";
+  display: table;
+  clear: both;
+}
