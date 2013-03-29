@@ -1,7 +1,7 @@
 ({
   paths: {
     jquery: 'lib/zepto/zepto',
-    base64: 'lib/base64/base64',
+    base64: 'lib/base64/base64'
   },
   packages: [{
      name: "streamhub-sdk",
@@ -10,7 +10,7 @@
   shim: {
     jquery: {
         exports: '$'
-    },
+    }
   },
   baseUrl: '.',
   name: "lib/almond/almond",
