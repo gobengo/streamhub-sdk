@@ -38,7 +38,6 @@ define(['jquery',
             }
         } else {
             var content = Content.create(contentData);
-console.log(this.contentCache);
 	        this.contentCache[content.id] = content;
 	        this._push(content);
         }

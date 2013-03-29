@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../lib/jasmine/lib/jasmine-core/jasmine.css">
+</head>
+    <body>
+        <div id="feedView"></div>
+
+        <script src="/streamhub-sdk.built.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+            require(['jquery', 'streamhub-sdk'], function ($, Hub) {
+                var opts = {
+                    "network": "labs.fyre.co",
+                    "siteId": "320568",
+                    "articleId": "home_fromthefloor",
+                };
+                var view;
+                
+                Hub.createLivefyreStreams(opts, function(err, streams) {
+                    view = new Hub.Views.FeedView({
+                        streams: streams,
+                        el: document.getElementById("feedView")
+                    });
+                    view.startStreams("*");
+                });
+            }, "blah");
+        </script>
+    </body>
+</html>

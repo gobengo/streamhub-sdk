@@ -1,12 +1,20 @@
 ({
   paths: {
-    jquery: 'lib/zepto/zepto.min',
+    jquery: 'lib/zepto/zepto',
     base64: 'lib/base64/base64',
-    'streamhub-sdk': 'src'
+  },
+  packages: [{
+     name: "streamhub-sdk",
+     location: "src"
+  }],
+  shim: {
+    jquery: {
+        exports: '$'
+    },
   },
   baseUrl: '.',
-  name: "src/main",
-  //exclude: ["jquery"],
+  name: "lib/almond/almond",
+  include: 'streamhub-sdk',
   out: "streamhub-sdk.built.js",
   optimize: "uglify2",
   uglify2: {

@@ -23,14 +23,20 @@ define(['jquery', 'base64'], function($) {
         ].join("");
 
         var postData = {body: opts.body, lftoken: opts.lftoken};
-        $.post(url, postData, function(data, status, jqXhr) {
-            // todo: (genehallman) check livefyre stream status in data.status
-            callback(null, data);
-        }).fail(function(jqXhr, status, err) {
-            callback(err);
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: postData,
+            success: function(data, status, jqXhr) {
+	            // todo: (genehallman) check livefyre stream status in data.status
+	            callback(null, data);
+	        },
+	        error: function(jqXhr, status, err) {
+	            callback(err);
+            }
         });
     };
-    
     return LivefyreWriteClient;
 
 });
