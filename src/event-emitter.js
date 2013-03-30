@@ -13,14 +13,16 @@ define(function() {
   };
 
   EventEmitter.prototype.remove = function(name, fn) {
-    fn && this._listeners[name] && this._listeners[name].splice(this._listeners[name].indexOf(fn), 1);
+    if (fn && this._listeners[name]) {
+        this._listeners[name].splice(this._listeners[name].indexOf(fn), 1);
+    }
   };
 
   EventEmitter.prototype.emit = function(name) {
     var listeners = this._listeners[name] || [];
     var args = slice.call(arguments, 1);
     
-    for(var i = 0, len = listeners.length; i < len; ++i) {
+    for (i in listeners.length) {
       try {
         listeners[i].apply(this, args); 
       } catch(err) {

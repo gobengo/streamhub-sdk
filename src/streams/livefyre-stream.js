@@ -53,7 +53,7 @@ define(['jquery',
             
             // continually read until error
             // also, put it in a setTimeout so that we clear the stack
-            setTimeout(function() { self._read() }, 1);
+            setTimeout(function() { self._read(); }, 1);
         });
     };
     
