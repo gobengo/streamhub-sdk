@@ -15,5 +15,6 @@ ContentView.prototype.render = function () {
 	this.el.innerHTML = this.template(this.content);
 };
 
-return exports = ContentView;
+exports = ContentView;
+return exports;
 });

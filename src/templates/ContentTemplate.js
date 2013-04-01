@@ -6,8 +6,8 @@ var Mustache = require('mustache'),
 
 var ContentTemplate = function ContentTemplate (content) {
 	return ContentMustache(content);
-}
+};
 
-return exports = ContentTemplate;
-
+exports = ContentTemplate;
+return exports;
 });

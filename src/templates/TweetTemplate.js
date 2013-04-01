@@ -6,8 +6,8 @@ var Mustache = require('mustache'),
 
 var TweetTemplate = function TweetTemplate (content) {
 	return TweetMustacheCompiled(content);
-}
+};
 
-return exports = TweetTemplate;
-
+exports = TweetTemplate;
+return exports;
 });
