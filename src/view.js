@@ -18,15 +18,16 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
         this.contentSet = [];
         
         var self = this;
+
+        var readableCallback = function() {
+            var content = this.read();
+            self.contentSet.push(content);
+            self.emit('add', content, this);
+        };
+
         var keys = Object.keys(this.streams);
-        for (i in keys) {
-            var stream = this.streams[keys[i]];
-            
-            stream.on('readable', function() {
-                var content = this.read();
-                self.contentSet.push(content);
-                self.emit('add', content, stream);
-            });
+        for (var i in keys) {
+            this.streams[keys[i]].on('readable', readableCallback);
         }
     };
     $.extend(View.prototype, EventEmitter.prototype);
@@ -47,9 +48,9 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
             }
         }
         
-        for (i in streamNames) {
+        for (var i in streamNames) {
             if (this.streams[streamNames[i]]) {
-	            this.streams[streamNames[i]].start();
+                this.streams[streamNames[i]].start();
             }
         }
     };

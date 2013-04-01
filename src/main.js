@@ -63,19 +63,18 @@ define([
             var lastPageNum = pageKeys[pageKeys.length - 1];
             var collectionId = data.collectionId;
             var commentId = data.event;
-	        
-	        var mainStream = new LivefyreContentStream($.extend({
-	            collectionId: collectionId,
-	            commentId: commentId,
-	            upstream: LivefyreStream
-	        }, opts));
-	        var reverseStream = new LivefyreContentStream($.extend({
-	            page: lastPageNum,
+            
+            var mainStream = new LivefyreContentStream($.extend({
+                collectionId: collectionId,
+                commentId: commentId,
+                upstream: LivefyreStream
+            }, opts));
+            var reverseStream = new LivefyreContentStream($.extend({
+                page: lastPageNum,
                 upstream: LivefyreReverseStream
-	        }, opts));
-	        
-	        callback(null, { main: mainStream, reverse: reverseStream });
-	        
+            }, opts));
+            
+            callback(null, { main: mainStream, reverse: reverseStream });
         });
     
     };

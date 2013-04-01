@@ -43,7 +43,7 @@ define(['jquery',
                 return;
             }
             var authors = data.authors;
-            for (i in data.content) {
+            for (var i in data.content) {
                 var content = data.content[i];
                 content.author = authors[content.content.authorId];
                 self._push(content);

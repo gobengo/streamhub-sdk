@@ -25,9 +25,9 @@ define(['jquery',
     };
     
     Content.create = function(contentJson) {
-        for (i in Content._contentTypes) {
+        for (var i in Content._contentTypes) {
             if (Content._contentTypes[i].canParse(contentJson)) {
-		        return new Content._contentTypes[i](contentJson);
+                return new Content._contentTypes[i](contentJson);
             }
         }
         return new Content(contentJson);

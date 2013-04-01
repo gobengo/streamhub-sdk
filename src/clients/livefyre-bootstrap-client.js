@@ -27,7 +27,7 @@ define(['jquery', 'base64'], function($) {
             btoa(opts.articleId),
             "/",
             opts.page || "init",
-            ".json"
+            opts.extension || ".json"
         ].join("");
         
         
