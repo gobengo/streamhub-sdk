@@ -20,6 +20,7 @@
     "lint": "./node_modules/jslint/bin/jslint.js streamhub-sdk.built.js; echo"
   },
   "devDependencies": {
-    "jslint": "~0.1.9"
+    "jslint": "~0.1.9",
+    "jshint": "~1.1.0"
   }
 }

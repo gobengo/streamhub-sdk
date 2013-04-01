@@ -19,7 +19,7 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
         
         var self = this;
         var keys = Object.keys(this.streams);
-        for (i in keys) {
+        for (var i in keys) {
             var stream = this.streams[keys[i]];
             
             stream.on('readable', function() {
@@ -47,7 +47,7 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
             }
         }
         
-        for (i in streamNames) {
+        for (var i in streamNames) {
             if (this.streams[streamNames[i]]) {
 	            this.streams[streamNames[i]].start();
             }

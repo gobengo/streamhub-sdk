@@ -40,7 +40,7 @@ define(['jquery',
 	            var latestEvent = 0;
 	            var authors = data.authors;
 	            
-	            for (i in data.states) {
+	            for (var i in data.states) {
 	                var state = data.states[i];
 	                if (state.event > latestEvent) {
 	                    latestEvent = state.event;

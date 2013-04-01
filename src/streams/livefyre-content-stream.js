@@ -31,8 +31,9 @@ define(['jquery',
      * @private
      */
     LivefyreContentStream.prototype._readStream = function() {
+
         var contentData = this.stream.read();
-        if (contentData.content.targetId) {
+        if (contentData.content && contentData.content.targetId) {
             if (this.contentCache[content.targetId]) {
                 this.contentCache[content.targetId].update(contentData);
             }
@@ -41,7 +42,6 @@ define(['jquery',
 	        this.contentCache[content.id] = content;
 	        this._push(content);
         }
-        
     };
     
     /**

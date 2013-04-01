@@ -22,7 +22,7 @@ define(function() {
     var listeners = this._listeners[name] || [];
     var args = slice.call(arguments, 1);
     
-    for (i in listeners.length) {
+    for (var i in listeners) {
       try {
         listeners[i].apply(this, args); 
       } catch(err) {
