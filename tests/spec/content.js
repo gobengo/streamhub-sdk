@@ -2,7 +2,7 @@ define([
     'jquery',
     'jasmine',
     'streamhub-sdk/content',
-    'streamhub-sdk/content-types/livefyre-content',
+    'streamhub-sdk/content/types/livefyre-content',
     'jasmine-jquery'],
 function ($, jasmine, Content, LivefyreContent) {
     describe('A Content object', function () {
