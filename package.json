@@ -17,10 +17,9 @@
     "start": "./node_modules/http-server/bin/http-server .",
     "build": "./node_modules/requirejs/bin/r.js -o ./build-prod.js",
     "build-dev": "./node_modules/requirejs/bin/r.js -o ./build-dev.js",
-    "lint": "./node_modules/jslint/bin/jslint.js streamhub-sdk.built.js; echo"
+    "hint": "./node_modules/jshint/bin/jshint src/*; echo"
   },
   "devDependencies": {
-    "jslint": "~0.1.9",
     "jshint": "~1.1.0"
   }
 }

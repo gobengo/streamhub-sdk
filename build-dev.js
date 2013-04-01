@@ -17,14 +17,11 @@
   name: "streamhub-sdk",
   exclude: ['jquery', 'almond', 'base64'],
   out: "streamhub-sdk.built.js",
-  optimize: "none",
-  wrap: {
-    start: "/*jslint browser: true, devel: false, node: false," +
-           "rhino: false, windows: false, passfail: false, nomen: true," +
-           "sloppy: true, stupid: false, white: true, indent: 4, " + 
-           "vars: true, maxerr: 500, maxlen: 100 */\n" +
-           "var define = function() {};\n" +
-           "(function() {",
-    end: "}());"
+  optimize: "uglify2",
+  uglify2: {
+    compress: {
+      unsafe: true
+    },
+    mangle: true
   }
 })

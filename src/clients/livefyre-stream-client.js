@@ -30,12 +30,12 @@ define(['jquery'], function($) {
             dataType: "json",
             success: function(data, status, jqXhr) {
                 // todo: (genehallman) check livefyre stream status in data.status
-	            if (data.timeout) {
-	                return callback("Timeout");
-	            } else if (data.status == "error") {
-	                return callback(data.msg);
-	            }
-	            callback(null, data.data);
+                if (data.timeout) {
+                    return callback("Timeout");
+                } else if (data.status == "error") {
+                    return callback(data.msg);
+                }
+                callback(null, data.data);
             },
             error: function(jqXhr, status, err) {
                 callback(err);

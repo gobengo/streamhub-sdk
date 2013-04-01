@@ -2,3 +2,4 @@
 lib/
 node_modules/
 streamhub-sdk.built.js
+streamhub-sdk.built.js.gz

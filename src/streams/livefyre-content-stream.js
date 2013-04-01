@@ -39,8 +39,8 @@ define(['jquery',
             }
         } else {
             var content = Content.create(contentData);
-	        this.contentCache[content.id] = content;
-	        this._push(content);
+            this.contentCache[content.id] = content;
+            this._push(content);
         }
     };
     
