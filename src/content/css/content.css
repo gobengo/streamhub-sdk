@@ -12,6 +12,9 @@
   margin-top: 0;
   margin-bottom: 0;
 }
+.content .content-source-logo {
+  float: right;
+}
 .content .content-author-avatar {
   float: left;
   margin-right: 5px;

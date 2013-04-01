@@ -3,11 +3,11 @@
         {{#author.avatar}}
         <a class="content-author-avatar"><img src="{{ author.avatar }}" /></a>
         {{/author.avatar}}
-        <p class="content-byline">
+        <span class="content-byline">
             <a class="content-author-name" href="https://twitter.com/intent/user?user_id={{ author.twitterUserId }}" target="_blank">{{ author.displayName }}</a>
-        </p>
-        <a href="https://twitter.com/statuses/{{ tweetId }}/" target="_blank">
-            <img class="hub-twitter-logo" src="{{ .tweetIconUrl }}" />
+        </span>
+        <a class="content-source-logo" href="https://twitter.com/statuses/{{ tweetId }}/" target="_blank">
+            <img src="{{ .tweetIconUrl }}" />
         </a>
     </header>
 
