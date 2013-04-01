@@ -1,6 +1,6 @@
 define(['jquery',
     'streamhub-sdk/content',
-    'streamhub-sdk/content-types/livefyre-content'
+    'streamhub-sdk/content/types/livefyre-content'
 ], function($, Content, LivefyreContent) {
 
     var LivefyreTweet = function (json) {
