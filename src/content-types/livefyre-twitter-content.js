@@ -26,7 +26,7 @@ define(['jquery',
             throw new Error("Can't parse twitterUserId from Livefyre authorId");
         }
         return match[1];
-    }
+    };
 
     Content.register(LivefyreTweet);
      
