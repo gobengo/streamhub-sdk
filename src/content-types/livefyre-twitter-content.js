@@ -6,6 +6,7 @@ define(['jquery',
     var LivefyreTweet = function (json) {
         LivefyreContent.call(this, json);
         this.tweetId = LivefyreTweet.tweetIdFromLivefyreId(this.id);
+        this.author.twitterUserId = LivefyreTweet.twitterUserIdFromLivefyreAuthorId(this.author.id);
     };
     $.extend(LivefyreTweet.prototype, LivefyreContent.prototype);
 
@@ -17,6 +18,15 @@ define(['jquery',
         }
         return match[1];
     };
+
+    LivefyreTweet.twitterUserIdFromLivefyreAuthorId = function (authorId) {
+        var pattern = /([^@]+)@twitter.com/,
+            match = authorId.match(pattern);
+        if ( ! match) {
+            throw new Error("Can't parse twitterUserId from Livefyre authorId");
+        }
+        return match[1];
+    }
 
     Content.register(LivefyreTweet);
      
