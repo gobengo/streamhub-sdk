@@ -32,6 +32,7 @@ define(['jquery',
      */
     LivefyreContentStream.prototype._readStream = function() {
         var contentData = this.stream.read();
+        console.log('contentData', JSON.stringify(contentData))
         if (contentData.content.targetId) {
             if (this.contentCache[content.targetId]) {
                 this.contentCache[content.targetId].update(contentData);
