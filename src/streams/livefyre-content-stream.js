@@ -34,8 +34,8 @@ define(['jquery',
 
         var contentData = this.stream.read();
         if (contentData.content && contentData.content.targetId) {
-            if (this.contentCache[content.targetId]) {
-                this.contentCache[content.targetId].update(contentData);
+            if (this.contentCache[contentData.content.targetId]) {
+                this.contentCache[contentData.content.targetId].update(contentData);
             }
         } else {
             var content = Content.create(contentData);
