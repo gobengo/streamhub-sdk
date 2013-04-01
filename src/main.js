@@ -71,6 +71,7 @@ define([
             }, opts));
             
             callback(null, { main: mainStream, reverse: reverseStream });
+            
         });
     
     };

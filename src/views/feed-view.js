@@ -20,7 +20,7 @@ define(['jquery', 'streamhub-sdk/view'], function($, View) {
     FeedView.prototype._add = function(content, stream) {
         var contentEl = $(document.createElement('div'));
         contentEl.html(content.html());
-        $(this.el).append(contentEl);
+        $(this.el).prepend(contentEl);
     };
 
     return FeedView;
