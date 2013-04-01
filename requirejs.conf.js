@@ -1,4 +1,5 @@
 require.config({
+  baseUrl: '/',
   paths: {
     jquery: '/lib/jquery/jquery',
     text: '/lib/requirejs-text/text',
@@ -11,9 +12,6 @@ require.config({
   packages: [{
      name: "streamhub-sdk",
      location: "/src/"
-  },{
-    name: "streamhub-sdk/content",
-    location: "/src/content/"
   }],
   shim: {
     jquery: {

@@ -1,7 +1,7 @@
 define([
     'streamhub-sdk/stream',
     'streamhub-sdk/event-emitter',
-    'streamhub-sdk/content',
+    'streamhub-sdk/content/content',
     'streamhub-sdk/view',
     'streamhub-sdk/clients/livefyre-stream-client',
     'streamhub-sdk/clients/livefyre-bootstrap-client',

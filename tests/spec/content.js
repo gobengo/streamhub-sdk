@@ -1,7 +1,7 @@
 define([
     'jquery',
     'jasmine',
-    'streamhub-sdk/content',
+    'streamhub-sdk/content/content',
     'streamhub-sdk/content/types/livefyre-content',
     'jasmine-jquery'],
 function ($, jasmine, Content, LivefyreContent) {
@@ -18,6 +18,6 @@ function ($, jasmine, Content, LivefyreContent) {
         it ("should recognize a livefyre content from stream", function () {
             var content = Content.create(mockData.livefyreStreamContent);
             expect(content instanceof LivefyreContent).toBe(true);
-        });        
-    }); 
+        });
+    });
 });
