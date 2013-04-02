@@ -34,18 +34,26 @@ function (jasmine, jasmineJquery, $, ListView, Stream, JasmineSpyStream) {
                 expect(listView.streams.main.on.callCount).toBe(1);
             });
 
+            it ("has .content-list CSS class", function () {
+                expect(listView.$el).toHaveClass('content-list');
+            });
+
+            it ("uses <ul> as the default .el HTML tag", function () {
+                expect(listView.$el).toBe('ul');
+            });
+
             // @todo move to base View ?
 
             it ("calls .setElement", function () {
                 expect(listView.setElement).toHaveBeenCalled();
             });
 
-            it ("has a .el with className of this.className", function () {
-                expect(listView.$el).toHaveClass(listView.className);
+            it ("has a .el with class of this.elClass", function () {
+                expect(listView.$el).toHaveClass(listView.elClass);
             });
 
-            it ("uses <ul> as the default .el HTML tag", function () {
-                expect(listView.$el).toBe('ul');
+            it ("uses a .el with an HTML tag of this.elTag", function () {
+                expect(listView.$el).toBe(listView.elTag);
             });
 
             describe("with opts.el", function () {
@@ -73,5 +81,22 @@ function (jasmine, jasmineJquery, $, ListView, Stream, JasmineSpyStream) {
             });
         });
 
+    });
+
+    describe("a ListItemView", function () {
+        var fixtureId = 'sandbox',
+            itemView;
+
+        beforeEach(function () {
+            var ItemView = ListView.prototype.itemView;
+            
+            itemView = new ItemView('');
+        });
+
+        describe("when constructed", function () {
+            it ("has a .el HTMLElement", function () {
+                expect(itemView.el).toBeTruthy();
+            });
+        });
     });
 });

@@ -11,7 +11,7 @@ function($, View, ContentView) {
     var ListView = function(opts) {
         View.call(this, opts);
         
-        this.setElement(opts.el || document.createElement(this.tagName));
+        this.setElement(opts.el || document.createElement(this.elTag));
 
         var self = this;
         self.on('add', function(content, stream) {
@@ -20,8 +20,8 @@ function($, View, ContentView) {
     };
     $.extend(ListView.prototype, View.prototype);
 
-    ListView.prototype.tagName = 'ul';
-    ListView.prototype.className = 'content-list-view content-list';
+    ListView.prototype.elTag = 'ul';
+    ListView.prototype.elClass = 'content-list';
 
     /**
      * Set the .el DOMElement that the View should render to
@@ -30,19 +30,32 @@ function($, View, ContentView) {
     ListView.prototype.setElement = function (el) {
         this.el = el;
         this.$el = $(el);
-        this.$el.addClass(this.className);
+        this.$el.addClass(this.elClass);
         // Insert base, static HTML
     };
 
     ListView.prototype._add = function(content, stream) {
-        var contentEl = document.createElement('div'),
-            contentView = new ContentView({
-                el: contentEl,
+        var newItemView = this.createItemView(content);
+        newItemView.render();
+        $(this.el).prepend(newItemView.el);
+    };
+
+    var ListItemView = ContentView;
+    ListItemView.prototype = $.extend(new ContentView(), {
+        elTag: 'li',
+        elClass: 'content-list-item ' + ContentView.prototype.elClass
+    });
+
+    ListView.prototype.itemView = ListItemView;
+    ListView.prototype.getItemView = function (content) {
+        return this.itemView;
+    };
+    ListView.prototype.createItemView = function (content) {
+        var ItemView = this.getItemView(),
+            itemView = new ItemView({
                 content: content
             });
-        console.log(content);
-        contentView.render();
-        $(this.el).prepend(contentEl);
+        return itemView;
     };
 
     return ListView;
