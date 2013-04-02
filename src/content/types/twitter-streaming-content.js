@@ -1,6 +1,6 @@
 define([
     'jquery',
-    'streamhub-sdk/content/types/twitter-content',
+    'streamhub-sdk/content/types/twitter-content'
 ], function($, TwitterContent) {
     var TwitterStreamingContent = function (json) {
         TwitterContent.call(this);

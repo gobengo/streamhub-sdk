@@ -4,7 +4,7 @@ var ContentTemplate = require('../templates/ContentTemplate');
 
 // Construct a ContentView
 var ContentView = function ContentView (opts) {
-	var opts = opts || {};
+	opts = opts || {};
 	this.content = opts.content;
     this.setElement(opts.el || document.createElement(this.elTag));
 };
