@@ -14,6 +14,7 @@
         text-decoration: none;
     }
     </style>
+    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 </head>
     <body>
         <div id="feedView"></div>
@@ -81,6 +82,18 @@
             c3v.render();
 
             var c4 = new LivefyreTweet(mockData.livefyreTwitterContent);
+            c4.attachments = [{
+                "version": "1.0",
+                "type": "photo",
+                "width": 240,
+                "height": 160,
+                "title": "ZB8T0193",
+                "url": "http://farm4.static.flickr.com/3123/2341623661_7c99f48bbf_m.jpg",
+                "author_name": "Bees",
+                "author_url": "http://www.flickr.com/photos/bees/",
+                "provider_name": "Flickr",
+                "provider_url": "http://www.flickr.com/"
+            }]
             var c4v = new TwitterContentView({
                 content: c4,
                 el: document.getElementById('c4')
