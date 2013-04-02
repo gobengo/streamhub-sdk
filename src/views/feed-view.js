@@ -24,6 +24,7 @@ function($, View, ContentView) {
                 el: contentEl,
                 content: content
             });
+        console.log(content);
         contentView.render();
         $(this.el).prepend(contentEl);
     };

@@ -37,6 +37,8 @@
                 specs.push('tests/spec/streams/livefyre-stream');
                 specs.push('tests/spec/streams/livefyre-reverse-stream');
 
+                specs.push('tests/spec/content/types/twitter-search-content');
+                
                 $(function(){
                     require(specs, function(){
                         jasmineEnv.execute();
