@@ -1,6 +1,7 @@
 define(function (require, exports, module) {
 
-var ContentTemplate = require('../templates/TweetTemplate'),
+var ContentView = require('./content-view'),
+	TwitterContentTemplate = require('../templates/TweetTemplate'),
 	$ = require('jquery');
 
 var extraContext = {
@@ -10,20 +11,21 @@ var extraContext = {
 	".retweetIconUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMTgwMTE3NDA3MjA2ODExQTQxQUNFN0NCOEMyNEMzNiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBN0E4QjY3NTQ5QzkxMUUwQTJGN0YyQzFDMzFCQjZCMyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBN0E4QjY3NDQ5QzkxMUUwQTJGN0YyQzFDMzFCQjZCMyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjAxODAxMTc0MDcyMDY4MTFBNDFBQ0U3Q0I4QzI0QzM2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjAxODAxMTc0MDcyMDY4MTFBNDFBQ0U3Q0I4QzI0QzM2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+DM4SFwAAAHdJREFUeNrsU0EKwCAMM+Jb9Rt+Qz/bGQ+jBMcGMnZZDmpam5aIMLOwgxg28b1A4gJgkpxz5d57r54rmB85tNbsnMBfVqEBW4jMGPgKpZTLTp6rMGvTamQtfN/EO6iZjtfpgb7CygfNMc7a+LS798Wf8f+FcAgwAG7fSBXaBXw9AAAAAElFTkSuQmCC"
 };
 
-// Construct a ContentView
-var ContentView = function ContentView (opts) {
-	this.content = opts.content;
-	this.el = opts.el;
+// Construct a TwitterContentView
+var TwitterContentView = function TwitterContentView (opts) {
+	ContentView.call(this, opts);
 };
 
-ContentView.prototype.template = ContentTemplate;
+TwitterContentView.prototype = new ContentView();
 
-// Render the content inside of the ContentView's element
-ContentView.prototype.render = function () {
-	var context = $.extend({}, this.content, extraContext);
-	this.el.innerHTML = this.template(context);
-};
+TwitterContentView.prototype.elClass += ' content-tweet ';
+TwitterContentView.prototype.template = TwitterContentTemplate;
 
-exports = ContentView;
+
+TwitterContentView.prototype.getTemplateContext = function () {
+	return $.extend({}, this.content, extraContext);
+}
+
+exports = TwitterContentView;
 return exports;
 });
