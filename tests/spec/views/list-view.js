@@ -88,44 +88,44 @@ function (jasmine, jasmineJquery, $, ListView, Content, Stream, JasmineSpyStream
                 content = new Content({
                     content: 'Say what'
                 });
-                spyOn(listView, 'createItemView').andCallThrough();
-                spyOn(listView, 'getItemView').andCallThrough();
-                listView._add(content);
+                spyOn(listView, 'createContentView').andCallThrough();
+                spyOn(listView, 'getContentView').andCallThrough();
+                listView.add(content);
             });
 
-            it("stores them in .itemViews", function () {
-                expect(listView.itemViews.length).toBe(1);
-                expect(listView.itemViews[0] instanceof listView.getItemView())
+            it("stores them in .contentViews", function () {
+                expect(listView.contentViews.length).toBe(1);
+                expect(listView.contentViews[0] instanceof listView.getContentView())
             });
 
-            it("uses .createItemView(content) to create the itemViews", function () {
-                expect(listView.createItemView.callCount).toBe(1);
-                expect(listView.createItemView.mostRecentCall.args[0]).toBe(content);
+            it("uses .createContentView(content) to create the ContentViews", function () {
+                expect(listView.createContentView.callCount).toBe(1);
+                expect(listView.createContentView.mostRecentCall.args[0]).toBe(content);
             });
 
-            it("the default .createItemView uses .getItemView(content) to get the ItemView constructor", function () {
-                expect(listView.getItemView.callCount).toBe(1);
-                expect(listView.getItemView.mostRecentCall.args[0]).toBe(content);
+            it("the default .createContentView uses .getContentView(content) to get the ContentView constructor", function () {
+                expect(listView.getContentView.callCount).toBe(1);
+                expect(listView.getContentView.mostRecentCall.args[0]).toBe(content);
             });
 
-            it("the default .getItemView(content) returns .itemView", function () {
-                expect(listView.getItemView()).toBe(listView.itemView);
+            it("the default .getContentView(content) returns .contentView", function () {
+                expect(listView.getContentView()).toBe(listView.contentView);
             });
         });
 
     });
 
-    describe("a ListItemView", function () {
-        var itemView;
+    describe("Default ListView.prototype.contentView", function () {
+        var contentView;
 
         beforeEach(function () {
-            var ItemView = ListView.prototype.itemView;
-            itemView = new ItemView('');
+            var ContentView = ListView.prototype.contentView;
+            contentView = new ContentView('');
         });
 
         describe("when constructed", function () {
             it ("uses a <li> tag for .el", function () {
-                expect(itemView.el).toBe('li')
+                expect(contentView.el).toBe('li')
             })
         });
     });

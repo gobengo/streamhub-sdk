@@ -2,7 +2,7 @@ define(['jquery', 'streamhub-sdk/view', 'streamhub-sdk/content/views/content-vie
 function($, View, ContentView) {
     
     /**
-     * A simple view that displays content in a list.
+     * A simple View that displays Content in a list (`<ul>` by default).
      * @param opts {Object} A set of options to config the view with
      * @param opts.streams {Object.<string, Stream>} A dictionary of streams to listen to
      * @param opts.el {HTMLElement} The element in which to render the streamed content
@@ -12,20 +12,22 @@ function($, View, ContentView) {
         View.call(this, opts);
         
         this.setElement(opts.el || document.createElement(this.elTag));
-        this.itemViews = [];
+        this.contentViews = [];
 
         var self = this;
         self.on('add', function(content, stream) {
-            self._add(content, stream);
+            self.add(content, stream);
         });
     };
     $.extend(ListView.prototype, View.prototype);
 
+    // Used if ListView needs to create its own DOMElement
     ListView.prototype.elTag = 'ul';
     ListView.prototype.elClass = 'content-list';
 
     /**
-     * Set the .el DOMElement that the View should render to
+     * Set the .el DOMElement that the View should render to. Creates internal .el and
+     *    .$el properties and adds this.elClass
      * @param el {DOMElement} The new element the View should render to
      */
     ListView.prototype.setElement = function (el) {
@@ -35,30 +37,61 @@ function($, View, ContentView) {
         // Insert base, static HTML
     };
 
-    ListView.prototype._add = function(content, stream) {
-        var newItemView = this.createItemView(content);
-        this.itemViews.push(newItemView);
-        newItemView.render();
-        $(this.el).prepend(newItemView.el);
+    /**
+     * Add a piece of Content to the ListView
+     *     .createContentView(content)
+     *     add newContentView to this.contentViews[]
+     *     render the newContentView
+     *     insert the newContentView into this.el
+     * @param content {Content} A Content model to add to the ListView
+     */
+    ListView.prototype.add = function(content, stream) {
+        var newContentView = this.createContentView(content);
+        this.contentViews.push(newContentView);
+        newContentView.render();
+        $(this.el).prepend(newContentView.el);
     };
 
-    var ListItemView = ContentView;
-    ListItemView.prototype = $.extend(new ContentView(), {
-        elTag: 'li',
-        elClass: 'content-list-item ' + ContentView.prototype.elClass
-    });
-
-    ListView.prototype.itemView = ListItemView;
-    ListView.prototype.getItemView = function (content) {
-        return this.itemView;
-    };
-    ListView.prototype.createItemView = function (content) {
-        var ItemView = this.getItemView(content),
-            itemView = new ItemView({
+    /**
+     * Construct a ContentView for a piece of Content in the ListView
+     * @default Construct by passing `content` to `this.getContentView(content)`
+     */
+    ListView.prototype.createContentView = function (content) {
+        var CV = this.getContentView(content),
+            contentView = new CV({
                 content: content
             });
-        return itemView;
+        return contentView;
     };
+    /**
+     * Get the function to use to construct Views for each content
+     * `.createContentView`'s default implementation calls this to get the final View constructor
+     * @default `.getContentViewConstructor` and extend the prototype to use <li> and a fancy .elClass
+     */
+    ListView.prototype.getContentView = function (content) {
+        var CV = this.getContentViewConstructor(content);
+        CV.prototype = $.extend(CV.prototype, {
+            elTag: 'li',
+            elClass: 'content-list-item ' + ContentView.prototype.elClass
+        });
+        return CV;
+    };
+    /**
+     * Get the View constructor for a piece of content
+     * `.getContentView`'s default implementation calls this for a constructor and then
+     *     extends the prototype
+     * @default return this.contentView
+     */
+    ListView.prototype.getContentViewConstructor = function (content) {
+        return this.contentView;
+    };
+    /**
+     * The View to use to render ListView content items. `.getContentiewConstructor`'s default
+     *     implementation returns this value
+     */
+    ListView.prototype.contentView = ContentView;
+
+
 
     return ListView;
 });
