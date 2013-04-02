@@ -9,7 +9,7 @@
         <a class="content-author-name" href="https://twitter.com/intent/user?user_id={{ author.twitterUserId }}" target="_blank">{{ author.displayName }}</a>
     </span>
     <a class="content-source-logo" href="https://twitter.com/statuses/{{ tweetId }}/" target="_blank">
-        <img src="{{ .twitterIconUrl }}" />
+        <img src="{{ __twitterIconUrl }}" />
     </a>
 </header>
 
@@ -32,17 +32,17 @@
     <ul class="content-actions">
         <li class="content-action" data-content-action="reply">
             <a href="https://twitter.com/intent/tweet?in_reply_to={{ tweetId }}" title="Reply">
-                <img src="{{ .replyIconUrl }}" /><span>Reply</span>
+                <img src="{{ __replyIconUrl }}" /><span>Reply</span>
             </a>
         </li>
         <li class="content-action" data-content-action="retweet">
             <a href="https://twitter.com/intent/retweet?tweet_id={{ tweetId }}" title="Retweet">
-                <img src="{{ .retweetIconUrl }}" /><span>Retweet</span>
+                <img src="{{ __retweetIconUrl }}" /><span>Retweet</span>
             </a>
         </li>
         <li class="content-action" data-content-action="favorite">
             <a href="https://twitter.com/intent/favorite?tweet_id={{ tweetId }}" title="Favorite">
-                <img src="{{ .favoriteIconUrl }}" /><span>Favorite</span>
+                <img src="{{ __favoriteIconUrl }}" /><span>Favorite</span>
             </a>
         </li>
     </ul>
