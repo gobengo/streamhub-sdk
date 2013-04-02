@@ -36,9 +36,7 @@ function ($, jasmine, Hub, LivefyreBootstrapClient) {
                 expect(callback.mostRecentCall.args[1]).toBeDefined();
                 expect(callback.mostRecentCall.args[1].main).toBeDefined();
                 expect(callback.mostRecentCall.args[1].reverse).toBeDefined();
-                expect(callback.mostRecentCall.args[1].main.stream).toBeDefined();
-                expect(callback.mostRecentCall.args[1].reverse.stream).toBeDefined();
-                expect(callback.mostRecentCall.args[1].reverse.stream.page).toBe('4');
+                expect(callback.mostRecentCall.args[1].reverse.page).toBe('4');
             });                            
         });
     }); 
