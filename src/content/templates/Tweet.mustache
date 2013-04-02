@@ -27,9 +27,11 @@
         </div>
         <div class="content-attachments">
         {{ #attachments }}
+            {{ #url }}
             <div class="content-attachment">
                 <img src="{{ url }}" />
             </div>
+            {{ /url }}
         {{ /attachments }}
         </div>
     </div>
