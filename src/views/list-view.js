@@ -12,6 +12,7 @@ function($, View, ContentView) {
         View.call(this, opts);
         
         this.setElement(opts.el || document.createElement(this.elTag));
+        this.itemViews = [];
 
         var self = this;
         self.on('add', function(content, stream) {
@@ -36,6 +37,7 @@ function($, View, ContentView) {
 
     ListView.prototype._add = function(content, stream) {
         var newItemView = this.createItemView(content);
+        this.itemViews.push(newItemView);
         newItemView.render();
         $(this.el).prepend(newItemView.el);
     };
@@ -51,7 +53,7 @@ function($, View, ContentView) {
         return this.itemView;
     };
     ListView.prototype.createItemView = function (content) {
-        var ItemView = this.getItemView(),
+        var ItemView = this.getItemView(content),
             itemView = new ItemView({
                 content: content
             });

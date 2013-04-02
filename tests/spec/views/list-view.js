@@ -3,9 +3,10 @@ define([
     'jasmine-jquery',
     'jquery',
     'streamhub-sdk/views/list-view',
+    'streamhub-sdk/content/content',
     'streamhub-sdk/stream',
     'streamhub-sdk/streams/mocks/jasmine-spy-stream'],
-function (jasmine, jasmineJquery, $, ListView, Stream, JasmineSpyStream) {
+function (jasmine, jasmineJquery, $, ListView, Content, Stream, JasmineSpyStream) {
     describe('a ListView', function () {
         var fixtureId = 'sandbox',
             listView,
@@ -81,22 +82,48 @@ function (jasmine, jasmineJquery, $, ListView, Stream, JasmineSpyStream) {
             });
         });
 
+        describe("when creating Views for content", function () {
+            var content;
+            beforeEach(function () {
+                content = new Content({
+                    content: 'Say what'
+                });
+                spyOn(listView, 'createItemView').andCallThrough();
+                spyOn(listView, 'getItemView').andCallThrough();
+                listView._add(content);
+            });
+
+            it("stores them in .itemViews", function () {
+                expect(listView.itemViews.length).toBe(1);
+                expect(listView.itemViews[0] instanceof listView.getItemView())
+            });
+
+            it("uses .createItemView(content) to create the itemViews", function () {
+                expect(listView.createItemView.callCount).toBe(1);
+                expect(listView.createItemView.mostRecentCall.args[0]).toBe(content);
+            });
+            describe("the default .createItemView", function () {
+                it("uses .getItemView(content) to get the ItemView constructor", function () {
+                    expect(listView.getItemView.callCount).toBe(1);
+                    expect(listView.getItemView.mostRecentCall.args[0]).toBe(content);
+                });
+            });
+        });
+
     });
 
     describe("a ListItemView", function () {
-        var fixtureId = 'sandbox',
-            itemView;
+        var itemView;
 
         beforeEach(function () {
             var ItemView = ListView.prototype.itemView;
-            
             itemView = new ItemView('');
         });
 
         describe("when constructed", function () {
-            it ("has a .el HTMLElement", function () {
-                expect(itemView.el).toBeTruthy();
-            });
+            it ("uses a <li> tag for .el", function () {
+                expect(itemView.el).toBe('li')
+            })
         });
     });
 });
