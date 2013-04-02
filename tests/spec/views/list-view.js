@@ -102,11 +102,14 @@ function (jasmine, jasmineJquery, $, ListView, Content, Stream, JasmineSpyStream
                 expect(listView.createItemView.callCount).toBe(1);
                 expect(listView.createItemView.mostRecentCall.args[0]).toBe(content);
             });
-            describe("the default .createItemView", function () {
-                it("uses .getItemView(content) to get the ItemView constructor", function () {
-                    expect(listView.getItemView.callCount).toBe(1);
-                    expect(listView.getItemView.mostRecentCall.args[0]).toBe(content);
-                });
+
+            it("the default .createItemView uses .getItemView(content) to get the ItemView constructor", function () {
+                expect(listView.getItemView.callCount).toBe(1);
+                expect(listView.getItemView.mostRecentCall.args[0]).toBe(content);
+            });
+
+            it("the default .getItemView(content) returns .itemView", function () {
+                expect(listView.getItemView()).toBe(listView.itemView);
             });
         });
 
