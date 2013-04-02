@@ -44,12 +44,22 @@ function($, View, ContentView) {
      *     render the newContentView
      *     insert the newContentView into this.el
      * @param content {Content} A Content model to add to the ListView
+     * @return the newly created ContentView
      */
     ListView.prototype.add = function(content, stream) {
         var newContentView = this.createContentView(content);
         this.contentViews.push(newContentView);
         newContentView.render();
-        $(this.el).prepend(newContentView.el);
+        this._insertContentView(newContentView);
+        return newContentView;
+    };
+
+    /**
+     * Insert a ContentView into the .el of the ListView
+     * @todo Use comparator-based insertion
+     */
+    ListView.prototype._insertContentView = function (contentView) {
+        $(contentView.el).prependTo(this.$el);
     };
 
     /**

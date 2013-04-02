@@ -13,7 +13,6 @@ function (jasmine, jasmineJquery, $, ListView, Content, Stream, JasmineSpyStream
             el,
             $el;
 
-
         beforeEach(function () {
             spyOn(ListView.prototype, 'setElement').andCallThrough();
 
@@ -82,35 +81,68 @@ function (jasmine, jasmineJquery, $, ListView, Content, Stream, JasmineSpyStream
             });
         });
 
-        describe("when creating Views for content", function () {
-            var content;
+        describe("when adding Content", function () {
+            var content,
+                newContentView;
+
             beforeEach(function () {
+                setFixtures(sandbox());
+                $el = $('#'+fixtureId);
+                el = $el[0];
+
+                listView = new ListView({
+                    el: el,
+                    streams: {
+                        main: new JasmineSpyStream()
+                    }
+                });
+
+                spyOn(listView, 'createContentView').andCallThrough();
+                spyOn(listView, 'getContentView').andCallThrough();
+                spyOn(listView, '_insertContentView').andCallThrough();
+
                 content = new Content({
                     content: 'Say what'
                 });
-                spyOn(listView, 'createContentView').andCallThrough();
-                spyOn(listView, 'getContentView').andCallThrough();
-                listView.add(content);
+                newContentView = listView.add(content);
             });
 
-            it("stores them in .contentViews", function () {
-                expect(listView.contentViews.length).toBe(1);
-                expect(listView.contentViews[0] instanceof listView.getContentView())
+            it("returns the new ContentView", function () {
+                expect(newContentView instanceof listView.contentView).toBe(true);
             });
 
-            it("uses .createContentView(content) to create the ContentViews", function () {
-                expect(listView.createContentView.callCount).toBe(1);
-                expect(listView.createContentView.mostRecentCall.args[0]).toBe(content);
+            describe("and ContentViews are created", function () {
+                it("stores them in .contentViews", function () {
+                    expect(listView.contentViews.length).toBe(1);
+                    expect(listView.contentViews[0] instanceof listView.contentView).toBe(true);
+                });
+
+                it("uses .createContentView(content) to create the ContentViews", function () {
+                    expect(listView.createContentView.callCount).toBe(1);
+                    expect(listView.createContentView.mostRecentCall.args[0]).toBe(content);
+                });
+
+                it("the default .createContentView uses .getContentView(content) to get the ContentView constructor", function () {
+                    expect(listView.getContentView.callCount).toBe(1);
+                    expect(listView.getContentView.mostRecentCall.args[0]).toBe(content);
+                });
+
+                it("the default .getContentView(content) returns .contentView", function () {
+                    expect(listView.getContentView()).toBe(listView.contentView);
+                });
             });
 
-            it("the default .createContentView uses .getContentView(content) to get the ContentView constructor", function () {
-                expect(listView.getContentView.callCount).toBe(1);
-                expect(listView.getContentView.mostRecentCall.args[0]).toBe(content);
+            describe("and a ContentView is inserted", function () {
+                it("calls ._insertContentView(contentView)", function () {
+                    expect(listView._insertContentView.callCount).toBe(1);
+                    expect(listView._insertContentView.mostRecentCall.args[0]).toBe(newContentView);
+                });
+
+                it("the new ContentView is in the DOM", function () {
+                    expect(listView.$el).toContain(newContentView.$el);
+                });
             });
 
-            it("the default .getContentView(content) returns .contentView", function () {
-                expect(listView.getContentView()).toBe(listView.contentView);
-            });
         });
 
     });
