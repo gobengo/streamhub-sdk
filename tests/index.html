@@ -11,14 +11,17 @@
             require([
                 'jasmine-html',
                 'jasmine-jquery',
-                'jquery'],
+                'jquery',
+                '/tests/console-reporter.js'],
             function (jasmine, jasmineJQuery, $) {
                 var jasmineEnv = jasmine.getEnv();
                 jasmineEnv.updateInterval = 1000;
 
                 var htmlReporter = new jasmine.HtmlReporter();
+                var consoleReporter = new jasmine.ConsoleReporter();
 
                 jasmineEnv.addReporter(htmlReporter);
+                jasmineEnv.addReporter(consoleReporter);
 
                 jasmineEnv.specFilter = function(spec) {
                     return htmlReporter.specFilter(spec);
