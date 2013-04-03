@@ -15,6 +15,6 @@ phantom.create(function(ph) {
 		    console.log(msg);
 		});
 	    
-        page.open('http://localhost:64646/tests/index.html', function() {});
+        page.open('http://localhost:64646/tests/index.html');
     });
 });
