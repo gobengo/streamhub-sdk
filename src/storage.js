@@ -1,4 +1,4 @@
-define(['streamhub-sdk/event-emitter'], function(EventEmitter) {
+define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
 
     var Storage = {
         cache: {}

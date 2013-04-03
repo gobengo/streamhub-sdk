@@ -8,7 +8,6 @@ define([
     'streamhub-sdk/clients/livefyre-write-client',
     'streamhub-sdk/streams/livefyre-stream',
     'streamhub-sdk/streams/livefyre-reverse-stream',
-    'streamhub-sdk/views/feed-view',
     'streamhub-sdk/content/types/livefyre-content'
 ], function(
     Stream,
@@ -20,7 +19,6 @@ define([
     LivefyreWriteClient,
     LivefyreStream,
     LivefyreReverseStream,
-    FeedView,
     LivefyreContent
 ) {
     
@@ -38,9 +36,6 @@ define([
     Hub.Streams = {};
     Hub.Streams.LivefyreStream = LivefyreStream;
     Hub.Streams.LivefyreReverseStream = LivefyreReverseStream;
-    
-    Hub.Views = {};
-    Hub.Views.FeedView = FeedView;
     
     Hub.ContentTypes = {};
     Hub.ContentTypes.LivefyreContent = LivefyreContent;

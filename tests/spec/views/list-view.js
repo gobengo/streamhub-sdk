@@ -7,7 +7,7 @@ define([
     'streamhub-sdk/stream',
     'streamhub-sdk/streams/mocks/jasmine-spy-stream'],
 function (jasmine, jasmineJquery, $, ListView, Content, Stream, JasmineSpyStream) {
-    describe('a ListView', function () {
+    describe('A ListView', function () {
         var fixtureId = 'sandbox',
             listView,
             el,
