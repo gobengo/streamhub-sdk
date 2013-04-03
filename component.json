@@ -15,6 +15,7 @@
     "almond": "~0.2.5",
     "hogan": "latest",
     "requirejs-hogan-plugin": "git://github.com/millermedeiros/requirejs-hogan-plugin.git#~0.2.1",
-    "isotope": "~1.5.25"
+    "isotope": "~1.5.25",
+    "imagesloaded": "~2.1.1"
   }
 }

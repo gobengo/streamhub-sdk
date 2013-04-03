@@ -14,16 +14,22 @@
     a {
         text-decoration: none;
     }
-    #listView {
-        width: 500px;
-        height: 800px;
+    #view {
+        height: 500px;
         overflow-y: scroll;
         overflow-x: hidden;
     }
-    .content-list-item {
-        margin: 10px 0;
+    .content {
+        background-color:white;
+        margin: 10px;
         padding: 5px;
+        width:300px;
+        overflow-x: hidden;
     }
+    .content[data-content-has-avatar=true] {
+        margin-left: 10px !important;
+    }
+    
     </style>
     <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 </head>

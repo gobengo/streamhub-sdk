@@ -2,7 +2,8 @@ define([
     'jquery',
     'jquery-isotope',
     'streamhub-sdk/view',
-    'streamhub-sdk/content/views/content-view'
+    'streamhub-sdk/content/views/content-view',
+    'jquery-imagesloaded'
 ], function($, Isotope, View, ContentView) {
     
     /**
@@ -19,9 +20,9 @@ define([
         this.contentViews = [];
 
         $(this.el).isotope({
-            animationEngine : 'css',
             itemSelector: '.content',
-            layoutMode : 'fitRows'
+            isAnimated: true,
+            animationEngine: 'jquery'
         });
 
         var self = this;
@@ -37,9 +38,20 @@ define([
      * @return the newly created ContentView
      */
     MediaWallView.prototype.add = function(content, stream) {
-        var contentView = new ContentView(content);
-        console.log(content, contentView);
-        $(this.el).isotope('insert', $(contentView.el));
+        var self = this;
+        
+        var contentView = new ContentView({content:content});
+        contentView.render();
+        var $contentView = $(contentView.el)
+
+        $(this.el).prepend($contentView)
+            .isotope('appended', $contentView)
+            .isotope('reLayout');
+        
+        $contentView.imagesLoaded(function() {
+            $(self.el).isotope('reLayout').isotope('reloadItems');
+        });
+        
     };
 
     return MediaWallView;
