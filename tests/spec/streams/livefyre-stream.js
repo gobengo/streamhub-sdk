@@ -43,7 +43,7 @@ function ($, jasmine, LivefyreStream, LivefyreStreamClient) {
                 expect(stream._endRead).toHaveBeenCalled();
                 expect(stream._endRead.callCount).toBe(1);
                 expect(stream._push).toHaveBeenCalled();
-                expect(stream._push.callCount).toBe(2);
+                expect(stream._push.callCount).toBe(1);
                 expect(stream.commentId).toBe(1363299777193595);
             });
         });
@@ -55,7 +55,7 @@ function ($, jasmine, LivefyreStream, LivefyreStreamClient) {
                 return stream._endRead.callCount > 0;
             });
             runs(function() {
-                expect(stream._push.callCount).toBe(2);
+                expect(stream._push.callCount).toBe(1);
                 expect(stream._push.calls[0].args[0].author).toBeDefined();
             });
         });

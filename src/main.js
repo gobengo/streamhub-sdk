@@ -8,8 +8,8 @@ define([
     'streamhub-sdk/clients/livefyre-write-client',
     'streamhub-sdk/streams/livefyre-stream',
     'streamhub-sdk/streams/livefyre-reverse-stream',
-    'streamhub-sdk/views/feed-view',
-    'streamhub-sdk/content/types/livefyre-content'
+    'streamhub-sdk/content/types/livefyre-content',
+    'streamhub-sdk/views/list-view'
 ], function(
     Stream,
     EventEmitter,
@@ -20,8 +20,8 @@ define([
     LivefyreWriteClient,
     LivefyreStream,
     LivefyreReverseStream,
-    FeedView,
-    LivefyreContent
+    LivefyreContent,
+    ListView
 ) {
     
     var Hub = {};
@@ -39,12 +39,11 @@ define([
     Hub.Streams.LivefyreStream = LivefyreStream;
     Hub.Streams.LivefyreReverseStream = LivefyreReverseStream;
     
-    Hub.Views = {};
-    Hub.Views.FeedView = FeedView;
-    
     Hub.ContentTypes = {};
     Hub.ContentTypes.LivefyreContent = LivefyreContent;
     
+    Hub.Views = {};
+    Hub.Views.ListView = ListView;
     /**
      * Helper method for easily setting up Livefyre streams
      * @param opts {Object} A set of options used in the creation of the individual streams

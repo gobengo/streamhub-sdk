@@ -4,8 +4,16 @@ var ContentTemplate = require('../templates/ContentTemplate');
 
 // Construct a ContentView
 var ContentView = function ContentView (opts) {
-	opts = opts || {};
-	this.content = opts.content;
+    opts = opts || {};
+    this.content = opts.content;
+    
+    if (this.content) {
+        var self = this;
+        this.content.on("addAttachment", function(content) {
+            self.render();
+        });
+    }
+    
     this.setElement(opts.el || document.createElement(this.elTag));
 };
 
@@ -25,18 +33,16 @@ ContentView.prototype.setElement = function (el) {
 
     }
     this.$el.attr('data-content-has-avatar',
-    	(this.content && this.content.author && this.content.author.avatar)
-    	? 'true'
-    	: 'false');
+        (this.content && this.content.author && this.content.author.avatar) ? 'true' : 'false');
 };
 
 // Render the content inside of the ContentView's element
 ContentView.prototype.render = function () {
-	this.el.innerHTML = this.template(this.getTemplateContext());
+    this.el.innerHTML = this.template(this.getTemplateContext());
 };
 
 ContentView.prototype.getTemplateContext = function () {
-	return this.content;
+    return this.content;
 };
 
 exports = ContentView;

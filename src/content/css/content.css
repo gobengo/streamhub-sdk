@@ -28,6 +28,9 @@
   height: 48px;
   width: 48px;
 }
+.content .content-attachment img {
+  max-width: 100%;
+}
 .content .content-main:after {
   content: "";
   display: table;

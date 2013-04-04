@@ -5,6 +5,8 @@ define(['jquery',
     var Content = function(contentJson) {
         EventEmitter.call(this);
         this.htmlString = contentJson;
+        this.attachments = [];
+        this.replies = [];
     };
     $.extend(Content.prototype, EventEmitter.prototype);
 
@@ -12,25 +14,14 @@ define(['jquery',
         return this.htmlString;
     };
 
-    Content.prototype.update = function(json) {
-        //todo: (gene) make this work
+    Content.prototype.addAttachment = function(obj) {
+        this.attachments.push(obj);
+        this.emit('addAttachment', obj);
     };
 
-    Content._contentTypes = [];    
-
-    Content.register = function(contentType) {
-        //todo: (gene) dedupe this list on insert
-        Content._contentTypes.push(contentType);
-        return true;
-    };
-    
-    Content.create = function(contentJson) {
-        for (var i in Content._contentTypes) {
-            if (Content._contentTypes[i].canParse(contentJson)) {
-                return new Content._contentTypes[i](contentJson);
-            }
-        }
-        return new Content(contentJson);
+    Content.prototype.addReply = function(obj) {
+        this.replies.push(obj);
+        this.emit('addReply', obj);
     };
 
     return Content;

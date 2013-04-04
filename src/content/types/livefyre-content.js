@@ -53,8 +53,6 @@ define(['jquery',
         "unknown",
         "feed"
     ];
-
-    Content.register(LivefyreContent);
      
     return LivefyreContent;
  });

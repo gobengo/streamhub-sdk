@@ -2,8 +2,18 @@ define(['jquery',
     'streamhub-sdk/stream',
     'streamhub-sdk/clients/livefyre-stream-client',
     'streamhub-sdk/clients/livefyre-write-client',
-    'streamhub-sdk/content/types/livefyre-content'
-], function($, Stream, LivefyreStreamClient, LivefyreWriteClient, LivefyreContent) {
+    'streamhub-sdk/content/types/livefyre-content',
+    'streamhub-sdk/content/types/oembed',
+    'streamhub-sdk/storage'
+], function(
+    $, 
+    Stream, 
+    LivefyreStreamClient, 
+    LivefyreWriteClient, 
+    LivefyreContent, 
+    Oembed, 
+    Storage
+) {
 
     /**
      * Defines a livefyre stream that is readable and writable from and to a livefyre conversation.
@@ -47,15 +57,20 @@ define(['jquery',
                         latestEvent = state.event;
                     }
                     state.author = authors[state.content.authorId];
-
-                    if (state.content && state.content.targetId) {
-                        // @todo Implement and use storage class
-                        /*if (this.contentCache[content.targetId]) {
-                            this.contentCache[content.targetId].update(contentData);
-                        }*/
+                    
+                    var content;
+                    
+                    if (state.content && state.content.targetId && Storage.get(state.content.targetId)) {
+                        content = Storage.get(state.content.targetId);
+                        
+                        if (state.type === 3) { // oembed
+                            content.addAttachment(new Oembed(state));
+                        } else if (state.type === 0) {
+                            content.addReply(new LivefyreContent(state));
+                        }
                     } else {
-                        var content = new LivefyreContent(state);
-                        //self.contentCache[content.id] = content;
+                        content = new LivefyreContent(state);
+                        Storage.set(content.id, content);
                         self._push(content);
                     }
                 }
