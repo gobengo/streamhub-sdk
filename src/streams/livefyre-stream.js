@@ -69,7 +69,7 @@ define(['jquery',
                         } else if (state.type === 0) {
                             content.addReply(new LivefyreContent(state));
                         }
-                    } else {
+                    } else if (state.type === 0) {
                         content = new LivefyreContent(state);
                         Storage.set(content.id, content);
                         self._push(content);

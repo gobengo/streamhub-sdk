@@ -15,17 +15,18 @@ define([
      */
     var MediaWallView = function(opts) {
         View.call(this, opts);
+        var self = this;
         
         this.el = opts.el || document.createElement('div');
-        this.contentViews = [];
-
-        $(this.el).isotope({
-            itemSelector: '.content',
-            isAnimated: true,
-            animationEngine: 'jquery'
+        this.sortOrder = opts.sortOrder || (function(obj) {
+            return obj.createdAt || 0;
         });
-
-        var self = this;
+        
+        // these are data structures for efficiently storing, adding
+        // and searching displayed content
+        this.contentViews = {};
+        this.contentViewKeys = [];
+        
         self.on('add', function(content, stream) {
             self.add(content, stream);
         });
@@ -40,18 +41,37 @@ define([
     MediaWallView.prototype.add = function(content, stream) {
         var self = this;
         
+        var sortKey = this.sortOrder(content);
+
         var contentView = new ContentView({content:content});
         contentView.render();
+
+        console.log('here 1');
+
         var $contentView = $(contentView.el);
 
-        $(this.el).prepend($contentView)
-            .isotope('appended', $contentView)
-            .isotope('reLayout');
-        
         $contentView.imagesLoaded(function() {
-            $(self.el).isotope('reloadItems');
+            //console.log('done');
+            $contentView.find('img');
         });
         
+        // finding where the insertion should be - naive solution is to search left to right
+        // which is fine for us, because we're typically prepending 
+        var sortKeyIndex = this.contentViewKeys.length;
+        console.log(sortKey, content);
+        console.log('here 2');
+        for (var i in this.contentViewKeys) {
+            if (sortKey > this.contentViewKeys[i]) {
+                sortKeyIndex = i;
+                break;
+            }
+        }
+        console.log('here 3');
+
+        this.contentViews[sortKey] = contentView;
+        this.contentViewKeys.splice(sortKeyIndex, 0, sortKey);
+        
+        $(this.el).prepend($contentView);
     };
 
     return MediaWallView;

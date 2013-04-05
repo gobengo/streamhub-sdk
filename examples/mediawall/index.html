@@ -47,11 +47,11 @@
             var opts = {
                 "network": "labs-t402.fyre.co",
                 "siteId": "303827",
-                "articleId": "labs_tumblr_demo",
+                "articleId": "labs_demo_fire",
                 "environment": "t402.livefyre.com"
             };
             
-            var view = new MediaWallView({
+            var view = window.gene = new MediaWallView({
                 streams: new Hub.Streams.forCollection(opts).start(),
                 el: document.getElementById("view")
             });
