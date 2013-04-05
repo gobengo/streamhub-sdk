@@ -49,7 +49,7 @@ define([
             .isotope('reLayout');
         
         $contentView.imagesLoaded(function() {
-            $(self.el).isotope('reLayout').isotope('reloadItems');
+            $(self.el).isotope('reloadItems');
         });
         
     };

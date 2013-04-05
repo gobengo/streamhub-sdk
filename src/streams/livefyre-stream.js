@@ -64,6 +64,7 @@ define(['jquery',
                         content = Storage.get(state.content.targetId);
                         
                         if (state.type === 3) { // oembed
+                            //console.log('got oembed');
                             content.addAttachment(new Oembed(state));
                         } else if (state.type === 0) {
                             content.addReply(new LivefyreContent(state));
