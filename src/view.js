@@ -16,7 +16,7 @@ define(['jquery', 'streamhub-sdk/event-emitter', 'streamhub-sdk/streams'], funct
         this.opts = opts;
 
         var streams = opts.streams;
-        if ( ! streams instanceof Streams) {
+        if ( ! Boolean(streams instanceof Streams)) {
             streams = new Streams(streams);
         }
         this.streams = streams;
