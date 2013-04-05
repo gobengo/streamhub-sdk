@@ -50,14 +50,10 @@
                 "articleId": "labs_demo_fire",
                 "environment": "t402.livefyre.com"
             };
-            var view;
             
-            Hub.createLivefyreStreams(opts, function(err, streams) {
-                view = new MediaWallView({
-                    streams: streams,
-                    el: document.getElementById("view")
-                });
-                view.startStreams("*");
+            var view = new MediaWallView({
+                streams: new Hub.Streams.forCollection(opts).start(),
+                el: document.getElementById("view")
             });
         });
         </script>

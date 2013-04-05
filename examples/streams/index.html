@@ -45,7 +45,7 @@
                 "environment": "t402.livefyre.com"
             };
             var streams = new Hub.Streams.forCollection(opts);
-
+            
             streams.on('readable', function (stream) {
                 var content = stream.read();
                 render(content);

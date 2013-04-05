@@ -9,7 +9,7 @@ define(function (require, exports) {
 	function Streams (streamObj) {
 		streamObj = streamObj || {};
 		EventEmitter.call(this);
-		this._streams = [];
+		this._streams = {};
 		this.set(streamObj);
 	}
 	Streams.prototype = new EventEmitter();
@@ -66,6 +66,7 @@ define(function (require, exports) {
 		this.forEach(function (stream, name) {
 			stream.start();
 		});
+		return this;
 	};
 
 	return exports;

@@ -25,6 +25,7 @@ define(function (require, exports) {
         this.ensureStreamsCreated(function (err, streams) {
             Streams.prototype.start.call(self, streamsToStart);
         });
+        return this;
     };
 
     LivefyreCollectionStreams.prototype.ensureStreamsCreated = function (cb) {
