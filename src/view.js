@@ -31,10 +31,21 @@ define(['jquery', 'streamhub-sdk/event-emitter', 'streamhub-sdk/streams', 'strea
             self.contentSet.push(content);
             self.emit('add', content, self);
         });
+
+        this.initialize.apply(this, arguments);
     };
     $.extend(View.prototype, EventEmitter.prototype);
 
+    /**
+     * Create an extended subclass of View
+     * @param prototypeExtension {Object} Properties to add to the subclass's prototype
+     */
     View.extend = util.extend;
+
+    /**
+     * Initializes the View after construction. Subclasses can implement this
+     */
+    View.prototype.initialize = function () {};
 
     /**
      * Triggers the view's streams to start.

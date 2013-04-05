@@ -30,16 +30,28 @@ function ($, jasmine, View, Stream) {
         });
 
         describe('.extend()', function () {
-            it('can be used to create subclasses', function () {
-                var MyView = View.extend({});
-                var mv = new MyView({
+            var MyView,
+                view;
+            beforeEach(function () {
+                MyView = View.extend({
+                    initialize: jasmine.createSpy()
+                });
+                view = new MyView({
                     streams: {
                         main: { start: jasmine.createSpy(), on: jasmine.createSpy() }
                     }
                 });
-                expect(mv instanceof View).toBe(true);
-                expect(mv instanceof MyView).toBe(true);
             });
+
+            it('can be used to create subclasses', function () {
+                expect(view instanceof View).toBe(true);
+                expect(view instanceof MyView).toBe(true);
+            });
+
+            it('subclasses call .initialize on construction', function () {
+                expect(view.initialize).toHaveBeenCalled();
+            });
+
         });
 
         describe('after construction', function () {
