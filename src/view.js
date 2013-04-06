@@ -1,4 +1,4 @@
-define(['jquery', 'streamhub-sdk/event-emitter', 'streamhub-sdk/streams', 'streamhub-sdk/util'], function($, EventEmitter, Streams, util) {
+define(['jquery', 'streamhub-sdk/event-emitter', 'streamhub-sdk/streams', 'streamhub-sdk/util'], function($, EventEmitter, Streams, Util) {
 
     /**
      * Defines a base view object that listens to a set streams, adds objects to an 
@@ -16,7 +16,7 @@ define(['jquery', 'streamhub-sdk/event-emitter', 'streamhub-sdk/streams', 'strea
         this.opts = opts;
 
         var streams = opts.streams;
-        if ( ! Boolean(streams instanceof Streams)) {
+        if (!(streams instanceof Streams)) {
             streams = new Streams(streams);
         }
         this.streams = streams;
@@ -40,7 +40,7 @@ define(['jquery', 'streamhub-sdk/event-emitter', 'streamhub-sdk/streams', 'strea
      * Create an extended subclass of View
      * @param prototypeExtension {Object} Properties to add to the subclass's prototype
      */
-    View.extend = util.extend;
+    View.extend = Util.extend;
 
     /**
      * Initializes the View after construction. Subclasses can implement this

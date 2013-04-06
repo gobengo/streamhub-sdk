@@ -75,6 +75,7 @@ function($, View, ContentView) {
             });
         return contentView;
     };
+
     /**
      * Get the function to use to construct Views for each content
      * `.createContentView`'s default implementation calls this to get the final View constructor
@@ -88,6 +89,7 @@ function($, View, ContentView) {
         });
         return CV;
     };
+
     /**
      * Get the View constructor for a piece of content
      * `.getContentView`'s default implementation calls this for a constructor and then

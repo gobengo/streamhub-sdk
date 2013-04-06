@@ -4,7 +4,7 @@ define(function (require, exports) {
 	var EventEmitter = require('streamhub-sdk/event-emitter');
 
 	/**
-	 * A Collection of Streams that can be treated as one Stream
+	 * A Collection of Streams 
 	 */
 	function Streams (streamObj) {
 		streamObj = streamObj || {};

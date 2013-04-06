@@ -19,7 +19,7 @@ define([
         
         this.el = opts.el || document.createElement('div');
         this.sortOrder = opts.sortOrder || (function(obj) {
-            return obj.createdAt || 0;
+            return obj.createdAt * 1000 || 0;
         });
         
         // these are data structures for efficiently storing, adding
@@ -42,36 +42,83 @@ define([
         var self = this;
         
         var sortKey = this.sortOrder(content);
+        // todo: make this work more reliably... (currently assumes sortKey is a big number)
+        while (this.contentViews.hasOwnProperty(sortKey)) {
+            sortKey = sortKey + 1;
+        }
 
         var contentView = new ContentView({content:content});
         contentView.render();
 
-        console.log('here 1');
-
-        var $contentView = $(contentView.el);
-
-        $contentView.imagesLoaded(function() {
-            //console.log('done');
-            $contentView.find('img');
+        $(contentView.el).on('imageLoaded', function() {
+            console.log('got images loaded');
+            self.relayout();
         });
-        
-        // finding where the insertion should be - naive solution is to search left to right
+
+        // finding where the insertion should be - a naive solution is to search left to right
         // which is fine for us, because we're typically prepending 
-        var sortKeyIndex = this.contentViewKeys.length;
-        console.log(sortKey, content);
-        console.log('here 2');
+        var sortKeyIndex = 0;
         for (var i in this.contentViewKeys) {
-            if (sortKey > this.contentViewKeys[i]) {
+            if (sortKey < this.contentViewKeys[i]) {
                 sortKeyIndex = i;
                 break;
             }
         }
-        console.log('here 3');
 
         this.contentViews[sortKey] = contentView;
         this.contentViewKeys.splice(sortKeyIndex, 0, sortKey);
+
+        $(this.el).prepend(contentView.el);
+        this.relayout();
+    };
+    
+    MediaWallView.prototype.relayout = function() {
+        var columnWidth = 0;
+        var columnHeights = [];
+        var cols = 0;
+        var containerWidth = $(this.el).innerWidth();
         
-        $(this.el).prepend($contentView);
+        for (var i in this.contentViewKeys) {
+            var contentView = this.contentViews[this.contentViewKeys[i]];
+            var $contentView = $(contentView.el);
+            
+            if (columnWidth === 0) {
+                columnWidth = $contentView.outerWidth(true);
+                if (columnWidth !== 0) {
+                    cols = Math.floor(containerWidth / columnWidth);
+                    for (var j = 0; j < cols; j++) {
+                        columnHeights[j] = 0;
+                    }
+                }
+            }
+            // get the minimum Y value from the columns
+            var minimumY = Math.min.apply( Math, columnHeights );
+            var maximumY = Math.max.apply( Math, columnHeights );
+            var shortCol = 0;
+
+            // Find index of short column, the first from the left
+            for (var k = 0; k < columnHeights.length; k++) {
+                if ( columnHeights[k] === minimumY ) {
+                    shortCol = k;
+                    break;
+                }
+            }
+            // position the content
+            var x = columnWidth * shortCol;
+            var y = minimumY;
+            
+            $contentView.css('position', 'absolute');
+            $contentView.css('left', x + 'px');
+            $contentView.css('top', y + 'px');
+            
+            // apply height to column
+            columnHeights[shortCol] = minimumY + $contentView.outerHeight(true);
+            if (columnHeights[shortCol] > maximumY) {
+                maximumY = columnHeights[shortCol];
+            }
+            
+            $(this.el).css('height', maximumY + 'px');
+        }
     };
 
     return MediaWallView;
