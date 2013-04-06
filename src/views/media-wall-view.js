@@ -59,7 +59,7 @@ define([
         // which is fine for us, because we're typically prepending 
         var sortKeyIndex = 0;
         for (var i in this.contentViewKeys) {
-            if (sortKey < this.contentViewKeys[i]) {
+            if (sortKey < this.contentViewKeys[i] && sortKey > this.contentViewKeys[i+1]) {
                 sortKeyIndex = i;
                 break;
             }
