@@ -4,9 +4,12 @@ define(['jquery',
 
     var Oembed = function(json) {
         Content.call(this);
-        
+
         $.extend(this, json.content.oembed);
-        
+
+        if (this.html.trim() === "") {
+            this.html = null;
+        }
         this.id = json.content.id;
         this.author = json.author;
         this.createdAt = json.content.createdAt;

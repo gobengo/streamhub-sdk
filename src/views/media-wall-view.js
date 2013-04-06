@@ -49,7 +49,6 @@ define([
         contentView.render();
 
         $(contentView.el).on('imageLoaded', function() {
-            console.log('got images loaded');
             self.relayout();
         });
 

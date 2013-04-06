@@ -22,7 +22,12 @@
 	<div class="content-attachments">
 	{{#attachments}}
         <div class="content-attachment">
-            <img src="{{ url }}" />
+            {{#html}}
+                {{{html}}}
+            {{/html}}
+            {{^html}}
+                <img src="{{ url }}" />
+            {{/html}}
         </div>
 	{{/attachments}}
 	</div>
