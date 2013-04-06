@@ -1,10 +1,8 @@
 define([
     'jquery',
-    'jquery-isotope',
     'streamhub-sdk/view',
-    'streamhub-sdk/content/views/content-view',
-    'jquery-imagesloaded'
-], function($, Isotope, View, ContentView) {
+    'streamhub-sdk/content/views/content-view'
+], function($, View, ContentView) {
     
     /**
      * A view that displays Content in a media wall.

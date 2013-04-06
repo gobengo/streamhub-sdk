@@ -14,8 +14,12 @@ define(function (require, exports) {
                 var newImg = $(self.el).find('img').last();
                 newImg.hide();
                 newImg.on('load', function() {
+                    console.log('load');
                     newImg.fadeIn();
                     $(self.el).trigger('imageLoaded');
+                });
+                newImg.on('error', function() {
+                    newImg.remove();
                 });
             });
         }
