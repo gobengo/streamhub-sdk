@@ -39,16 +39,16 @@ define(['jasmine'], function(jasmine) {
     success : "success"
   };
 
-  proto.reportRunnerStarting = function(runner) {
+/*  proto.reportRunnerStarting = function(runner) {
     this.status = this.statuses.running;
     this.start_time = (new Date()).getTime();
     this.executed_specs = 0;
     this.passed_specs = 0;
     this.log("Starting...");
   };
-
+*/
   proto.reportRunnerResults = function(runner) {
-    var failed = this.executed_specs - this.passed_specs;
+/*    var failed = this.executed_specs - this.passed_specs;
     var spec_str = this.executed_specs + (this.executed_specs === 1 ? " spec, " : " specs, ");
     var fail_str = failed + (failed === 1 ? " failure in " : " failures in ");
     var color = (failed > 0)? "red" : "green";
@@ -68,7 +68,7 @@ define(['jasmine'], function(jasmine) {
   };
 
 
-  proto.reportSpecStarting = function(spec) {
+/*  proto.reportSpecStarting = function(spec) {
     this.executed_specs++;
   };
 
@@ -95,7 +95,7 @@ define(['jasmine'], function(jasmine) {
     var color = (failed > 0)? "red" : "green";
     this.log(suite.getFullName() + ": " + results.passedCount + " of " + results.totalCount + " passed.", color);
   };
-
+*/
   proto.log = function(str, color) {
     var text = (color != undefined)? ANSI.colorize_text(str, color) : str;
     console.log(text)
