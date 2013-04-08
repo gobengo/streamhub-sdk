@@ -1,8 +1,9 @@
 define([
     'jquery',
     'streamhub-sdk/view',
-    'streamhub-sdk/content/views/content-view'
-], function($, View, ContentView) {
+    'streamhub-sdk/content/views/content-view',
+    'streamhub-sdk/util'
+], function($, View, ContentView, Util) {
     
     /**
      * A view that displays Content in a media wall.
@@ -76,14 +77,14 @@ define([
         var columnWidth = 0;
         var columnHeights = [];
         var cols = 0;
-        var containerWidth = $(this.el).innerWidth();
+        var containerWidth = Util.innerWidth($(this.el));
         
         for (var i in this.contentViewKeys) {
             var contentView = this.contentViews[this.contentViewKeys[i]];
             var $contentView = $(contentView.el);
             
             if (columnWidth === 0) {
-                columnWidth = $contentView.outerWidth(true);
+                columnWidth = Util.outerWidth($contentView);
                 if (columnWidth !== 0) {
                     cols = Math.floor(containerWidth / columnWidth);
                     for (var j = 0; j < cols; j++) {
@@ -112,7 +113,7 @@ define([
             $contentView.css('top', y + 'px');
             
             // apply height to column
-            columnHeights[shortCol] = minimumY + $contentView.outerHeight(true);
+            columnHeights[shortCol] = minimumY + Util.outerHeight($contentView);
             if (columnHeights[shortCol] > maximumY) {
                 maximumY = columnHeights[shortCol];
             }

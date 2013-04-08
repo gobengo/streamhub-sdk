@@ -10,6 +10,7 @@ define([
     'streamhub-sdk/streams/livefyre-reverse-stream',
     'streamhub-sdk/content/types/livefyre-content',
     'streamhub-sdk/views/list-view',
+    'streamhub-sdk/views/media-wall-view',
     'streamhub-sdk/streams/livefyre-collection-streams'
 ], function(
     Stream,
@@ -23,6 +24,7 @@ define([
     LivefyreReverseStream,
     LivefyreContent,
     ListView,
+    MediaWallView,
     LivefyreCollectionStreams
 ) {
     var Hub = {};
@@ -48,6 +50,7 @@ define([
 
     Hub.Views = {};
     Hub.Views.ListView = ListView;
+    Hub.Views.MediaWallView = MediaWallView;
 
     return Hub;
 });
