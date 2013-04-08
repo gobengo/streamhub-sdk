@@ -12,19 +12,17 @@
             require([
                 'jasmine-html',
                 'jasmine-jquery',
-                'jasmine-tap',
                 'jquery',
-                '/tests/console-reporter.js'],
-            function (jasmine, jasmineJQuery, jasmineTap, $) {
+                '/tests/xunit-console-reporter.js'],
+            function (jasmine, jasmineJQuery, $) {
                 var jasmineEnv = jasmine.getEnv();
                 jasmineEnv.updateInterval = 1000;
                 
                 var htmlReporter = new jasmine.HtmlReporter();
-                var consoleReporter = new jasmine.ConsoleReporter();
-                var tapReporter = new jasmineTap(function(val) {console.log(val);});
+                var consoleReporter = new jasmine.XUnitConsoleReporter();
 
                 jasmineEnv.addReporter(htmlReporter);
-                jasmineEnv.addReporter(tapReporter);
+                //jasmineEnv.addReporter(tapReporter);
                 jasmineEnv.addReporter(consoleReporter);
 
                 jasmineEnv.specFilter = function(spec) {
