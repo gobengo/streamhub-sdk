@@ -23,7 +23,7 @@
   //exclude: ['almond', 'jquery', 'base64'],
 
   //todo: make this streamhub-sdk-$SDK_VERSION+build.$BUILD_NUMBER.min.js
-  out: "streamhub-sdk.built" + (process.env.SDK_VERSION && process.env.BUILD_NUMBER ? "." + process.env.SDK_VERSION + "+build." + process.env.BUILD_NUMBER : "")  + ".js",
+  out: "streamhub-sdk.min.js",
   pragmasOnSave: {
     excludeHogan: true
   },
