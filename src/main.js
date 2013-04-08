@@ -11,7 +11,8 @@ define([
     'streamhub-sdk/content/types/livefyre-content',
     'streamhub-sdk/views/list-view',
     'streamhub-sdk/views/media-wall-view',
-    'streamhub-sdk/streams/livefyre-collection-streams'
+    'streamhub-sdk/streams/livefyre-collection-streams',
+    'text!streamhub-sdk/../version.txt'
 ], function(
     Stream,
     EventEmitter,
@@ -25,7 +26,8 @@ define([
     LivefyreContent,
     ListView,
     MediaWallView,
-    LivefyreCollectionStreams
+    LivefyreCollectionStreams,
+    VersionInfo
 ) {
     var Hub = {};
     Hub.Stream = Stream;
@@ -51,6 +53,8 @@ define([
     Hub.Views = {};
     Hub.Views.ListView = ListView;
     Hub.Views.MediaWallView = MediaWallView;
+    
+    Hub.version = VersionInfo.trim();
 
     return Hub;
 });
