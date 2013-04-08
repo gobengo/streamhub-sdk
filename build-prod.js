@@ -21,7 +21,7 @@
   include: ['almond'],
   stubModules: ['text', 'hgn'],
   //exclude: ['almond', 'jquery', 'base64'],
-  out: "streamhub-sdk.built" + (process.env.SDK_VERSION && process.env.BUILD_NUMBER ? process.env.SDK_VERSION + "-build." + process.env.BUILD_NUMBER : "")  + ".js",
+  out: "streamhub-sdk.built" + (process.env.SDK_VERSION && process.env.BUILD_NUMBER ? "." + process.env.SDK_VERSION + "+build." + process.env.BUILD_NUMBER : "")  + ".js",
   pragmasOnSave: {
     excludeHogan: true
   },
