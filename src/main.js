@@ -12,7 +12,7 @@ define([
     'streamhub-sdk/views/list-view',
     'streamhub-sdk/views/media-wall-view',
     'streamhub-sdk/streams/livefyre-collection-streams',
-    'text!streamhub-sdk/../version.txt'
+    'text!../version.txt'
 ], function(
     Stream,
     EventEmitter,
