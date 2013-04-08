@@ -19,7 +19,7 @@
     "build": "./node_modules/requirejs/bin/r.js -o ./build-prod.js",
     "build-dev": "./node_modules/requirejs/bin/r.js -o ./build-dev.js",
     "hint": "./node_modules/jshint/bin/jshint src/*; echo",
-    "hint-jenkins": "./node_modules/jshint/bin/jshint src/* > lint.log; echo",
+    "hint-jenkins": "./node_modules/jshint/bin/jshint --reporter=jslint src/* > lint.log; echo",
     "test": "node tests/runner.js",
     "test-jenkins": "node tests/runner.js > tests.log"
   },
