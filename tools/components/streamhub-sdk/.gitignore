@@ -1,0 +1,5 @@
+.project
+lib/
+node_modules/
+streamhub-sdk.built*
+*.log

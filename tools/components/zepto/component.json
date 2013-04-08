@@ -1,0 +1,9 @@
+{
+  "name": "zepto",
+  "version": "0.0.0",
+  "commit": "0576db1d03bb186d3e04dfdd3501ffb05b4f77c8",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/genehallman/streamhub-zepto.git"
+  }
+}

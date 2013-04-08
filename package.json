@@ -21,7 +21,8 @@
     "hint": "./node_modules/jshint/bin/jshint src/*; echo",
     "hint-jenkins": "./node_modules/jshint/bin/jshint --reporter=jslint src/* > lint.log; echo",
     "test": "node tests/runner.js",
-    "test-jenkins": "node tests/runner.js > tests.log"
+    "test-jenkins": "node tests/runner.js > tests.log",
+    "build-version": "node tools/build_version.js"
   },
   "devDependencies": {
     "jshint": "~1.1.0"

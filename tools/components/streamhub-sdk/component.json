@@ -1,0 +1,28 @@
+{
+  "name": "streamhub-sdk",
+  "version": "1.0.0+build.55",
+  "main": [
+    "./src/main.js"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.5",
+    "jquery": "~1.9.1",
+    "requirejs-text": "~2.0.5",
+    "jasmine": "*",
+    "jasmine-jquery": "*",
+    "base64": "~0.1.1",
+    "zepto": "git://github.com/genehallman/streamhub-zepto.git",
+    "almond": "~0.2.5",
+    "hogan": "latest",
+    "requirejs-hogan-plugin": "git://github.com/millermedeiros/requirejs-hogan-plugin.git#~0.2.1"
+  },
+  "gitHead": "2f745d3badcf71110e4741069e6e563b4efcd684",
+  "readme": "# streamhub-sdk\n",
+  "readmeFilename": "README.md",
+  "_id": "streamhub-sdk@1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/genehallman/streamhub-sdk.git"
+  }
+}

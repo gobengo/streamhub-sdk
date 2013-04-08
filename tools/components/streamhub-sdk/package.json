@@ -1,0 +1,29 @@
+{
+  "name": "streamhub-sdk",
+  "description": "Livefyre Streamhub SDK",
+  "author": "Livefyre <support@livefyre.com>",
+  "contributors": {
+    "name": "Gene Hallman",
+    "email": "gene@livefyre.com"
+  },
+  "version": "1.0.0",
+  "dependencies": {
+    "bower": "*",
+    "http-server": "*",
+    "requirejs": "*",
+    "phantom": "*"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install",
+    "start": "./node_modules/http-server/bin/http-server .",
+    "build": "./node_modules/requirejs/bin/r.js -o ./build-prod.js",
+    "build-dev": "./node_modules/requirejs/bin/r.js -o ./build-dev.js",
+    "hint": "./node_modules/jshint/bin/jshint src/*; echo",
+    "hint-jenkins": "./node_modules/jshint/bin/jshint --reporter=jslint src/* > lint.log; echo",
+    "test": "node tests/runner.js",
+    "test-jenkins": "node tests/runner.js > tests.log"
+  },
+  "devDependencies": {
+    "jshint": "~1.1.0"
+  }
+}

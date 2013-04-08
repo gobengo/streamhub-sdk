@@ -1,0 +1,8 @@
+{
+  "name": "requirejs-hogan-plugin",
+  "version": "0.2.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/millermedeiros/requirejs-hogan-plugin.git"
+  }
+}
