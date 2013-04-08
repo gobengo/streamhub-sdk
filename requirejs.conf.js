@@ -11,7 +11,6 @@ require.config({
     jasmine: 'lib/jasmine/lib/jasmine-core/jasmine',
     'jasmine-html': 'lib/jasmine/lib/jasmine-core/jasmine-html',
     'jasmine-jquery': 'lib/jasmine-jquery/lib/jasmine-jquery',
-    'jasmine-tap': 'lib/Jasmine-TAPReporter/src/tapreporter'
   },
   packages: [{
      name: "streamhub-sdk",
@@ -33,9 +32,6 @@ require.config({
     'jasmine-html': {
         deps: ['jasmine'],
         exports: 'jasmine'
-    },
-    'jasmine-tap': {
-        deps: ['jasmine']
     },
     'jasmine-jquery': {
         deps: ['jquery', 'jasmine']
