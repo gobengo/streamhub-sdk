@@ -27,7 +27,7 @@ define([
     MediaWallView,
     LivefyreCollectionStreams
 ) {
-    var Hub = {}
+    var Hub = {};
     Hub.Stream = Stream;
     Hub.EventEmitter = EventEmitter;
     Hub.Content = Content;

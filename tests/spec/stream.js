@@ -37,7 +37,6 @@ function ($, jasmine, Stream) {
                 expect(stream._write.callCount).toBe(1);
                 expect(stream._write.mostRecentCall.args.length).toBe(1);
                 expect(stream._write.mostRecentCall.args[0]).toBe(opts);
-                expect(true).toBe(false);
             });
         });
     }); 
