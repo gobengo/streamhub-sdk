@@ -1,7 +1,12 @@
+/** 
+ * A module wrap a Set of named Stream instances
+ * @module streamhub-sdk/streams
+ */
 define(['streamhub-sdk/event-emitter'], function (EventEmitter) {
 
 	/**
 	 * A Collection of Streams 
+	 * @alias module:streamhub-sdk/streams
 	 */
 	function Streams (streamObj) {
 		streamObj = streamObj || {};

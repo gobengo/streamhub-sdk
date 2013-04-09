@@ -7,8 +7,9 @@ function (Streams, LivefyreBootstrapClient, LivefyreStream, LivefyreReverseStrea
     
     /**
      * A set of Streams bound to a Livefyre Collection
+     * @exports streamhub-sdk/streams/livefyre-collection-streams
      */
-    function LivefyreCollectionStreams (opts) {
+    var LivefyreCollectionStreams = function (opts) {
         Streams.call(this);
         this._livefyreCollectionOpts = opts;
         this._livefyreStreamsCreated = false;
