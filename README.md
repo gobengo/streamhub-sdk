@@ -1,6 +1,6 @@
 # streamhub-sdk
 
-SDK to strea Content from Livefyre's StreamHub platform, create Views to render Streams and Content, and build amazing real-time social web applications.
+SDK to stream Content from Livefyre's StreamHub platform, create Views to render Streams and Content, and build amazing real-time social web applications.
 
 ## Getting Started
 
