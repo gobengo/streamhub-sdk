@@ -14,7 +14,7 @@ function (Streams, LivefyreBootstrapClient, LivefyreStream, LivefyreReverseStrea
         this._livefyreCollectionOpts = opts;
         this._livefyreStreamsCreated = false;
         this._creatingLivefyreStreams = false;
-    }
+    };
     LivefyreCollectionStreams.prototype = new Streams();
 
     /**
