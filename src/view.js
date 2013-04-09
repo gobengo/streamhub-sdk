@@ -50,7 +50,7 @@ function($, EventEmitter, Streams, Util) {
 
     /**
      * Triggers the view's streams to start.
-     * @param streamNames {[Array.<string>|string]?} A list of (or singular) stream names to call
+     * @param streamNames {?Array.<string>|string} A list of (or singular) stream names to call
      *     .start() on (Defaults to ["main"]). Also accepts "*" for all streams. 
      */
     View.prototype.startStreams = function(streamNames) {

@@ -36,7 +36,7 @@ define(['streamhub-sdk/event-emitter'], function (EventEmitter) {
 
 	/**
 	 * Get all the Streams inside this Streams object
-	 * @param name {String?} Get only a stream with this name
+	 * @param name {?String} Get only a stream with this name
 	 */
 	Streams.prototype.get = function (name) {
 		if (name) {
