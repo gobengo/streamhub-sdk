@@ -1,4 +1,4 @@
-define(['streamhub-sdk/content/templates/ContentTemplate'], function (ContentTemplate) {
+define(['hgn!streamhub-sdk/content/templates/content'], function (ContentTemplate) {
     
     // Construct a ContentView
     var ContentView = function ContentView (opts) {

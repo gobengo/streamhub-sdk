@@ -1,6 +1,6 @@
 define([
 	'streamhub-sdk/content/views/content-view',
-	'streamhub-sdk/content/templates/TweetTemplate',
+	'hgn!streamhub-sdk/content/templates/tweet',
 	'jquery'],
 function (ContentView, TwitterContentTemplate, $) {
 
