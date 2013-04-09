@@ -1,6 +1,4 @@
-define(function (require, exports) {
-
-    var ContentTemplate = require('../templates/ContentTemplate');
+define(['streamhub-sdk/content/templates/ContentTemplate'], function (ContentTemplate) {
     
     // Construct a ContentView
     var ContentView = function ContentView (opts) {
@@ -56,6 +54,5 @@ define(function (require, exports) {
         return this.content;
     };
     
-    exports = ContentView;
-    return exports;
+    return ContentView;
 });

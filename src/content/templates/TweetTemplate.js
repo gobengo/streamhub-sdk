@@ -1,6 +1,4 @@
-define(function (require, exports) {
-
-var TweetMustache = require('hgn!./Tweet');
+define(['hgn!streamhub-sdk/content/templates/Tweet'], function (TweetMustache) {
 
 var TweetTemplate = function TweetTemplate (content) {
 	return TweetMustache(content);
