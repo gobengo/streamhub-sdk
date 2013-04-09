@@ -44,11 +44,10 @@
                 "articleId": "labs_demo_fire",
                 "environment": "t402.livefyre.com"
             };
-            var listView;
             
             var streams = new Hub.Streams.forCollection(opts);
 
-            var listView = new ListView({
+            var listView = window.view = new ListView({
                     streams: streams,
                     el: document.getElementById("listView")
                 });
