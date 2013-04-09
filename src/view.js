@@ -75,12 +75,12 @@ define([
      * Expects entries to always contain a "type" property, and either a view property (the type function itself) or a viewFunction property (a function that returns a type function, useful for conditional view selection.).
      */
     View.DEFAULT_REGISTRY = [
-	    { type: LivefyreTwitterContent, view: TwitterContentView },
-		{ type: TwitterContent, view: TwitterContentView },
-	    { type: TwitterSearchContent, view: TwitterContentView },
-	    { type: TwitterStreamingContent, view: TwitterContentView },
-	    { type: LivefyreContent, view: ContentView },
-	    { type: Content, view: ContentView }
+        { type: LivefyreTwitterContent, view: TwitterContentView },
+        { type: TwitterContent, view: TwitterContentView },
+        { type: TwitterSearchContent, view: TwitterContentView },
+        { type: TwitterStreamingContent, view: TwitterContentView },
+        { type: LivefyreContent, view: ContentView },
+        { type: Content, view: ContentView }
     ];
     /**
      * Create an extended subclass of View

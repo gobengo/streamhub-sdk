@@ -4,9 +4,10 @@ define([
     'jquery',
     'streamhub-sdk/views/list-view',
     'streamhub-sdk/content/content',
+    'streamhub-sdk/content/views/content-view',
     'streamhub-sdk/stream',
     'streamhub-sdk-tests/mocks/jasmine-spy-stream'],
-function (jasmine, jasmineJquery, $, ListView, Content, Stream, JasmineSpyStream) {
+function (jasmine, jasmineJquery, $, ListView, Content, ContentView, Stream, JasmineSpyStream) {
     describe('A ListView', function () {
         var fixtureId = 'sandbox',
             listView,
@@ -93,8 +94,6 @@ function (jasmine, jasmineJquery, $, ListView, Content, Stream, JasmineSpyStream
                 });
 
                 spyOn(listView, 'createContentView').andCallThrough();
-                spyOn(listView, 'getContentView').andCallThrough();
-                spyOn(listView, '_insertContentView').andCallThrough();
 
                 content = new Content({
                     content: 'Say what'
@@ -103,56 +102,39 @@ function (jasmine, jasmineJquery, $, ListView, Content, Stream, JasmineSpyStream
             });
 
             it("returns the new ContentView", function () {
-                expect(newContentView instanceof listView.contentView).toBe(true);
+                expect(newContentView instanceof ContentView).toBe(true);
             });
 
             describe("and ContentViews are created", function () {
                 it("stores them in .contentViews", function () {
                     expect(listView.contentViews.length).toBe(1);
-                    expect(listView.contentViews[0] instanceof listView.contentView).toBe(true);
+                    expect(listView.contentViews[0] instanceof ContentView).toBe(true);
                 });
 
                 it("uses .createContentView(content) to create the ContentViews", function () {
                     expect(listView.createContentView.callCount).toBe(1);
                     expect(listView.createContentView.mostRecentCall.args[0]).toBe(content);
                 });
-
-                it("the default .createContentView uses .getContentView(content) to get the ContentView constructor", function () {
-                    expect(listView.getContentView.callCount).toBe(1);
-                    expect(listView.getContentView.mostRecentCall.args[0]).toBe(content);
-                });
-
-                it("the default .getContentView(content) returns .contentView", function () {
-                    expect(listView.getContentView()).toBe(listView.contentView);
-                });
             });
 
             describe("and a ContentView is inserted", function () {
-                it("calls ._insertContentView(contentView)", function () {
-                    expect(listView._insertContentView.callCount).toBe(1);
-                    expect(listView._insertContentView.mostRecentCall.args[0]).toBe(newContentView);
-                });
-
                 it("the new ContentView is in the DOM", function () {
                     expect(listView.$el).toContain(newContentView.$el);
                 });
             });
-
         });
-
     });
 
     describe("Default ListView.prototype.contentView", function () {
         var contentView;
 
         beforeEach(function () {
-            var ContentView = ListView.prototype.contentView;
             contentView = new ContentView('');
         });
 
         describe("when constructed", function () {
-            it ("uses a <li> tag for .el", function () {
-                expect(contentView.el).toBe('li')
+            it ("uses a <article> tag for .el", function () {
+                expect(contentView.el).toBe('article')
             })
         });
     });
