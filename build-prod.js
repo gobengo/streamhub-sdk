@@ -5,7 +5,8 @@
     almond: 'lib/almond/almond',
     text: 'lib/requirejs-text/text',
     hogan: 'lib/hogan/web/builds/2.0.0/hogan-2.0.0.amd',
-    hgn: 'lib/requirejs-hogan-plugin/hgn'
+    hgn: 'lib/requirejs-hogan-plugin/hgn',
+    main: 'src/main'
   },
   packages: [{
      name: "streamhub-sdk",
@@ -26,6 +27,10 @@
   out: "streamhub-sdk.min.js",
   pragmasOnSave: {
     excludeHogan: true
+  },
+  wrap: {
+      startFile: 'tools/start.frag',
+      endFile: 'tools/end.frag'
   },
   optimize: "uglify2",
   uglify2: {
