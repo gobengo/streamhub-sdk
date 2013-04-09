@@ -10,10 +10,6 @@ define(['jquery',
     };
     $.extend(Content.prototype, EventEmitter.prototype);
 
-    Content.prototype.html = function() {
-        return this.body;
-    };
-
     Content.prototype.addAttachment = function(obj) {
         this.attachments.push(obj);
         this.emit('addAttachment', obj);
