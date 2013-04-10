@@ -8,9 +8,19 @@ define([
     'streamhub-sdk/clients/livefyre-bootstrap-client',
     'streamhub-sdk/content/types/livefyre-content',
     'streamhub-sdk/content/types/livefyre-twitter-content',
+    'streamhub-sdk/content/types/livefyre-facebook-content',
     'streamhub-sdk/content/types/oembed',
     'streamhub-sdk/storage'
-], function($, Stream, LivefyreBootstrapClient, LivefyreContent, LivefyreTwitterContent, Oembed, Storage) {
+], function(
+    $, 
+    Stream, 
+    LivefyreBootstrapClient, 
+    LivefyreContent, 
+    LivefyreTwitterContent, 
+    LivefyreFacebookContent, 
+    Oembed, 
+    Storage
+) {
 
     /**
      * Defines a livefyre stream that is readable in reverse time order from a livefyre
@@ -62,6 +72,8 @@ define([
 
                 if (source === 'twitter') {
                     content = new LivefyreTwitterContent(state);
+                } else if (source === 'facebook') {
+                    content = new LivefyreFacebookContent(state);
                 } else {
                     content = new LivefyreContent(state);
                 }

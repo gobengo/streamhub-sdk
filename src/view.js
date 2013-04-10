@@ -10,12 +10,14 @@ define([
     'streamhub-sdk/content/content',
     'streamhub-sdk/content/types/livefyre-content',
     'streamhub-sdk/content/types/livefyre-twitter-content',
+    'streamhub-sdk/content/types/livefyre-facebook-content',
     'streamhub-sdk/content/types/oembed',
     'streamhub-sdk/content/types/twitter-content',
     'streamhub-sdk/content/types/twitter-search-content',
     'streamhub-sdk/content/types/twitter-streaming-content',
     'streamhub-sdk/content/views/content-view',
-    'streamhub-sdk/content/views/twitter-content-view'
+    'streamhub-sdk/content/views/twitter-content-view',
+    'streamhub-sdk/content/views/facebook-content-view'
 ], function(
     $,
     EventEmitter,
@@ -24,12 +26,14 @@ define([
     Content,
     LivefyreContent,
     LivefyreTwitterContent,
+    LivefyreFacebookContent,
     Oembed,
     TwitterContent,
     TwitterSearchContent,
     TwitterStreamingContent, 
     ContentView,
-    TwitterContentView
+    TwitterContentView,
+    FacebookContentView
 ) {
 
     /**
@@ -76,6 +80,7 @@ define([
      */
     View.DEFAULT_REGISTRY = [
         { type: LivefyreTwitterContent, view: TwitterContentView },
+        { type: LivefyreFacebookContent, view: FacebookContentView },
         { type: TwitterContent, view: TwitterContentView },
         { type: TwitterSearchContent, view: TwitterContentView },
         { type: TwitterStreamingContent, view: TwitterContentView },

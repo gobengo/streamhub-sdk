@@ -9,6 +9,7 @@ define([
     'streamhub-sdk/clients/livefyre-write-client',
     'streamhub-sdk/content/types/livefyre-content',
     'streamhub-sdk/content/types/livefyre-twitter-content',
+    'streamhub-sdk/content/types/livefyre-facebook-content',
     'streamhub-sdk/content/types/oembed',
     'streamhub-sdk/storage'
 ], function(
@@ -18,6 +19,7 @@ define([
     LivefyreWriteClient,
     LivefyreContent,
     LivefyreTwitterContent,
+    LivefyreFacebookContent,
     Oembed,
     Storage
 ) {
@@ -82,6 +84,8 @@ define([
 
                         if (source === 'twitter') {
                             content = new LivefyreTwitterContent(state);
+                        } else if (source === 'facebook') {
+                            content = new LivefyreFacebookContent(state);
                         } else {
                             content = new LivefyreContent(state);
                         }

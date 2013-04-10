@@ -49,7 +49,8 @@ define(['jquery', 'streamhub-sdk/content/content'], function($, Content) {
         "unknown",
         "unknown",
         "unknown",
-        "feed"
+        "feed",
+        "facebook"
     ];
      
     return LivefyreContent;
