@@ -66,8 +66,9 @@ define([
                     content = new LivefyreContent(state);
                 }
 
-                
-                Storage.set(content.id, content);
+                if (content && content.id) {
+                    Storage.set(content.id, content);
+                }
                 self._push(content);
 
                 // todo: make this recursive for nested replies

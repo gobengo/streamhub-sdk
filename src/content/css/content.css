@@ -82,3 +82,6 @@
 .content .content-actions .content-action {
   display: inline;
 }
+.content.content-tweet .content-author-avatar + .content-main {
+  min-height: 34px;
+}

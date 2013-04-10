@@ -41,18 +41,15 @@ define([
         this.el = el;
         this.$el = $(el);
         this.$el.addClass(this.elClass);
-        if (this.content && this.content.author && this.content.author.avatar) {
-    
+        if (this.content && this.content.id) {
+            this.$el.attr('data-content-id', this.content.id)
         }
     };
     
     // Render the content inside of the ContentView's element
     ContentView.prototype.render = function () {
         var context = this.getTemplateContext();
-        var self = this;
-        
         context.formattedCreatedAt = Util.formatDate(this.content.createdAt);
-        
         this.el.innerHTML = this.template(context);
     };
     

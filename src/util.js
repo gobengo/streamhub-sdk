@@ -63,12 +63,7 @@ define(['jquery'], function ($) {
     };
     
     exports.formatDate = function(stamp) {
-        var date = new Date(stamp*1000).toLocaleString().substr(0, 16);
-        var hour = date.substr(-5, 2);
-        var ampm = hour<12 ? ' AM' : ' PM';
-        if (hour>12) hour-= 12;
-        if (hour===0) hour = 12;
-        return date.substr(0, date.indexOf(' ')) +' &bull; ' + hour + date.substr(13) + ampm;
+        return new Date(stamp*1000).toLocaleString().replace(/(.*)...(..) (.*):.* (.*)/, "$1/$2 &bull; $3 $4");
     };
 
 	return exports;
