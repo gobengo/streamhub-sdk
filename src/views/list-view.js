@@ -17,7 +17,6 @@ function($, View, ContentView) {
         opts = opts || {};
         View.call(this, opts);
 
-        this.setElement(opts.el || document.createElement(this.elTag));
         this.contentViews = [];
 
         var self = this;
@@ -30,18 +29,6 @@ function($, View, ContentView) {
     // Used if ListView needs to create its own DOMElement
     ListView.prototype.elTag = 'ul';
     ListView.prototype.elClass = 'content-list';
-
-    /**
-     * Set the .el DOMElement that the View should render to. Creates internal .el and
-     *    .$el properties and adds this.elClass
-     * @param el {DOMElement} The new element the View should render to
-     */
-    ListView.prototype.setElement = function (el) {
-        this.el = el;
-        this.$el = $(el);
-        this.$el.addClass(this.elClass);
-        // Insert base, static HTML
-    };
 
     /**
      * Add a piece of Content to the ListView
