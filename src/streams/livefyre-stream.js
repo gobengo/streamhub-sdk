@@ -8,6 +8,7 @@ define([
     'streamhub-sdk/clients/livefyre-stream-client',
     'streamhub-sdk/clients/livefyre-write-client',
     'streamhub-sdk/content/types/livefyre-content',
+    'streamhub-sdk/content/types/livefyre-twitter-content',
     'streamhub-sdk/content/types/oembed',
     'streamhub-sdk/storage'
 ], function(
@@ -16,6 +17,7 @@ define([
     LivefyreStreamClient,
     LivefyreWriteClient,
     LivefyreContent,
+    LivefyreTwitterContent,
     Oembed,
     Storage
 ) {
@@ -78,8 +80,16 @@ define([
                             content.addReply(new LivefyreContent(state));
                         }
                     } else if (state.type === 0) {
-                        content = new LivefyreContent(state);
-                        Storage.set(content.id, content);
+                        var source = LivefyreContent.SOURCES[state.source];
+
+                        if (source === 'twitter') {
+                            content = new LivefyreTwitterContent(state);
+                        } else {
+                            content = new LivefyreContent(state);
+                        }
+                        if (content && content.id) {
+                            Storage.set(content.id, content);
+                        }
                         self._push(content);
                     }
                 }

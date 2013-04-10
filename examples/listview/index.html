@@ -4,25 +4,9 @@
     <link rel="stylesheet" type="text/css" href="../lib/jasmine/lib/jasmine-core/jasmine.css">
     <link rel="stylesheet" type="text/css" href="../src/views/css/list-view.css">
     <link rel="stylesheet" type="text/css" href="../src/content/css/content.css">
-    <link rel="stylesheet" type="text/css" href="../src/content/css/themes/content-plain.css">
     <style>
-    body {
-        font-family: sans-serif;
-        font-size: 14px;
-        line-height: 18px;
-    }
-    a {
-        text-decoration: none;
-    }
     #listView {
-        width: 500px;
-        height: 800px;
-        overflow-y: scroll;
-        overflow-x: hidden;
-    }
-    .content-list-item {
-        margin: 10px 0;
-        padding: 5px;
+        width:500px;
     }
     </style>
     <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
@@ -44,11 +28,10 @@
                 "articleId": "labs_demo_fire",
                 "environment": "t402.livefyre.com"
             };
-            var listView;
             
             var streams = new Hub.Streams.forCollection(opts);
 
-            var listView = new ListView({
+            var listView = window.view = new ListView({
                     streams: streams,
                     el: document.getElementById("listView")
                 });

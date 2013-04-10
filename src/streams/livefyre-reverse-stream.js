@@ -7,9 +7,10 @@ define([
     'streamhub-sdk/stream',
     'streamhub-sdk/clients/livefyre-bootstrap-client',
     'streamhub-sdk/content/types/livefyre-content',
+    'streamhub-sdk/content/types/livefyre-twitter-content',
     'streamhub-sdk/content/types/oembed',
     'streamhub-sdk/storage'
-], function($, Stream, LivefyreBootstrapClient, LivefyreContent, Oembed, Storage) {
+], function($, Stream, LivefyreBootstrapClient, LivefyreContent, LivefyreTwitterContent, Oembed, Storage) {
 
     /**
      * Defines a livefyre stream that is readable in reverse time order from a livefyre
@@ -56,8 +57,18 @@ define([
                 var state = data.content[i];
                 state.author = authors[state.content.authorId];
                 
-                var content = new LivefyreContent(state);
-                Storage.set(content.id, content);
+                var content;
+                var source = LivefyreContent.SOURCES[state.source];
+
+                if (source === 'twitter') {
+                    content = new LivefyreTwitterContent(state);
+                } else {
+                    content = new LivefyreContent(state);
+                }
+
+                if (content && content.id) {
+                    Storage.set(content.id, content);
+                }
                 self._push(content);
 
                 // todo: make this recursive for nested replies

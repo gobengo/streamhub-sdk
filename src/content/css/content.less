@@ -2,66 +2,99 @@
  * All Content
  */
 .content {
-	position: relative;
-	min-height: 58px;
-
-	&[data-content-has-avatar=true] {
-		margin-left: 58px;
-	}
-
-	.content-byline {
-		margin-top: 0;
-		margin-bottom: 0;
-	}
-
-	.content-source-logo {
-		float: right;
-	}
-
-	.content-author-avatar {
-		position: absolute;
-		top: 5px;
-		left: -53px;
-
-		img {
-			height: 48px;
-			width: 48px;
-		}
-	}
-	.content-attachment {
-		img {
-		   max-width:100%;
-		}
-	}
-
-	/**
-	Clearfix the main content. This is necessary if the avatar is taller
-	than the content body */
-	.content-main:after {
-	  content: "";
-	  display: table;
-	  clear: both;
-	}
-
-	.content-actions {
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
-
-		.content-action {
-			display: inline-block;
-			line-height: 1em;
-
-			img {
-				vertical-align: middle;
-			}
-		}
-	}
-}
-
-/**
- * Twitter Content
- */
-.content-tweet {
 	
+	background-color: white;
+	padding:5px;
+	margin-bottom:5px;
+	font-family:"Helvetica Neue",Arial,sans-serif;
+	font-size:14px;
+	border: 1px solid #ccc;
+	border-radius:5px;
+	
+	&:hover .content-byline .content-created-at {
+	   display:block;
+	}
+	
+    a {
+        text-decoration: none;
+    }
+	.content-author-avatar {
+        line-height:0px;
+        float:left;
+        display:block;
+        img {
+            width:48px;
+            height:48px;
+        }
+    }
+    
+    .content-main {
+        overflow-x: hidden;
+    }
+    
+    .content-author-avatar + .content-main {
+        min-height:48px;
+    }
+    
+    .content-author-avatar + .content-main, 
+    .content-author-avatar ~ .content-actions {
+        margin-left: 53px;
+    }
+	
+    .content-byline {
+	    font-weight: bold;
+        margin:0px;
+        line-height:18px;
+        .content-created-at {
+            float:right;
+            font-weight:normal;
+            font-size:12px;
+            color:#999;
+            display:none;
+        }
+        .content-source-logo {
+            float:right;
+            margin-left:5px;
+        }
+    }
+    
+    .content-attachment {
+        margin-top:5px;
+    }
+    
+    .content-attachment > * {
+        max-width: 100%;
+        display:block;
+    }
+    .content-attachment > iframe {
+        border:none;
+    }
+
+    .content-attachment > img {
+        border-radius:5px;
+        margin: 0 auto;
+    }
+    .content-actions {
+        list-style-type:none;
+        padding:0px;
+        margin:0px;
+        margin-top:5px;
+        font-size:12px;
+        img {
+            vertical-align:bottom;
+            margin-right:2px;
+        }
+        a {
+            color:#999;
+        }
+        .content-action {
+            display:inline;
+        }
+    }
+    &.content-tweet {
+	    .content-author-avatar + .content-main {
+	        min-height: 34px;
+	    }
+    }
+    
 }

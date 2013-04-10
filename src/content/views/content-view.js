@@ -1,4 +1,7 @@
-define(['hgn!streamhub-sdk/content/templates/Content'], function (ContentTemplate) {
+define([
+    'hgn!streamhub-sdk/content/templates/Content',
+    'streamhub-sdk/util'
+], function (ContentTemplate, Util) {
     
     // Construct a ContentView
     var ContentView = function ContentView (opts) {
@@ -38,16 +41,16 @@ define(['hgn!streamhub-sdk/content/templates/Content'], function (ContentTemplat
         this.el = el;
         this.$el = $(el);
         this.$el.addClass(this.elClass);
-        if (this.content && this.content.author && this.content.author.avatar) {
-    
+        if (this.content && this.content.id) {
+            this.$el.attr('data-content-id', this.content.id)
         }
-        this.$el.attr('data-content-has-avatar',
-            (this.content && this.content.author && this.content.author.avatar) ? 'true' : 'false');
     };
     
     // Render the content inside of the ContentView's element
     ContentView.prototype.render = function () {
-        this.el.innerHTML = this.template(this.getTemplateContext());
+        var context = this.getTemplateContext();
+        context.formattedCreatedAt = Util.formatDate(this.content.createdAt);
+        this.el.innerHTML = this.template(context);
     };
     
     ContentView.prototype.getTemplateContext = function () {

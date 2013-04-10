@@ -41,63 +41,14 @@ function($, View, ContentView) {
      */
     ListView.prototype.add = function(content, stream) {
         var newContentView = this.createContentView(content);
+
         this.contentViews.push(newContentView);
         newContentView.render();
-        this._insertContentView(newContentView);
-        this.emit('insert', newContentView);
+
+        $(newContentView.el).prependTo(this.$el);
+
         return newContentView;
     };
-
-    /**
-     * Insert a ContentView into the .el of the ListView
-     * @todo Use comparator-based insertion
-     */
-    ListView.prototype._insertContentView = function (contentView) {
-        $(contentView.el).prependTo(this.$el);
-    };
-
-    /**
-     * Construct a ContentView for a piece of Content in the ListView
-     * @default Construct by passing `content` to `this.getContentView(content)`
-     */
-    ListView.prototype.createContentView = function (content) {
-        var CV = this.getContentView(content),
-            contentView = new CV({
-                content: content
-            });
-        return contentView;
-    };
-
-    /**
-     * Get the function to use to construct Views for each content
-     * `.createContentView`'s default implementation calls this to get the final View constructor
-     * @default `.getContentViewConstructor` and extend the prototype to use <li> and a fancy .elClass
-     */
-    ListView.prototype.getContentView = function (content) {
-        var CV = this.getContentViewConstructor(content);
-        CV.prototype = $.extend(CV.prototype, {
-            elTag: 'li',
-            elClass: 'content-list-item ' + ContentView.prototype.elClass
-        });
-        return CV;
-    };
-
-    /**
-     * Get the View constructor for a piece of content
-     * `.getContentView`'s default implementation calls this for a constructor and then
-     *     extends the prototype
-     * @default return this.contentView
-     */
-    ListView.prototype.getContentViewConstructor = function (content) {
-        return this.contentView;
-    };
-    /**
-     * The View to use to render ListView content items. `.getContentiewConstructor`'s default
-     *     implementation returns this value
-     */
-    ListView.prototype.contentView = ContentView;
-
-
 
     return ListView;
 });

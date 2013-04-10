@@ -8,11 +8,16 @@ define([
         LivefyreContent.call(this, json);
         TwitterContent.call(this, json);
         this.tweetId = LivefyreTweet.tweetIdFromLivefyreId(this.id);
-        this.author.twitterUserId = LivefyreTweet.twitterUserIdFromLivefyreAuthorId(this.author.id);
+        if (this.author) {
+            this.author.twitterUserId = LivefyreTweet.twitterUserIdFromLivefyreAuthorId(this.author.id);
+        }
     };
     LivefyreTweet.prototype = $.extend({ constructor: LivefyreContent }, LivefyreContent.prototype, TwitterContent.prototype);
 
     LivefyreTweet.tweetIdFromLivefyreId = function (livefyreId) {
+        if (!livefyreId) {
+            return;
+        }
         var pattern = /tweet-(\d+)@twitter.com/,
             match = livefyreId.match(pattern);
         if ( ! match) {
@@ -22,6 +27,9 @@ define([
     };
 
     LivefyreTweet.twitterUserIdFromLivefyreAuthorId = function (authorId) {
+        if (!authorId) {
+            return;
+        }
         var pattern = /([^@]+)@twitter.com/,
             match = authorId.match(pattern);
         if ( ! match) {

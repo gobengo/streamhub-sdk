@@ -73,6 +73,13 @@ define(['jquery'], function ($) {
         var environment = opts.environment || 'livefyre.com';
         return (network === 'livefyre.com') ? environment : network;
     }
+    
+    exports.formatDate = function(stamp) {
+        return new Date(stamp*1000).toLocaleString().replace(
+            /(.*)...(..) (.*):.* (.*)/,
+            "$1/$2 &bull; $3 $4"
+        );
+    };
 
 	return exports;
 });
