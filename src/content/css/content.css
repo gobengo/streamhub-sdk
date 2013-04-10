@@ -2,52 +2,59 @@
  * All Content
  */
 .content {
-  position: relative;
-  min-height: 58px;
-  /**
-	Clearfix the main content. This is necessary if the avatar is taller
-	than the content body */
-
+  background-color: white;
+  padding: 5px;
+  margin-bottom: 5px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
-.content[data-content-has-avatar=true] {
-  margin-left: 58px;
+.content:hover .content-byline .content-created-at {
+  display: block;
 }
-.content .content-byline {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.content .content-source-logo {
-  float: right;
+.content a {
+  text-decoration: none;
 }
 .content .content-author-avatar {
-  position: absolute;
-  top: 5px;
-  left: -53px;
+  line-height: 0px;
+  float: left;
+  display: block;
 }
 .content .content-author-avatar img {
-  height: 48px;
   width: 48px;
+  height: 48px;
 }
-.content .content-attachment img {
+.content .content-main {
+  overflow-x: hidden;
+}
+.content .content-author-avatar + .content-main {
+  margin-left: 53px;
+  min-height: 48px;
+}
+.content .content-byline {
+  font-weight: bold;
+  margin: 0px;
+  line-height: 18px;
+}
+.content .content-byline .content-created-at {
+  float: right;
+  font-weight: normal;
+  font-size: 12px;
+  color: #999;
+  display: none;
+}
+.content .content-attachment {
+  margin-top: 5px;
+}
+.content .content-attachment > * {
   max-width: 100%;
+  display: block;
 }
-.content .content-main:after {
-  content: "";
-  display: table;
-  clear: both;
+.content .content-attachment > iframe {
+  border: none;
 }
-.content .content-actions {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+.content .content-attachment > img {
+  border-radius: 5px;
+  margin: 0 auto;
 }
-.content .content-actions .content-action {
-  display: inline-block;
-  line-height: 1em;
-}
-.content .content-actions .content-action img {
-  vertical-align: middle;
-}
-/**
- * Twitter Content
- */
