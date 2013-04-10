@@ -2,8 +2,8 @@
  * A module to render lists of Content
  * @module streamhub-sdk/views/list-view
  */
-define(['jquery', 'streamhub-sdk/view', 'streamhub-sdk/content/views/content-view'],
-function($, View, ContentView) {
+define(['jquery', 'streamhub-sdk/views/stream-view', 'streamhub-sdk/content/views/content-view'],
+function($, StreamView, ContentView) {
     
     /**
      * A simple View that displays Content in a list (`<ul>` by default).
@@ -15,7 +15,7 @@ function($, View, ContentView) {
      */
     var ListView = function(opts) {
         opts = opts || {};
-        View.call(this, opts);
+        StreamView.call(this, opts);
 
         this.contentViews = [];
 
@@ -24,7 +24,7 @@ function($, View, ContentView) {
             self.add(content, stream);
         });
     };
-    $.extend(ListView.prototype, View.prototype);
+    $.extend(ListView.prototype, StreamView.prototype);
 
     // Used if ListView needs to create its own DOMElement
     ListView.prototype.elTag = 'ul';

@@ -30,7 +30,6 @@ define(['jquery'], function ($) {
 		if (prototypeExtension) { $.extend(Constructor.prototype, prototypeExtension); }
 
 		Constructor.__super__ = Super.prototype;
-
 		return Constructor;
 	};
 
