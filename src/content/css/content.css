@@ -9,9 +9,6 @@
 	than the content body */
 
 }
-.content[data-content-has-avatar=true] {
-  margin-left: 58px;
-}
 .content .content-byline {
   margin-top: 0;
   margin-bottom: 0;
@@ -20,9 +17,7 @@
   float: right;
 }
 .content .content-author-avatar {
-  position: absolute;
-  top: 5px;
-  left: -53px;
+  float: left;
 }
 .content .content-author-avatar img {
   height: 48px;
