@@ -81,7 +81,7 @@ define([
                         var source = LivefyreContent.SOURCES[state.source];
 
                         if (source === 'twitter') {
-	                        content = new LivefyreTwitterContent(state);
+                            content = new LivefyreTwitterContent(state);
                         } else {
                             content = new LivefyreContent(state);
                         }
