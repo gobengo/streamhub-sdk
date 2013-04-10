@@ -54,7 +54,8 @@ define([
         }
         this.streams = streams;
 
-        this.el = opts.el;
+        this.setElement(opts.el || document.createElement(this.elTag));
+
         this.contentSet = [];
         this.contentRegistry = View.DEFAULT_REGISTRY;
 
@@ -89,9 +90,30 @@ define([
     View.extend = Util.extend;
 
     /**
+     * The HTML tag to use for elements created for this View
+     */
+    View.prototype.elTag = 'div';
+
+    /**
+     * An HTML class attribute string to use for elements created for this View
+     */
+    View.prototype.elClass = '';
+
+    /**
      * Initializes the View after construction. Subclasses can implement this
      */
     View.prototype.initialize = function () {};
+
+    /**
+     * Set the .el DOMElement that the View should render to. Creates internal .el and
+     *    .$el properties and adds this.elClass
+     * @param el {DOMElement} The new element the View should render to
+     */
+    View.prototype.setElement = function (el) {
+        this.el = el;
+        this.$el = $(el);
+        this.$el.addClass(this.elClass);
+    };
 
     /**
      * Triggers the view's streams to start.
