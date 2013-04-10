@@ -71,7 +71,7 @@ define(['jquery'], function ($) {
         var network = opts.network;
         var environment = opts.environment || 'livefyre.com';
         return (network === 'livefyre.com') ? environment : network;
-    }
+    };
 
 	return exports;
 });

@@ -14,7 +14,6 @@ var extraContext = {
 // Construct a TwitterContentView
 var TwitterContentView = function TwitterContentView (opts) {
 	ContentView.call(this, opts);
-	debugger;
 };
 
 TwitterContentView.prototype = new ContentView();

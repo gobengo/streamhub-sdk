@@ -56,7 +56,7 @@ function (require, View, ContentTemplate) {
          */
         addReply: function (replyContent) {
             //debugger;
-        },
+        }
     });
 
     return ContentView;
