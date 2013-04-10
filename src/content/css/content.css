@@ -43,6 +43,9 @@
 .content .content-actions .content-action img {
   vertical-align: middle;
 }
+.content .content-replies {
+  padding-left: 48px;
+}
 /**
  * Twitter Content
  */

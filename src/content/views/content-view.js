@@ -6,6 +6,7 @@ function (require, View, ContentTemplate) {
 
     var ContentView = View.extend({
         initialize: function (opts) {
+            var self = this;
             View.prototype.initialize.apply(this, arguments);
 
             opts = opts || {};
@@ -55,7 +56,11 @@ function (require, View, ContentTemplate) {
          * @param replyContent {Content} The reply content
          */
         addReply: function (replyContent) {
-            //debugger;
+            var replyView = new ContentView({
+                content: replyContent
+            });
+            replyView.render();
+            this.$el.find('.content-replies').prepend(replyView.el);
         }
     });
 
