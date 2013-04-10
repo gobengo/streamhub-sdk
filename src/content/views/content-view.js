@@ -42,7 +42,7 @@ define([
         this.$el = $(el);
         this.$el.addClass(this.elClass);
         if (this.content && this.content.id) {
-            this.$el.attr('data-content-id', this.content.id)
+            this.$el.attr('data-content-id', this.content.id);
         }
     };
     
