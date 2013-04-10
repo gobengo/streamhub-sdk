@@ -3,7 +3,7 @@ define(['jquery', 'streamhub-sdk/content/content'], function($, Content) {
     var LivefyreContent = function(json) {
         Content.call(this);
         this.body = json.content.bodyHtml;
-        this.source = LivefyreContent._sources[json.source];
+        this.source = LivefyreContent.SOURCES[json.source];
         this.id = json.content.id;
         this.author = json.author;
         this.createdAt = json.content.createdAt;
@@ -35,7 +35,7 @@ define(['jquery', 'streamhub-sdk/content/content'], function($, Content) {
         );
     };
     
-    LivefyreContent._sources = [
+    LivefyreContent.SOURCES = [
         "livefyre", 
         "twitter",
         "twitter",

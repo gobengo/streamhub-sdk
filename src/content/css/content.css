@@ -29,8 +29,11 @@
   overflow-x: hidden;
 }
 .content .content-author-avatar + .content-main {
-  margin-left: 53px;
   min-height: 48px;
+}
+.content .content-author-avatar + .content-main,
+.content .content-author-avatar ~ .content-actions {
+  margin-left: 53px;
 }
 .content .content-byline {
   font-weight: bold;
@@ -43,6 +46,10 @@
   font-size: 12px;
   color: #999;
   display: none;
+}
+.content .content-byline .content-source-logo {
+  float: right;
+  margin-left: 5px;
 }
 .content .content-attachment {
   margin-top: 5px;
@@ -57,4 +64,21 @@
 .content .content-attachment > img {
   border-radius: 5px;
   margin: 0 auto;
+}
+.content .content-actions {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 5px;
+  font-size: 12px;
+}
+.content .content-actions img {
+  vertical-align: bottom;
+  margin-right: 2px;
+}
+.content .content-actions a {
+  color: #999;
+}
+.content .content-actions .content-action {
+  display: inline;
 }

@@ -33,10 +33,14 @@
     }
     
     .content-author-avatar + .content-main {
-        margin-left: 53px;
         min-height:48px;
-    } 
+    }
     
+    .content-author-avatar + .content-main, 
+    .content-author-avatar ~ .content-actions {
+        margin-left: 53px;
+    }
+	
     .content-byline {
 	    font-weight: bold;
         margin:0px;
@@ -47,6 +51,10 @@
             font-size:12px;
             color:#999;
             display:none;
+        }
+        .content-source-logo {
+            float:right;
+            margin-left:5px;
         }
     }
     
@@ -65,5 +73,22 @@
     .content-attachment > img {
         border-radius:5px;
         margin: 0 auto;
+    }
+    .content-actions {
+        list-style-type:none;
+        padding:0px;
+        margin:0px;
+        margin-top:5px;
+        font-size:12px;
+        img {
+            vertical-align:bottom;
+            margin-right:2px;
+        }
+        a {
+            color:#999;
+        }
+        .content-action {
+            display:inline;
+        }
     }
 }

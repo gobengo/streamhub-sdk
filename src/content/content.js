@@ -5,7 +5,7 @@ define([
 
     var Content = function(body) {
         EventEmitter.call(this);
-        this.body = body;
+        this.body = this.body || body;
         this.attachments = [];
         this.replies = [];
     };
