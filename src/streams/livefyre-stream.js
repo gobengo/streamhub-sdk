@@ -89,6 +89,7 @@ define([
                         } else {
                             content = new LivefyreContent(state);
                         }
+                        
                         if (content && content.id) {
                             Storage.set(content.id, content);
                         }
