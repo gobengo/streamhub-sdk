@@ -54,7 +54,7 @@ define([
             sortKey = sortKey + 1;
         }
 
-        var contentView = new ContentView({content:content});
+        var contentView = this.createContentView(content);
         contentView.render();
 
         $(contentView.el).on('imageLoaded', function() {
