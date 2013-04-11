@@ -4,5 +4,5 @@ if (process.env.BUILD_NUMBER) {
 
     component.version = component.version + '+build.' + process.env.BUILD_NUMBER;
 
-    fs.writeFileSync('component.json', JSON.stringify(component));
+    fs.writeFileSync('component.json', JSON.stringify(component, null, "  "));
 }
