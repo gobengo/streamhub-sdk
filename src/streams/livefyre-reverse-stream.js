@@ -84,9 +84,9 @@ define([
                     } else {
                         content.addReply(childContent);
                     }
-	                if (childContent && childContent.id) {
-	                    Storage.set(childContent.id, childContent);
-	                }
+                    if (childContent && childContent.id) {
+                        Storage.set(childContent.id, childContent);
+                    }
                 }
             }
             self._endRead();

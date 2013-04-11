@@ -67,35 +67,9 @@ function ($, jasmine, View, Stream) {
             
                 view = new View(opts);
             });
-            
-            it ("should call start() on main stream when startStreams() is called with no args", function () {
-                view.startStreams();
-        
-                waitsFor(function() {
-                    return opts.streams.main.start.callCount > 0;
-                });
-                runs(function() {
-                    expect(opts.streams.main.start).toHaveBeenCalled();
-                    expect(opts.streams.main.start.callCount).toBe(1);
-                });                            
-            });
 
-            it ("should call start() on all streams when startStreams() is called with '*'", function () {
-                view.startStreams("*");
-        
-                waitsFor(function() {
-                    return opts.streams.main.start.callCount > 0 &&  opts.streams.reverse.start.callCount > 0;
-                });
-                runs(function() {
-                    expect(opts.streams.main.start).toHaveBeenCalled();
-                    expect(opts.streams.main.start.callCount).toBe(1);
-                    expect(opts.streams.reverse.start).toHaveBeenCalled();
-                    expect(opts.streams.reverse.start.callCount).toBe(1);
-                });                            
-            });
-
-            it ("should call start() on main & reverse streams when startStreams() is called with ['main, 'reverse']", function () {
-                view.startStreams(['main', 'reverse']);
+            it ("should call start() on main & reverse streams when streams.start() is called", function () {
+                view.streams.start();
         
                 waitsFor(function() {
                     return opts.streams.main.start.callCount > 0 && opts.streams.reverse.start.callCount > 0;
@@ -103,18 +77,6 @@ function ($, jasmine, View, Stream) {
                 runs(function() {
                     expect(opts.streams.main.start).toHaveBeenCalled();
                     expect(opts.streams.main.start.callCount).toBe(1);
-                    expect(opts.streams.reverse.start).toHaveBeenCalled();
-                    expect(opts.streams.reverse.start.callCount).toBe(1);
-                });                            
-            });
-
-            it ("should call start() on reverse stream when streamOlder()", function () {
-                view.streamOlder();
-        
-                waitsFor(function() {
-                    return opts.streams.reverse.start.callCount > 0;
-                });
-                runs(function() {
                     expect(opts.streams.reverse.start).toHaveBeenCalled();
                     expect(opts.streams.reverse.start.callCount).toBe(1);
                 });                            
@@ -134,8 +96,6 @@ function ($, jasmine, View, Stream) {
                 });
                 runs(function() {
                     expect(spy).toHaveBeenCalled();
-                    expect(view.contentSet.length).toBe(1);
-                    expect(view.contentSet[0]).toBeDefined();
                 });
             });
         });

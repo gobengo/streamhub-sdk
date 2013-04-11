@@ -68,7 +68,7 @@ define([
                     }
                     
                     if (state.content) {
-	                    state.author = authors[state.content.authorId];
+                        state.author = authors[state.content.authorId];
                         
                         var content;
                         
@@ -76,19 +76,19 @@ define([
                             parentContent = Storage.get(state.content.targetId);
                             content = LivefyreStream.createContent(state);
                         
-	                        if (content instanceof Oembed) { // oembed
-	                            parentContent.addAttachment(content);
-	                        } else {
-	                            parentContent.addReply(content);
-	                        }
+                            if (content instanceof Oembed) { // oembed
+                                parentContent.addAttachment(content);
+                            } else {
+                                parentContent.addReply(content);
+                            }
                         } else if (state.type === 0) {
                             content = LivefyreStream.createContent(state);
-	                        self._push(content);
+                            self._push(content);
                         }
-	                    if (content && content.id) {
-	                        Storage.set(content.id, content);
-	                    }
-	                }
+                        if (content && content.id) {
+                            Storage.set(content.id, content);
+                        }
+                    }
                 }
                 self.commentId = latestEvent;
             }
