@@ -5,6 +5,7 @@
 define([
     'jquery',
     'streamhub-sdk/stream',
+    'streamhub-sdk/streams/livefyre-stream',
     'streamhub-sdk/clients/livefyre-bootstrap-client',
     'streamhub-sdk/content/types/livefyre-content',
     'streamhub-sdk/content/types/livefyre-twitter-content',
@@ -14,6 +15,7 @@ define([
 ], function(
     $, 
     Stream, 
+    LivefyreStream,
     LivefyreBootstrapClient, 
     LivefyreContent, 
     LivefyreTwitterContent, 
@@ -67,16 +69,7 @@ define([
                 var state = data.content[i];
                 state.author = authors[state.content.authorId];
                 
-                var content;
-                var source = LivefyreContent.SOURCES[state.source];
-
-                if (source === 'twitter') {
-                    content = new LivefyreTwitterContent(state);
-                } else if (source === 'facebook') {
-                    content = new LivefyreFacebookContent(state);
-                } else {
-                    content = new LivefyreContent(state);
-                }
+                var content = LivefyreStream.createContent(state);
 
                 if (content && content.id) {
                     Storage.set(content.id, content);
@@ -85,11 +78,15 @@ define([
 
                 // todo: make this recursive for nested replies
                 for (var j in state.childContent) {
-                    if (state.childContent[j].type === 3) { // oembed
-                        content.addAttachment(new Oembed(state.childContent[j]));
-                    } else if (state.type === 0) {
-                        content.addReply(new LivefyreContent(state.childContent[j]));
+                    var childContent = LivefyreStream.createContent(state.childContent[j]);
+                    if (childContent instanceof Oembed) {
+                        content.addAttachment(childContent);
+                    } else {
+                        content.addReply(childContent);
                     }
+	                if (childContent && childContent.id) {
+	                    Storage.set(childContent.id, childContent);
+	                }
                 }
             }
             self._endRead();

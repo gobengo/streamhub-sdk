@@ -32,10 +32,9 @@
             var streams = new Hub.Streams.forCollection(opts);
 
             var listView = window.view = new ListView({
-                    streams: streams,
-                    el: document.getElementById("listView")
-                });
-            listView.startStreams("*");
+                streams: streams.start(),
+                el: document.getElementById("listView")
+            });
         });
         </script>
     </body>

@@ -59,15 +59,13 @@ define([
         this.streams = streams;
 
         this.el = opts.el;
-        this.contentSet = [];
         this.contentRegistry = View.DEFAULT_REGISTRY;
 
         var self = this;
 
         streams.on('readable', function (stream) {
             var content = stream.read();
-            self.contentSet.push(content);
-            self.emit('add', content, self);
+            self.emit('add', content, stream, self);
         });
 
         this.initialize.apply(this, arguments);
@@ -98,22 +96,6 @@ define([
      */
     View.prototype.initialize = function () {};
 
-    /**
-     * Triggers the view's streams to start.
-     * @param streamNames {?Array.<string>|string} A list of (or singular) stream names to call
-     *     .start() on (Defaults to ["main"]). Also accepts "*" for all streams. 
-     */
-    View.prototype.startStreams = function(streamNames) {
-        this.streams.start(streamNames);
-    };
-
-    /**
-     * Triggers the view's reverse stream to start, if present.
-     */
-    View.prototype.streamOlder = function() {
-        this.startStreams("reverse");
-    };
-    
     /**
      * Creates a content view from the given piece of content, by looking in this view's
      * content registry for the supplied content type.
