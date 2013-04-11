@@ -110,9 +110,7 @@ define([
      * @param opts {Object} Options to pass to the LivefyreWriteClient
      * @private
      */
-    LivefyreStream.prototype._write = function(opts) {
-        var self = this;
-        
+    LivefyreStream.prototype._write = function(opts) {        
         var params = {
             network: this.network,
             collectionId: this.collectionId,
@@ -120,7 +118,7 @@ define([
             body: opts.body
         };
         
-        LivefyreWriteClient.postContent(params);
+        LivefyreWriteClient.postContent(params, opts.callback);
     };
     return LivefyreStream;
 });
