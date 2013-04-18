@@ -2,7 +2,7 @@
  * A module wrap a Set of named Stream instances
  * @module streamhub-sdk/StreamManager
  */
-define(['streamhub-sdk/event-emitter'], function (EventEmitter) {
+define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
 
 	/**
 	 * Manages a collection of Streams 
