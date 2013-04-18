@@ -18,7 +18,7 @@ function ($, jasmine, View, Stream, jasmineJquery, JasmineSpyStream) {
             };
 
             view = new View(opts);
-    
+
             waitsFor(function() {
                 return opts.streams.main.on.callCount > 0 && opts.streams.reverse.on.callCount > 0;
             });
@@ -78,74 +78,11 @@ function ($, jasmine, View, Stream, jasmineJquery, JasmineSpyStream) {
                 opts.streams.main.start = jasmine.createSpy();
                 opts.streams.reverse.start = jasmine.createSpy();
 
-                spyOn(View.prototype, 'setElement').andCallThrough();
-
                 view = new View(opts);
             });
 
-            it ("calls .setElement", function () {
-                expect(view.setElement).toHaveBeenCalled();
-            });
-
-            it ("has a .el with class of this.elClass", function () {
-                expect(view.$el).toHaveClass(view.elClass);
-            });
-
-            it ("uses a .el with an HTML tag of this.elTag", function () {
-                expect(view.$el).toBe(view.elTag);
-            });
-
-            describe("with opts.el", function () {
-                beforeEach(function () {
-                    setFixtures(sandbox());
-                    $el = $('#sandbox');
-                    el = $el[0];
-
-                    view = new View({
-                        el: el,
-                        streams: {
-                            main: new JasmineSpyStream()
-                        }
-                    });
-                });
-
-                it ("should have .el set to opts.el", function () {
-                    expect(view.el).toBe(el);
-                });
-
-                it ("should have .$el set to $(opts.el)", function () {
-                    expect(view.$el).toBe($el);
-                });
-            });
-
-            it ("should call start() on main stream when startStreams() is called with no args", function () {
-                view.startStreams();
-
-                waitsFor(function() {
-                    return opts.streams.main.start.callCount > 0;
-                });
-                runs(function() {
-                    expect(opts.streams.main.start).toHaveBeenCalled();
-                    expect(opts.streams.main.start.callCount).toBe(1);
-                });
-            });
-
-            it ("should call start() on all streams when startStreams() is called with '*'", function () {
-                view.startStreams("*");
-        
-                waitsFor(function() {
-                    return opts.streams.main.start.callCount > 0 &&  opts.streams.reverse.start.callCount > 0;
-                });
-                runs(function() {
-                    expect(opts.streams.main.start).toHaveBeenCalled();
-                    expect(opts.streams.main.start.callCount).toBe(1);
-                    expect(opts.streams.reverse.start).toHaveBeenCalled();
-                    expect(opts.streams.reverse.start.callCount).toBe(1);
-                });                            
-            });
-
-            it ("should call start() on main & reverse streams when startStreams() is called with ['main, 'reverse']", function () {
-                view.startStreams(['main', 'reverse']);
+            it ("should call start() on main & reverse streams when streams.start() is called", function () {
+                view.streams.start();
         
                 waitsFor(function() {
                     return opts.streams.main.start.callCount > 0 && opts.streams.reverse.start.callCount > 0;
@@ -153,18 +90,6 @@ function ($, jasmine, View, Stream, jasmineJquery, JasmineSpyStream) {
                 runs(function() {
                     expect(opts.streams.main.start).toHaveBeenCalled();
                     expect(opts.streams.main.start.callCount).toBe(1);
-                    expect(opts.streams.reverse.start).toHaveBeenCalled();
-                    expect(opts.streams.reverse.start.callCount).toBe(1);
-                });                            
-            });
-
-            it ("should call start() on reverse stream when streamOlder()", function () {
-                view.streamOlder();
-        
-                waitsFor(function() {
-                    return opts.streams.reverse.start.callCount > 0;
-                });
-                runs(function() {
                     expect(opts.streams.reverse.start).toHaveBeenCalled();
                     expect(opts.streams.reverse.start.callCount).toBe(1);
                 });                            
@@ -184,8 +109,6 @@ function ($, jasmine, View, Stream, jasmineJquery, JasmineSpyStream) {
                 });
                 runs(function() {
                     expect(spy).toHaveBeenCalled();
-                    expect(view.contentSet.length).toBe(1);
-                    expect(view.contentSet[0]).toBeDefined();
                 });
             });
         });

@@ -10,12 +10,14 @@ define([
     'streamhub-sdk/content/content',
     'streamhub-sdk/content/types/livefyre-content',
     'streamhub-sdk/content/types/livefyre-twitter-content',
+    'streamhub-sdk/content/types/livefyre-facebook-content',
     'streamhub-sdk/content/types/oembed',
     'streamhub-sdk/content/types/twitter-content',
     'streamhub-sdk/content/types/twitter-search-content',
     'streamhub-sdk/content/types/twitter-streaming-content',
     'streamhub-sdk/content/views/content-view',
-    'streamhub-sdk/content/views/twitter-content-view'
+    'streamhub-sdk/content/views/twitter-content-view',
+    'streamhub-sdk/content/views/facebook-content-view'
 ], function(
     $,
     EventEmitter,
@@ -24,12 +26,14 @@ define([
     Content,
     LivefyreContent,
     LivefyreTwitterContent,
+    LivefyreFacebookContent,
     Oembed,
     TwitterContent,
     TwitterSearchContent,
     TwitterStreamingContent, 
     ContentView,
-    TwitterContentView
+    TwitterContentView,
+    FacebookContentView
 ) {
 
     /**
@@ -54,17 +58,14 @@ define([
         }
         this.streams = streams;
 
-        this.setElement(opts.el || document.createElement(this.elTag));
-
-        this.contentSet = [];
+        this.el = opts.el;
         this.contentRegistry = View.DEFAULT_REGISTRY;
 
         var self = this;
 
         streams.on('readable', function (stream) {
             var content = stream.read();
-            self.contentSet.push(content);
-            self.emit('add', content, self);
+            self.emit('add', content, stream, self);
         });
 
         this.initialize.apply(this, arguments);
@@ -77,6 +78,7 @@ define([
      */
     View.DEFAULT_REGISTRY = [
         { type: LivefyreTwitterContent, view: TwitterContentView },
+        { type: LivefyreFacebookContent, view: FacebookContentView },
         { type: TwitterContent, view: TwitterContentView },
         { type: TwitterSearchContent, view: TwitterContentView },
         { type: TwitterStreamingContent, view: TwitterContentView },
@@ -104,33 +106,6 @@ define([
      */
     View.prototype.initialize = function () {};
 
-    /**
-     * Set the .el DOMElement that the View should render to. Creates internal .el and
-     *    .$el properties and adds this.elClass
-     * @param el {DOMElement} The new element the View should render to
-     */
-    View.prototype.setElement = function (el) {
-        this.el = el;
-        this.$el = $(el);
-        this.$el.addClass(this.elClass);
-    };
-
-    /**
-     * Triggers the view's streams to start.
-     * @param streamNames {?Array.<string>|string} A list of (or singular) stream names to call
-     *     .start() on (Defaults to ["main"]). Also accepts "*" for all streams. 
-     */
-    View.prototype.startStreams = function(streamNames) {
-        this.streams.start(streamNames);
-    };
-
-    /**
-     * Triggers the view's reverse stream to start, if present.
-     */
-    View.prototype.streamOlder = function() {
-        this.startStreams("reverse");
-    };
-    
     /**
      * Creates a content view from the given piece of content, by looking in this view's
      * content registry for the supplied content type.

@@ -26,10 +26,6 @@ function($, View, ContentView) {
     };
     $.extend(ListView.prototype, View.prototype);
 
-    // Used if ListView needs to create its own DOMElement
-    ListView.prototype.elTag = 'ul';
-    ListView.prototype.elClass = 'content-list';
-
     /**
      * Add a piece of Content to the ListView
      *     .createContentView(content)
@@ -45,7 +41,7 @@ function($, View, ContentView) {
         this.contentViews.push(newContentView);
         newContentView.render();
 
-        $(newContentView.el).prependTo(this.$el);
+        $(newContentView.el).prependTo(this.el);
 
         return newContentView;
     };

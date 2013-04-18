@@ -9,6 +9,7 @@ define([
     'streamhub-sdk/clients/livefyre-write-client',
     'streamhub-sdk/content/types/livefyre-content',
     'streamhub-sdk/content/types/livefyre-twitter-content',
+    'streamhub-sdk/content/types/livefyre-facebook-content',
     'streamhub-sdk/content/types/oembed',
     'streamhub-sdk/storage'
 ], function(
@@ -18,6 +19,7 @@ define([
     LivefyreWriteClient,
     LivefyreContent,
     LivefyreTwitterContent,
+    LivefyreFacebookContent,
     Oembed,
     Storage
 ) {
@@ -66,31 +68,28 @@ define([
                     if (state.event > latestEvent) {
                         latestEvent = state.event;
                     }
-                    state.author = authors[state.content.authorId];
                     
-                    var content;
-                    
-                    if (state.content && state.content.targetId && Storage.get(state.content.targetId)) {
-                        content = Storage.get(state.content.targetId);
+                    if (state.content) {
+                        state.author = authors[state.content.authorId];
                         
-                        if (state.type === 3) { // oembed
-                            //console.log('got oembed');
-                            content.addAttachment(new Oembed(state));
+                        var content;
+                        
+                        if (state.content.targetId && Storage.get(state.content.targetId)) {
+                            parentContent = Storage.get(state.content.targetId);
+                            content = LivefyreStream.createContent(state);
+                        
+                            if (content instanceof Oembed) { // oembed
+                                parentContent.addAttachment(content);
+                            } else {
+                                parentContent.addReply(content);
+                            }
                         } else if (state.type === 0) {
-                            content.addReply(new LivefyreContent(state));
-                        }
-                    } else if (state.type === 0) {
-                        var source = LivefyreContent.SOURCES[state.source];
-
-                        if (source === 'twitter') {
-                            content = new LivefyreTwitterContent(state);
-                        } else {
-                            content = new LivefyreContent(state);
+                            content = LivefyreStream.createContent(state);
+                            self._push(content);
                         }
                         if (content && content.id) {
                             Storage.set(content.id, content);
                         }
-                        self._push(content);
                     }
                 }
                 self.commentId = latestEvent;
@@ -107,9 +106,7 @@ define([
      * @param opts {Object} Options to pass to the LivefyreWriteClient
      * @private
      */
-    LivefyreStream.prototype._write = function(opts) {
-        var self = this;
-        
+    LivefyreStream.prototype._write = function(opts) {        
         var params = {
             network: this.network,
             collectionId: this.collectionId,
@@ -117,7 +114,40 @@ define([
             body: opts.body
         };
         
-        LivefyreWriteClient.postContent(params);
+        LivefyreWriteClient.postContent(params, opts.callback);
     };
+    
+    LivefyreStream.SOURCES = [
+        "livefyre", 
+        "twitter",
+        "twitter",
+        "facebook",
+        "livefyre",
+        "livefyre",
+        "facebook",
+        "twitter",
+        "livefyre",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "feed",
+        "facebook"
+    ];
+
+    LivefyreStream.createContent = function(state) {
+        state.sourceName = LivefyreStream.SOURCES[state.source];
+        
+        if (state.type === 3) {
+            return new Oembed(state);
+        } else if (state.sourceName === 'twitter') {
+            return new LivefyreTwitterContent(state);
+        } else if (state.sourceName === 'facebook') {
+            return new LivefyreFacebookContent(state);
+        } else {
+            return new LivefyreContent(state);
+        }
+    };
+
     return LivefyreStream;
 });
