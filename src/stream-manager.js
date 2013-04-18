@@ -11,14 +11,14 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
     var StreamManager = function(streamObj) {
         EventEmitter.call(this);
         streamObj = streamObj || {};
-        this._Streams = {};
-        this._Views = [];
+        this._streams = {};
+        this._views = [];
         var self = this;
         this.on('readable', function(stream) {
             var content = stream.read(),
                 view;
-            for (var i=0; i < self._Views.length; i++) {
-                view = self._Views[i];
+            for (var i=0; i < self._views.length; i++) {
+                view = self._views[i];
                 view.emit('add', content, stream, view);
             }
         });
@@ -56,7 +56,7 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
             return;
         }
         var name = nameOrStreamObj;
-        self._Streams[name] = stream;
+        self._streams[name] = stream;
         stream.on('readable', function () {
             self.emit('readable', stream);
         });
@@ -68,9 +68,9 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
      */
     StreamManager.prototype.get = function (name) {
         if (name) {
-            return this._Streams[name];
+            return this._streams[name];
         }
-        return this._Streams;
+        return this._streams;
     };
 
     /**
@@ -78,7 +78,7 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
      * @params view {View} The view to bind.
      */
     StreamManager.prototype.bindView = function(view) {
-       this._Views.push(view);
+       this._views.push(view);
        return this;
     };
 
@@ -88,8 +88,8 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
      *     `(stream, streamName)`
      */
     StreamManager.prototype.forEach = function (cb) {
-        for (var key in this._Streams) {
-            cb.apply(this, [this._Streams[key], key]);
+        for (var key in this._streams) {
+            cb.apply(this, [this._streams[key], key]);
         }
     };
 
