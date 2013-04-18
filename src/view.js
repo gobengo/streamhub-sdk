@@ -75,16 +75,6 @@ define([
     View.extend = Util.extend;
 
     /**
-     * The HTML tag to use for elements created for this View
-     */
-    View.prototype.elTag = 'div';
-
-    /**
-     * An HTML class attribute string to use for elements created for this View
-     */
-    View.prototype.elClass = '';
-
-    /**
      * Initializes the View after construction. Subclasses can implement this
      */
     View.prototype.initialize = function () {};
