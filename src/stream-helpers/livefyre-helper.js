@@ -6,7 +6,8 @@ define([
 function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreReverseStream) {
     
     /**
-     * A set of Streams bound to a Livefyre Collection
+     * Create a set of Streams bound to a Livefyre Collection, and passes to a callback
+     * This requires a single HTTP request
      * @exports streamhub-sdk/streams/livefyre-collection-streams
      */
     var createLivefyreStreams = function (opts, callback) {
@@ -31,12 +32,33 @@ function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRevers
                 page: lastPageNum
             }, opts));
 
-            var streamManager = new StreamManager({ 'main': mainStream, 'reverse': reverseStream });
-            callback(null, streamManager);
+            callback(null, { 'main': mainStream, 'reverse': reverseStream });
         });
     };
 
+    /*
+     * Get a StreamManager that will later be bound to a Livefyre Collection
+     * No HTTP requests will be made until `.start()` is called.
+     * @param opts {Object} Opts for a Livefyre Collection: network, siteId, articleId, environment
+     * @throws Error if creating LivefyreStreamManager
+     */
+    var getLivefyreStreamManager = function (opts) {
+        var streamManager = new StreamManager({});
+        // Only init the LivefyreStreams once the StreamManager has been started
+        streamManager.start = function () {
+            createLivefyreStreams(opts, function (err, streams) {
+                if (err) {
+                    console.log("Error creating LivefyreStreamManager. Check your options", opts);
+                    throw new Error("Error creating LivefyreStreamManager", err)
+                }
+                streamManager.set(streams);
+                StreamManager.prototype.start.call(streamManager);
+            });
+        };
+        return streamManager;
+    }
+
     StreamManager.addHelper(function(create) {
-        create.livefyreStreams = createLivefyreStreams;
+        create.livefyreStreams = getLivefyreStreamManager;
     });
 });

@@ -45,6 +45,7 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
      * `.set({ name1: stream1, name2: stream2 })`
      */
     StreamManager.prototype.set = function (nameOrStreamObj, stream) {
+        console.log('set', this, arguments);
         var self = this;
         if (typeof nameOrStreamObj === 'object') {
             var streamObject = nameOrStreamObj;
@@ -55,6 +56,9 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
             }
             return;
         }
+
+        if (! stream) return;
+
         var name = nameOrStreamObj;
         self._streams[name] = stream;
         stream.on('readable', function () {

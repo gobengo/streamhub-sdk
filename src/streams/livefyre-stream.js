@@ -55,7 +55,7 @@ define([
         };
         
         LivefyreStreamClient.getContent(opts, function(err, data) {
-            if (err && err != "Timeout") {
+            if (!data || err && err != "Timeout") {
                 self.emit('error', err);
                 self._endRead();
                 return;
