@@ -54,10 +54,9 @@
 .content .content-attachment {
   display: inline-block;
   margin-top: 5px;
-  width: 100%;
 }
 .content .content-attachment > * {
-  width: 100%;
+  max-width: 100%;
   display: block;
 }
 .content .content-attachment > iframe {
