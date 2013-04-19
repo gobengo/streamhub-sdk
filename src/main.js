@@ -1,4 +1,5 @@
 define([
+    'streamhub-sdk/auth',
     'streamhub-sdk/stream',
     'streamhub-sdk/event-emitter',
     'streamhub-sdk/content/content',
@@ -15,6 +16,7 @@ define([
     'streamhub-sdk/views/media-wall-view',
     'text!streamhub-sdk/version.txt'
 ], function(
+    Auth,
     Stream,
     EventEmitter,
     Content,
@@ -32,6 +34,7 @@ define([
     VersionInfo
 ) {
     var Hub = {};
+    Hub.Auth = Auth;
     Hub.Stream = Stream;
     Hub.EventEmitter = EventEmitter;
     Hub.Content = Content;
