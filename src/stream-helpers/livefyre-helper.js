@@ -48,15 +48,14 @@ function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRevers
         streamManager.start = function () {
             createLivefyreStreams(opts, function (err, streams) {
                 if (err) {
-                    console.log("Error creating LivefyreStreamManager. Check your options", opts);
-                    throw new Error("Error creating LivefyreStreamManager", err)
+                    throw new Error("Error creating LivefyreStreamManager", err);
                 }
                 streamManager.set(streams);
                 StreamManager.prototype.start.call(streamManager);
             });
         };
         return streamManager;
-    }
+    };
 
     StreamManager.addHelper(function(create) {
         create.livefyreStreams = getLivefyreStreamManager;
