@@ -16,6 +16,9 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
         this.isStarted = false;
         var self = this;
         this.on('readable', function(stream) {
+            // Don't read off the buffer if StreamManager isn't going to put it anywhere
+            if (self._views.length === 0) return;
+
             var content = stream.read(),
                 view;
             for (var i=0; i < self._views.length; i++) {

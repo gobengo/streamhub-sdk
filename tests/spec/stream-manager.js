@@ -3,8 +3,9 @@ define([
     'jasmine',
     'streamhub-sdk',
     'jasmine-jquery',
-    'streamhub-sdk-tests/mocks/jasmine-spy-stream'],
-function ($, jasmine, Hub, jasmineJquery, JasmineSpyStream) {
+    'streamhub-sdk-tests/mocks/jasmine-spy-stream',
+    'streamhub-sdk-tests/mocks/mock-stream'],
+function ($, jasmine, Hub, jasmineJquery, JasmineSpyStream, MockStream) {
     describe('A StreamManager', function () {
 
         it ('can be constructed with no args', function () {
@@ -104,6 +105,40 @@ function ($, jasmine, Hub, jasmineJquery, JasmineSpyStream) {
                 expect(streamManager.isStarted).toBe(true);
             });
         });
+
+        describe("when dealing with views", function () {
+            it("reads from readable streams and emits add on any bound views", function () {
+                var streamManager = new Hub.StreamManager({
+                    main: new MockStream()
+                });
+
+                var view1 = { emit: jasmine.createSpy() };
+                var view2 = { emit: jasmine.createSpy() };
+                streamManager.bindView(view1).bindView(view2);
+
+                streamManager.start();
+
+                expect(view1.emit).toHaveBeenCalled();
+                expect(view1.emit.mostRecentCall.args[0]).toBe('add');
+                expect(view2.emit).toHaveBeenCalled();
+                expect(view2.emit.mostRecentCall.args[0]).toBe('add');
+            });
+
+            it("doesn't read from a stream if there are no views", function () {
+                var streamManager = new Hub.StreamManager({
+                    main: new MockStream()
+                });
+
+                var readableStream = null;
+                streamManager.on('readable', function (stream) {
+                    readableStream = stream;
+                });
+                streamManager.start();
+
+                waits(readableStream);
+                expect(readableStream.read()).toBeDefined();
+            });
+        })
 
     });
 });
