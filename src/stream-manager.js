@@ -46,8 +46,9 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
      * `.set({ name1: stream1, name2: stream2 })`
      */
     StreamManager.prototype.set = function (nameOrStreamObj, stream) {
-        console.log('set', this, arguments);
         var self = this;
+
+        // If passed an object, call recursively with each key/val
         if (typeof nameOrStreamObj === 'object') {
             var streamObject = nameOrStreamObj;
             for (var key in streamObject) {
@@ -68,7 +69,7 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
     };
 
     /**
-     * Get all the StreamManager inside this StreamManager object
+     * Get all the streams inside this StreamManager object
      * @param name {?String} Get only a stream with this name
      */
     StreamManager.prototype.get = function (name) {
