@@ -58,7 +58,7 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
      * @param opts {Object} Options to pass to the implemented subclass's _write
      */    
     Stream.prototype.write = function(opts) {
-        this._write(opts);
+        this._write.apply(this, arguments);
     };
 
     /**
