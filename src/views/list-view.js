@@ -37,8 +37,8 @@ function($, View, ContentView) {
      */
     ListView.prototype.add = function(content, stream) {
         var contentView = this.getExistingContentView(content);
+
         if (contentView) {
-            console.log("existing contentview", contentView);
             return contentView;
         }
 
