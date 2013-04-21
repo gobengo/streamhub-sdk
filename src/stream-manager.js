@@ -13,6 +13,7 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
         streamObj = streamObj || {};
         this._streams = {};
         this._views = [];
+        this.isStarted = false;
         var self = this;
         this.on('readable', function(stream) {
             var content = stream.read(),
@@ -23,14 +24,14 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
             }
         });
         this.set(streamObj);
-    }
+    };
     $.extend(StreamManager.prototype, EventEmitter.prototype);
 
     /**
      * A set of pluggable stream creator methods.
      */
     StreamManager.create = {};
-    
+
     /**
      * Adds a helper method to the "create" property of the StreamManager
      * @param helperFn {Function} A function that will add creators to the "create" property 
@@ -104,6 +105,7 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
         this.forEach(function (stream, name) {
             stream.start();
         });
+        this.isStarted = true;
         return this;
     };
 

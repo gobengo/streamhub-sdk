@@ -4,7 +4,7 @@ define([
     'streamhub-sdk/streams/livefyre-stream',
     'streamhub-sdk/streams/livefyre-reverse-stream'],
 function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreReverseStream) {
-    
+
     /**
      * Create a set of Streams bound to a Livefyre Collection, and passes to a callback
      * This requires a single HTTP request
@@ -12,7 +12,7 @@ function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRevers
      */
     var createLivefyreStreams = function (opts, callback) {
         var self = this;
-        
+
         LivefyreBootstrapClient.getContent(opts, function(err, data) {
             if (err) {
                 return callback(err);
@@ -49,14 +49,14 @@ function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRevers
             createLivefyreStreams(opts, function (err, streams) {
                 if (err) {
                     console.log("Error creating LivefyreStreamManager. Check your options", opts);
-                    throw new Error("Error creating LivefyreStreamManager", err)
+                    throw new Error("Error creating LivefyreStreamManager", err);
                 }
                 streamManager.set(streams);
                 StreamManager.prototype.start.call(streamManager);
             });
         };
         return streamManager;
-    }
+    };
 
     StreamManager.addHelper(function(create) {
         create.livefyreStreams = getLivefyreStreamManager;
