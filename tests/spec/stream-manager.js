@@ -102,7 +102,7 @@ function ($, jasmine, Hub, jasmineJquery, JasmineSpyStream) {
                 expect(streamManager.isStarted).toBe(false);
                 streamManager.start();
                 expect(streamManager.isStarted).toBe(true);
-            })
+            });
         });
 
     });

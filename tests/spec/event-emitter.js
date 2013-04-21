@@ -14,8 +14,8 @@ function ($, jasmine, EventEmitter) {
 
         it ("should add a listener when .on() is called", function () {
             emitter.on("blah", callback);
-            expect(emitter._listeners["blah"].length).toBe(1);
-            expect(emitter._listeners["blah"][0]).toBe(callback);
+            expect(emitter._listeners.blah.length).toBe(1);
+            expect(emitter._listeners.blah[0]).toBe(callback);
         });
 
         it ("should call listener when .emit() is called", function () {
@@ -28,7 +28,7 @@ function ($, jasmine, EventEmitter) {
         it ("should remove listener when .remove() is called", function () {
             emitter.on("blah", callback);
             emitter.remove("blah", callback);
-            expect(emitter._listeners["blah"].length).toBe(0);
+            expect(emitter._listeners.blah.length).toBe(0);
         });
 
         it ("should return an emitter when .emits() is called", function () {

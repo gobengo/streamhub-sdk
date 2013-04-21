@@ -45,8 +45,8 @@ define(['jasmine'], function(jasmine) {
      */
     var XUnitConsoleReporter = function(savePath, consolidate, useDotNotation) {
         this.savePath = savePath || '';
-        this.consolidate = consolidate === jasmine.undefined ? true : consolidate;
-        this.useDotNotation = useDotNotation === jasmine.undefined ? true : useDotNotation;
+        this.consolidate = consolidate === jasmine['undefined'] ? true : consolidate;
+        this.useDotNotation = useDotNotation === jasmine['undefined'] ? true : useDotNotation;
     };
     XUnitConsoleReporter.finished_at = null; // will be updated after all files have been written
 
