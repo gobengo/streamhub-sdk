@@ -4,7 +4,7 @@ define([
     'streamhub-sdk/streams/livefyre-stream',
     'streamhub-sdk/streams/livefyre-reverse-stream'],
 function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreReverseStream) {
-    
+
     /**
      * Create a set of Streams bound to a Livefyre Collection, and passes to a callback
      * This requires a single HTTP request
@@ -12,7 +12,7 @@ function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRevers
      */
     var createLivefyreStreams = function (opts, callback) {
         var self = this;
-        
+
         LivefyreBootstrapClient.getContent(opts, function(err, data) {
             if (err) {
                 return callback(err);
