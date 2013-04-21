@@ -39,7 +39,7 @@ define([
 
     function MockLivefyreContentStream (opts) {
         MockStream.call(this, opts);
-    };
+    }
 
     MockLivefyreContentStream.prototype = new MockStream();
 
@@ -63,6 +63,6 @@ define([
 
     MockTwitterContentStream.prototype.mocks = [
         new TwitterSearchContent(mockData.twitterSearch)
-    ]
+    ];
     return MockStream;
 });
