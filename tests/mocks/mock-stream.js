@@ -28,6 +28,10 @@ define([
         this.timeout = setTimeout(function () { self._read(); }, self.interval);
     };
 
+    MockStream.prototype._write = function (content) {
+        this._push(content);
+    }
+
     /**
      * A MockStream of LivefyreContent
      */

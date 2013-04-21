@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../lib/jasmine/lib/jasmine-core/jasmine.css">
+    <link rel="stylesheet" type="text/css" href="../src/views/css/list-view.css">
+    <link rel="stylesheet" type="text/css" href="../src/content/css/content.css">
+    <style>
+    body {
+        width:420px;
+    }
+    .content-form input[type=text] {
+        width: 100%;
+    }
+    </style>
+    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+</head>
+    <body>
+        
+        <form class="content-form">
+            <input type="text" name="content-body" />
+        </form>
+        <div id="listView"></div>
+
+        <script src="../../lib/requirejs/require.js" type="text/javascript"></script>
+        <script src="/requirejs.conf.js" type="text/javascript"></script>
+        <script>
+        var streams;
+        require([
+            'streamhub-sdk',
+            'streamhub-sdk/views/list-view',
+            'tests/mocks/mock-stream'
+        ],function (Hub, ListView, MockStream) {
+            
+            var listView = window.view = new ListView({
+                el: document.getElementById("listView")
+            });
+
+            streams = new Hub.StreamManager({
+                main: new MockStream({ interval: 10000 })
+            })
+            streams.bindView(listView).start();
+        });
+        require(['jquery', 'streamhub-sdk'], function ($, Hub) {
+            var $contentForm = $('.content-form');
+
+            $contentForm.submit(onContentFormSubmit);
+            function onContentFormSubmit (e) {
+                e.preventDefault();
+
+                var content = contentFromForm(e.target);
+                streams.get('main').write(content);
+                console.log(content.body, 'written');
+                // Clear the form
+                $(e.target).find('input[type=text], textarea').val('');
+            }
+
+            function contentFromForm (form) {
+                var formData = parseFormData(form);
+                var content = new Hub.Content(formData['content-body']);
+                return content;
+            }
+
+            function parseFormData (form) {
+                var $form = $(form);
+                var contentFormDataArray = $form.serializeArray();
+                var contentFormData = {};
+                $.each(contentFormDataArray, function (index, item) {
+                    contentFormData[item.name] = item.value;
+                });
+                return contentFormData;
+            }
+        });
+        </script>
+    </body>
+</html>

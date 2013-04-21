@@ -10,6 +10,7 @@ define([
     'streamhub-sdk/streams/livefyre-reverse-stream',
     'streamhub-sdk/stream-manager',
     'streamhub-sdk/stream-helpers/livefyre-helper',
+    'streamhub-sdk/content/content',
     'streamhub-sdk/content/types/livefyre-content',
     'streamhub-sdk/views/list-view',
     'streamhub-sdk/views/media-wall-view',
@@ -26,6 +27,7 @@ define([
     LivefyreReverseStream,
     StreamManager,
     LivefyreStreamHelper,
+    Content,
     LivefyreContent,
     ListView,
     MediaWallView,
@@ -48,6 +50,7 @@ define([
 
     Hub.StreamManager = StreamManager;
 
+    Hub.Content = Content;
     Hub.ContentTypes = {};
     Hub.ContentTypes.LivefyreContent = LivefyreContent;
 
