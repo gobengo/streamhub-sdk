@@ -55,12 +55,12 @@ define([
         };
         
         LivefyreStreamClient.getContent(opts, function(err, data) {
-            if (!data || err && err != "Timeout") {
+            if (err && err != "Timeout") {
                 self.emit('error', err);
                 self._endRead();
                 console.log("LivefyreStream stopping early", err, data);
                 return;
-            } else if (!err) {
+            } else if (data && !err) {
                 var authors = data.authors;
 
                 for (var i in data.states) {
