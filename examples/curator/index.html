@@ -40,11 +40,12 @@
         <script>
         var streams,
             listView,
+            tweetListView,
             lftoken = "eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJkb21haW4iOiAibGFicy5meXJlLmNvIiwgImV4cGlyZXMiOiAxMzY4NDA3NzIxLjEzNDQ5NywgInVzZXJfaWQiOiAiY29tbWVudGVyXzAifQ.K0cPm_io24_tUb4_PoLDKQAYZ6f82WCO_mqnXzyLj-g";
         require([
             'streamhub-sdk',
             'streamhub-sdk/views/list-view',
-            'tests/mocks/mock-stream'
+            'tests/mocks/mock-stream',
         ],function (Hub, ListView, MockStream) {
             listView = window.view = new ListView({
                 el: document.getElementById("listView")
@@ -66,8 +67,8 @@
             });
             tweetStreams.bindView(tweetListView).start();            
         });
-        require(['jquery', 'streamhub-sdk', 'streamhub-sdk/content/types/twitter-content'], 
-        function ($, Hub, TwitterContent) {
+        require(['jquery', 'streamhub-sdk', 'streamhub-sdk/content/types/twitter-content', 'streamhub-sdk/storage'], 
+        function ($, Hub, TwitterContent, Storage) {
             var $contentForm = $('.content-form');
             $contentForm.submit(onContentFormSubmit);
             function onContentFormSubmit (e) {
@@ -127,8 +128,12 @@
                             tweetId: contentId.match(/tweet-(\d+)@twitter\.com/)[1],
                             body: contentBody
                         });
+                    var storedTweet = Storage.get(contentId);
+                    var tweetView = listView.add(storedTweet);
+                    var $tweetViewEl = $(tweetView.el);
+                    $tweetViewEl.addClass('content-loading');
                     streams.get('main').write(tweetContent, { lftoken: lftoken }, function (err, writtenContent) {
-                        debugger;
+                        $tweetViewEl.removeClass('content-loading');
                     })
                 })
             })

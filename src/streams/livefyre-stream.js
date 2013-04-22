@@ -37,6 +37,7 @@ define([
         this.collectionId = opts.collectionId;
         this.commentId = opts.commentId;
         this.environment = opts.environment;
+        this.hasPushedContentId = {};
     };
     $.extend(LivefyreStream.prototype, Stream.prototype);
     
@@ -75,16 +76,14 @@ define([
     };
 
     LivefyreStream.prototype._handleState = function (state, authors) {
-        var self = this;      
+        var self = this,
+            content;
         if (state.content) {
             state.author = authors[state.content.authorId];
-            var content = Storage.get(state.content.id);
-            if (content) {
-                // Update existing content with new properties
-                content.set(LivefyreStream.createContent(state));
-            } else if (state.content.targetId && Storage.get(state.content.targetId)) {
+            var storedContent = Storage.get(state.content.id);
+            content = LivefyreStream.createContent(state);
+            if (state.content.targetId && Storage.get(state.content.targetId)) {
                 parentContent = Storage.get(state.content.targetId);
-                content = LivefyreStream.createContent(state);
             
                 if (content instanceof Oembed) { // oembed
                     parentContent.addAttachment(content);
@@ -92,8 +91,12 @@ define([
                     parentContent.addReply(content);
                 }
             } else if (state.type === 0) {
-                content = LivefyreStream.createContent(state);
-                self._push(content);
+                if (content.id && ! self.hasPushedContentId[content.id]) {
+                    self._push(content);
+                    self.hasPushedContentId[content.id] = true;
+                } else {
+                    self._push(content);
+                }
             }
 
             if (content && content.id) {
@@ -116,13 +119,23 @@ define([
             body: content.body
         };
         var self = this;
-        
-        LivefyreWriteClient.postContent(params, function (err, response) {
+        var post = LivefyreWriteClient.postContent;
+
+        // Use postTweet method if writing a .tweetId
+        if (content.tweetId) {
+            params.tweetId = content.tweetId;
+            post = LivefyreWriteClient.postTweet;
+        }
+
+        post(params, function (err, response) {
             if (err) {
                 callback.call(self, err, null);
                 return;
             }
-            var content = self._handleState(response.data.messages[0], response.data.authors);
+            var state = response.data.messages[0],
+                authors = response.data.authors;
+            state.author = authors[state.content.authorId];
+            var content = LivefyreStream.createContent(state);
             callback.call(self, null, content);
         });
     };
