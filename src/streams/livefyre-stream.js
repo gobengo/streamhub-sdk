@@ -46,7 +46,6 @@ define([
      */
     LivefyreStream.prototype._read = function() {
         var self = this;
-        
         var opts = {
             network: this.network,
             collectionId: this.collectionId,
@@ -58,63 +57,74 @@ define([
             if (!data || err && err != "Timeout") {
                 self.emit('error', err);
                 self._endRead();
+                console.log("LivefyreStream stopping early", err, data);
                 return;
             } else if (!err) {
-                var latestEvent = 0;
                 var authors = data.authors;
-                
+
                 for (var i in data.states) {
                     var state = data.states[i];
-                    if (state.event > latestEvent) {
-                        latestEvent = state.event;
-                    }
-                    
-                    if (state.content) {
-                        state.author = authors[state.content.authorId];
-                        
-                        var content;
-                        
-                        if (state.content.targetId && Storage.get(state.content.targetId)) {
-                            parentContent = Storage.get(state.content.targetId);
-                            content = LivefyreStream.createContent(state);
-                        
-                            if (content instanceof Oembed) { // oembed
-                                parentContent.addAttachment(content);
-                            } else {
-                                parentContent.addReply(content);
-                            }
-                        } else if (state.type === 0) {
-                            content = LivefyreStream.createContent(state);
-                            self._push(content);
-                        }
-                        if (content && content.id) {
-                            Storage.set(content.id, content);
-                        }
-                    }
+                    self._handleState(state, authors);
                 }
-                self.commentId = latestEvent;
+                self.commentId = data.maxEventId || 0;
             }
-            
             // continually read until error
             // also, put it in a setTimeout so that we clear the stack
             setTimeout(function() { self._read(); }, 1);
         });
     };
-    
+
+    LivefyreStream.prototype._handleState = function (state, authors) {
+        var self = this;      
+        if (state.content) {
+            state.author = authors[state.content.authorId];
+            var content = Storage.get(state.content.id);
+            if (content) {
+                // Update existing content with new properties
+                content.set(LivefyreStream.createContent(state));
+            } else if (state.content.targetId && Storage.get(state.content.targetId)) {
+                parentContent = Storage.get(state.content.targetId);
+                content = LivefyreStream.createContent(state);
+            
+                if (content instanceof Oembed) { // oembed
+                    parentContent.addAttachment(content);
+                } else {
+                    parentContent.addReply(content);
+                }
+            } else if (state.type === 0) {
+                content = LivefyreStream.createContent(state);
+                self._push(content);
+            }
+
+            if (content && content.id) {
+                Storage.set(content.id, content);
+            }
+            return content;
+        }
+    };
+
     /**
      * Writes data to the Livefyre stream.
      * @param opts {Object} Options to pass to the LivefyreWriteClient
      * @private
      */
-    LivefyreStream.prototype._write = function(opts) {        
+    LivefyreStream.prototype._write = function(content, opts, callback) {        
         var params = {
             network: this.network,
             collectionId: this.collectionId,
             lftoken: opts.lftoken,
-            body: opts.body
+            body: content.body
         };
+        var self = this;
         
-        LivefyreWriteClient.postContent(params, opts.callback);
+        LivefyreWriteClient.postContent(params, function (err, response) {
+            if (err) {
+                callback.call(self, err, null);
+                return;
+            }
+            var content = self._handleState(response.data.messages[0], response.data.authors);
+            callback.call(self, null, content);
+        });
     };
     
     LivefyreStream.SOURCES = [

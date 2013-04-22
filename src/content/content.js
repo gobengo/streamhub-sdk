@@ -28,11 +28,11 @@ define([
         newProperties = newProperties || {};
         var oldProperties = {};
         var oldVal, newVal;
-        for (var key in newProperties) {
+        for (var key in newProperties) { if (newProperties.hasOwnProperty(key)) {
             oldVal = oldProperties[key] = this[key];
             newVal = this[key] = newProperties[key];
             this.emit('change:'+key, newVal, oldVal);
-        }
+        }}
         this.emit('change', newProperties, oldProperties);
     };
 

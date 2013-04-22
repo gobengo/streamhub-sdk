@@ -48,6 +48,11 @@ define([
      */
     LivefyreReverseStream.prototype._read = function() {
         var self = this;
+        if (this.page < 0) {
+            console.log("LivefyreReverseStream: no more pages to read");
+            return self._endRead();
+        }
+
         var opts = {
             network: this.network,
             siteId: this.siteId,
@@ -89,6 +94,7 @@ define([
                     }
                 }
             }
+            self.page--;
             self._endRead();
         });
     };
