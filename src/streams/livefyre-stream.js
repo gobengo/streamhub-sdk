@@ -55,11 +55,11 @@ define([
         };
         
         LivefyreStreamClient.getContent(opts, function(err, data) {
-            if (!data || err && err != "Timeout") {
+            if (err && err != "Timeout") {
                 self.emit('error', err);
                 self._endRead();
                 return;
-            } else if (!err) {
+            } else if (data && !err) {
                 var latestEvent = 0;
                 var authors = data.authors;
                 
