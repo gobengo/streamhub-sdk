@@ -1,10 +1,12 @@
 define([
     'jquery',
     'jasmine',
+    'streamhub-sdk/content/content',
     'streamhub-sdk/streams/livefyre-stream',
     'streamhub-sdk/clients/livefyre-stream-client',
+    'streamhub-sdk/clients/livefyre-write-client',
     'jasmine-jquery'],
-function ($, jasmine, LivefyreStream, LivefyreStreamClient) {
+function ($, jasmine, Content, LivefyreStream, LivefyreStreamClient, LivefyreWriteClient) {
     describe('A LivefyreStream', function () {
 
         var stream, opts, spy;
@@ -57,6 +59,42 @@ function ($, jasmine, LivefyreStream, LivefyreStreamClient) {
             runs(function() {
                 expect(stream._push.callCount).toBe(1);
                 expect(stream._push.calls[0].args[0].author).toBeDefined();
+            });
+        });
+
+        describe(".write()", function () {
+            var mockWriteResponse = {"status": "ok", "code": 200, "data": {"messages": [{"content": {"replaces": null, "bodyHtml": "<p>oh hi there 2</p>", "annotations": {"moderator": true}, "source": 0, "authorId": "system@labs-t402.fyre.co", "parentId": null, "mentions": [], "shareLink": "http://t402.livefyre.com/.fyreit/w9lbch.4", "id": "26394571", "createdAt": 1363808885}, "vis": 1, "type": 0, "event": null, "source": 0}], "authors": {"system@labs-t402.fyre.co": {"displayName": "system", "tags": [], "profileUrl": "", "avatar": "http://gravatar.com/avatar/e23293c6dfc25b86762b045336233add/?s=50&d=http://d10g4z0y9q0fip.cloudfront.net/a/anon/50.jpg", "type": 1, "id": "system@labs-t402.fyre.co"}}}};
+            beforeEach(function () {
+                spyOn(LivefyreStream.prototype, '_write').andCallThrough();
+                spyOn(LivefyreWriteClient, 'postContent').andCallFake(function (params, callback) {
+                    if (callback) {
+                        callback(null, mockWriteResponse);
+                    }
+                });
+            });
+
+            it("throws if not passed an lftoken in opts", function () {
+                var content = new Content('Woah!');
+                expect(function () {
+                    stream.write(content);
+                }).toThrow();
+                expect(function () {
+                    stream.write(content, {});
+                }).toThrow();
+                expect(function () {
+                    stream.write(content, { lftoken: 'token' });
+                }).not.toThrow();
+            });
+
+            it("can write a String", function () {
+                stream.write('unicorns', { lftoken: 'token' });
+                expect(stream._write).toHaveBeenCalled();
+            });
+
+            it("can write a Content instance", function () {
+                var content = new Content('Woah!');
+                stream.write(content, { lftoken: 'token' });
+                expect(stream._write).toHaveBeenCalled();
             });
         });
     }); 

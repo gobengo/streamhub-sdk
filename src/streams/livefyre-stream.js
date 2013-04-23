@@ -108,18 +108,29 @@ define([
 
     /**
      * Writes data to the Livefyre stream.
+     * @param content {String|Content} A string or Content instance to write to the Stream.
+     *     If `content` is an object with a `tweetId` property, that tweet will be written to the Stream
      * @param opts {Object} Options to pass to the LivefyreWriteClient
+     * @param opts.lftoken {String} A Livefyre authentication token
+     * @param [callback] {Function} A callback to be called when the write succeeds.
+     *     It will be passed `(err, writtenContent)`
      * @private
      */
     LivefyreStream.prototype._write = function(content, opts, callback) {        
-        var params = {
+        var params,
+            self = this,
+            post = LivefyreWriteClient.postContent;
+
+        if ( ! opts || ! opts.lftoken) {
+            throw new Error("LivefyreStream::write must be passed opts.lftoken");
+        }
+
+        params = {
             network: this.network,
             collectionId: this.collectionId,
             lftoken: opts.lftoken,
             body: content.body
         };
-        var self = this;
-        var post = LivefyreWriteClient.postContent;
 
         // Use postTweet method if writing a .tweetId
         if (content.tweetId) {
@@ -128,6 +139,9 @@ define([
         }
 
         post(params, function (err, response) {
+            if ( ! callback ) {
+                return;
+            }
             if (err) {
                 callback.call(self, err, null);
                 return;
