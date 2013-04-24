@@ -23,7 +23,7 @@ define(['streamhub-sdk/util', 'jquery', 'base64'], function(util, $) {
 
         var url = [
             'http://bootstrap.',
-            util.streamhubHostFromOpts(opts),
+            (opts.network === 'livefyre.com') ? opts.environment || 'livefyre.com' : opts.network,
             "/bs3/",
             opts.environment ? opts.environment + "/" : "",
             opts.network,

@@ -20,7 +20,7 @@ define(['jquery', 'streamhub-sdk/util'], function($, util) {
         
         var url = [
             "http://stream1.",
-            util.streamhubHostFromOpts(opts),
+            (opts.network === 'livefyre.com') ? opts.environment || 'livefyre.com' : opts.network,
             "/v3.0/collection/",
             opts.collectionId,
             "/",
