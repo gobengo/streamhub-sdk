@@ -4,6 +4,7 @@ define([
 ], function($, EventEmitter) {
 
     var Content = function(body) {
+        var opts = {};
         EventEmitter.call(this);
         this.body = this.body || body;
         this.attachments = opts.attachments || [];
