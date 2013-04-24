@@ -6,8 +6,8 @@ define([
     var Content = function(body) {
         EventEmitter.call(this);
         this.body = this.body || body;
-        this.attachments = [];
-        this.replies = [];
+        this.attachments = opts.attachments || [];
+        this.replies = opts.replies || [];
     };
     $.extend(Content.prototype, EventEmitter.prototype);
 
