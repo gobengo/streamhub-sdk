@@ -59,6 +59,8 @@ define([
                 self.emit('error', err);
                 self._endRead();
                 return;
+            } else if (!this._isReading) {
+                return;
             } else if (!err) {
                 var latestEvent = 0;
                 var authors = data.authors;

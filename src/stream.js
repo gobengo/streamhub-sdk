@@ -26,6 +26,17 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
     };
 
     /**
+     * Triggers the stream to stop reading from its abstract source.
+     */
+    Stream.prototype.stop = function() {
+        if (this._isReading) {
+            this._stop();
+            this._isReading = false;
+            this.emit('stopped');
+        }
+    };
+
+    /**
      * Overridable read method for stream implementations. In this base class, the default
      * implementation will emit a "not implemented" error.
      * @private
@@ -71,6 +82,15 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
         this.buffer.push(obj);
         this.emit('readable');
         return true;
+    };
+    
+    /**
+     * Overridable stop method for stream implementations. In this base class, the default
+     * implementation does nothing.
+     * @private
+     */
+    Stream.prototype._stop = function() {
+        return;
     };
     
     /**
