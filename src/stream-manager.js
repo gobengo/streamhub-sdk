@@ -97,7 +97,9 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
     };
 
     /**
-     * Start all StreamManager
+     * Calls start on all streams that are currently managed by this stream-manager.
+     * Any streams added to this manager post calling start will not be started automatically.
+     * @returns {StreamManager} returns 'this' for chaining.
      */
     StreamManager.prototype.start = function () {
         this.forEach(function (stream, name) {
