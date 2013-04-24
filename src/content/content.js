@@ -13,12 +13,12 @@ define([
 
     Content.prototype.addAttachment = function(obj) {
         this.attachments.push(obj);
-        this.emit('addAttachment', obj);
+        this.emit('attachment', obj);
     };
 
     Content.prototype.addReply = function(obj) {
         this.replies.push(obj);
-        this.emit('addReply', obj);
+        this.emit('reply', obj);
     };
 
     return Content;

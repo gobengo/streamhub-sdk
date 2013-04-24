@@ -10,7 +10,7 @@ define([
         
         if (this.content) {
             var self = this;
-            this.content.on("addAttachment", function(content) {
+            this.content.on("attachment", function(content) {
                 self.render();
                 var newImg = $(self.el).find('img').last();
                 newImg.hide();
