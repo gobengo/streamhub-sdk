@@ -37,7 +37,7 @@ define([
         this.collectionId = opts.collectionId;
         this.commentId = opts.commentId;
         this.environment = opts.environment;
-        this.hasPushedContentId = {};
+        this.contentBeingWritten = {};
     };
     $.extend(LivefyreStream.prototype, Stream.prototype);
     
@@ -77,11 +77,18 @@ define([
 
     LivefyreStream.prototype._handleState = function (state, authors) {
         var self = this,
-            content;
+            content,
+            thisContentBeingWritten;
         if (state.content) {
             state.author = authors[state.content.authorId];
-            var storedContent = Storage.get(state.content.id);
             content = LivefyreStream.createContent(state);
+            thisContentBeingWritten = self.contentBeingWritten[state.content.id];
+            if (thisContentBeingWritten) {
+                // Ensure the existing Content gets set with new properties like ID
+                thisContentBeingWritten.set(content);
+                content = thisContentBeingWritten;
+                delete self.contentBeingWritten[state.content.id];
+            }
             if (state.content.targetId && Storage.get(state.content.targetId)) {
                 parentContent = Storage.get(state.content.targetId);
             
@@ -91,12 +98,7 @@ define([
                     parentContent.addReply(content);
                 }
             } else if (state.type === 0) {
-                if (content.id && ! self.hasPushedContentId[content.id]) {
-                    self._push(content);
-                    self.hasPushedContentId[content.id] = true;
-                } else {
-                    self._push(content);
-                }
+                self._push(content);
             }
 
             if (content && content.id) {
@@ -136,6 +138,7 @@ define([
         if (content.tweetId) {
             params.tweetId = content.tweetId;
             post = LivefyreWriteClient.postTweet;
+            self.contentBeingWritten['tweet-{id}@twitter.com'.replace('{id}',content.tweetId)] = content;
         }
 
         post(params, function (err, response) {
@@ -149,7 +152,8 @@ define([
             var state = response.data.messages[0],
                 authors = response.data.authors;
             state.author = authors[state.content.authorId];
-            var content = LivefyreStream.createContent(state);
+            var newContent = LivefyreStream.createContent(state);
+            content.set(newContent);
             callback.call(self, null, content);
         });
     };
