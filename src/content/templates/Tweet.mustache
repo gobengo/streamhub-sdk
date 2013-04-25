@@ -7,9 +7,7 @@
 <div class="content-main">
     <div class="content-byline">
         <a class="content-author-name" href="https://twitter.com/intent/user?user_id={{author.twitterUserId}}" target="_blank">{{ author.displayName }}</a>
-        <a class="content-source-logo" href="https://twitter.com/statuses/{{tweetId}}/" target="_blank">
-            <img src="{{__twitterIconUrl}}" />
-        </a>
+        <a class="content-source-logo" href="https://twitter.com/statuses/{{tweetId}}/" target="_blank"></a>
         <div class="content-created-at">{{{formattedCreatedAt}}}</div>
     </div>
     <div class="content-body">
@@ -20,17 +18,17 @@
 <ul class="content-actions">
     <li class="content-action" data-content-action="reply">
         <a href="https://twitter.com/intent/tweet?in_reply_to={{tweetId}}" title="Reply">
-            <img src="{{__replyIconUrl}}" /><span>Reply</span>
+            <span>Reply</span>
         </a>
     </li>
     <li class="content-action" data-content-action="retweet">
         <a href="https://twitter.com/intent/retweet?tweet_id={{tweetId}}" title="Retweet">
-            <img src="{{__retweetIconUrl}}" /><span>Retweet</span>
+            <span>Retweet</span>
         </a>
     </li>
     <li class="content-action" data-content-action="favorite">
         <a href="https://twitter.com/intent/favorite?tweet_id={{tweetId}}" title="Favorite">
-            <img src="{{__favoriteIconUrl}}" /><span>Favorite</span>
+            <span>Favorite</span>
         </a>
     </li>
 </ul>
