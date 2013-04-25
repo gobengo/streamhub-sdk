@@ -7,6 +7,7 @@ define([
     'streamhub-sdk/stream',
     'streamhub-sdk/clients/livefyre-stream-client',
     'streamhub-sdk/clients/livefyre-write-client',
+    'streamhub-sdk/content/content',
     'streamhub-sdk/content/types/livefyre-content',
     'streamhub-sdk/content/types/livefyre-twitter-content',
     'streamhub-sdk/content/types/livefyre-facebook-content',
@@ -17,6 +18,7 @@ define([
     Stream,
     LivefyreStreamClient,
     LivefyreWriteClient,
+    Content,
     LivefyreContent,
     LivefyreTwitterContent,
     LivefyreFacebookContent,
@@ -125,6 +127,10 @@ define([
 
         if ( ! opts || ! opts.lftoken) {
             throw new Error("LivefyreStream::write must be passed opts.lftoken");
+        }
+
+        if (typeof content === 'string') {
+            content = new Content(content);
         }
 
         params = {
