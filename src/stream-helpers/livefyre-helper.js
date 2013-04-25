@@ -17,7 +17,9 @@ function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRevers
             started = false;
         // Only init the LivefyreStreams once the StreamManager has been started
         streamManager.start = function () {
-            if (starting || started) return;
+            if (starting || started) {
+                return;
+            }
             starting = true;
             getLivefyreStreamManager.createLivefyreStreams(opts, function (err, streams) {
                 if (err) {
