@@ -30,9 +30,6 @@ define([
         this.contentViews = {};
         this.contentViewKeys = [];
         
-        self.on('add', function(content, stream) {
-            self.add(content, stream);
-        });
         $(window).resize(function() {
             self.relayout();
         });

@@ -19,9 +19,6 @@ function($, View, ContentView) {
         this.contentViews = [];
 
         var self = this;
-        self.on('add', function(content, stream) {
-            self.add(content, stream);
-        });
     };
     $.extend(ListView.prototype, View.prototype);
 
@@ -45,6 +42,7 @@ function($, View, ContentView) {
         this.contentViews.push(contentView);
         contentView.render();
 
+        // @todo implement more excellent logic for sorting
         $(contentView.el).prependTo(this.el);
 
         return contentView;
