@@ -88,6 +88,13 @@ function (jasmine, jasmineJquery, $, ListView, Content, ContentView, Stream, Jas
                     expect(listView.createContentView.callCount).toBe(1);
                     expect(listView.createContentView.mostRecentCall.args[0]).toBe(content);
                 });
+
+                it("is returned later by .getExistingContentView", function () {
+                    content.id = '11';
+                    var contentView = listView.getContentView(content);
+                    expect(contentView).toBeDefined();
+                    expect(contentView.content).toBe(content);
+                });
             });
 
             describe("and a ContentView is inserted", function () {

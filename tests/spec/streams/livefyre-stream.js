@@ -1,10 +1,14 @@
 define([
     'jquery',
     'jasmine',
+    'streamhub-sdk/content/content',
+    'streamhub-sdk/content/types/twitter-content',
     'streamhub-sdk/streams/livefyre-stream',
     'streamhub-sdk/clients/livefyre-stream-client',
+    'streamhub-sdk/clients/livefyre-write-client',
     'jasmine-jquery'],
-function ($, jasmine, LivefyreStream, LivefyreStreamClient) {
+function ($, jasmine, Content, TwitterContent, LivefyreStream, LivefyreStreamClient,
+LivefyreWriteClient) {
     describe('A LivefyreStream', function () {
 
         var stream, opts, spy;
@@ -57,6 +61,82 @@ function ($, jasmine, LivefyreStream, LivefyreStreamClient) {
             runs(function() {
                 expect(stream._push.callCount).toBe(1);
                 expect(stream._push.calls[0].args[0].author).toBeDefined();
+            });
+        });
+
+        describe(".write()", function () {
+            var mockWriteResponse = {"status": "ok", "code": 200, "data": {"messages": [{"content": {"replaces": null, "bodyHtml": "<p>oh hi there 2</p>", "annotations": {"moderator": true}, "source": 0, "authorId": "system@labs-t402.fyre.co", "parentId": null, "mentions": [], "shareLink": "http://t402.livefyre.com/.fyreit/w9lbch.4", "id": "26394571", "createdAt": 1363808885}, "vis": 1, "type": 0, "event": null, "source": 0}], "authors": {"system@labs-t402.fyre.co": {"displayName": "system", "tags": [], "profileUrl": "", "avatar": "http://gravatar.com/avatar/e23293c6dfc25b86762b045336233add/?s=50&d=http://d10g4z0y9q0fip.cloudfront.net/a/anon/50.jpg", "type": 1, "id": "system@labs-t402.fyre.co"}}}},
+                mockWriteTweetResponse = {"status": "ok", "code": 200, "data": {"messages": [{"content": {"replaces": "", "bodyHtml": "MAITRE GIMS : \" Les feat dans SUBLIMINAL ces du tres lourd j'veut pas trop m'avanc\u00e9 mais sa seras du tres lourd \"feat avec EMINEM &amp; 50 CENT?", "annotations": {}, "authorId": "471544268@twitter.com", "parentId": "", "updatedAt": 1366839025, "mentions": [], "shareLink": "http://fyre.it/QE0B9G.4", "id": "tweet-308280235000995842@twitter.com", "createdAt": 1366839025}, "vis": 1, "source": 0, "replies": [], "type": 0, "event": null}], "authors": {"471544268@twitter.com": {"displayName": "twinsley yonkou VX", "tags": [], "profileUrl": "https://twitter.com/#!/TismeyJr", "avatar": "http://a0.twimg.com/profile_images/3339939516/bde222e341d477729170a326ca31204e_normal.jpeg", "type": 3, "id": "471544268@twitter.com"}}}},
+                onWriteSpy;
+            
+            beforeEach(function () {
+                spyOn(LivefyreStream.prototype, '_write').andCallThrough();
+                spyOn(LivefyreWriteClient, 'postContent').andCallFake(function (params, callback) {
+                    if (callback) {
+                        callback(null, mockWriteResponse);
+                    }
+                });
+                spyOn(LivefyreWriteClient, 'postTweet').andCallFake(function (params, callback) {
+                    if (callback) {
+                        callback(null, mockWriteTweetResponse);
+                    }
+                });
+                onWriteSpy = jasmine.createSpy();
+            });
+
+            it("throws if not passed an lftoken in opts", function () {
+                var content = new Content('Woah!');
+                expect(function () {
+                    stream.write(content);
+                }).toThrow();
+                expect(function () {
+                    stream.write(content, {});
+                }).toThrow();
+                expect(function () {
+                    stream.write(content, { lftoken: 'token' });
+                }).not.toThrow();
+            });
+
+            it("can write a String", function () {
+                stream.write('unicorns', { lftoken: 'token' }, onWriteSpy);
+                expect(stream._write).toHaveBeenCalled();
+                expect(LivefyreWriteClient.postContent).toHaveBeenCalled();
+                expect(onWriteSpy).toHaveBeenCalled();
+            });
+
+            it("can write a Content instance", function () {
+                var content = new Content('Woah!');
+                stream.write(content, { lftoken: 'token' }, onWriteSpy);
+                expect(stream._write).toHaveBeenCalled();
+                expect(LivefyreWriteClient.postContent).toHaveBeenCalled();
+                expect(onWriteSpy).toHaveBeenCalled();
+                expect(onWriteSpy.mostRecentCall.args[0]).toBe(null);
+                expect(onWriteSpy.mostRecentCall.args[1]).toBe(content);
+            });
+
+            it("can write a Content instance without a callback", function () {
+                var content = new Content('Woah!');
+                stream.write(content, { lftoken: 'token' });
+                expect(stream._write).toHaveBeenCalled();
+                expect(LivefyreWriteClient.postContent).toHaveBeenCalled();
+                expect(onWriteSpy).not.toHaveBeenCalled();
+            });
+
+            it("can write a TwitterContent instance", function () {
+                var twitterContent = new TwitterContent({
+                        body: 'New Monster Headphones CES 2012: Check out Today’s best deals on gadgets HERE – amzn.to SUBSCRIBE FOR MORE CES... <a href="http://t.co/KRrJEnchKM" target="_blank" rel="nofollow">bit.ly/YZcYO9</a>',
+                        tweetId: '308386119479861248'
+                    }),
+                    onWriteSpy = jasmine.createSpy();
+                stream.write(twitterContent, { lftoken: 'token' }, onWriteSpy);
+                expect(stream._write).toHaveBeenCalled();
+                expect(LivefyreWriteClient.postContent).not.toHaveBeenCalled();
+                expect(LivefyreWriteClient.postTweet).toHaveBeenCalled();
+                expect(onWriteSpy).toHaveBeenCalled();
+                expect(onWriteSpy.mostRecentCall.args[0]).toBe(null);
+                // The callback gets a fully hydrated version of the same content instance
+                expect(onWriteSpy.mostRecentCall.args[1]).toBe(twitterContent);
+                expect(onWriteSpy.mostRecentCall.args[1].id).toBeDefined();
             });
         });
     }); 

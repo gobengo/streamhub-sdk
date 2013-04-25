@@ -37,14 +37,34 @@ function($, View, ContentView) {
      * @return the newly created ContentView
      */
     ListView.prototype.add = function(content, stream) {
-        var newContentView = this.createContentView(content);
+        var contentView = this.getContentView(content);
 
-        this.contentViews.push(newContentView);
-        newContentView.render();
+        if (contentView) {
+            return contentView;
+        }
 
-        $(newContentView.el).prependTo(this.el);
+        contentView = this.createContentView(content);
+        this.contentViews.push(contentView);
+        contentView.render();
 
-        return newContentView;
+        $(contentView.el).prependTo(this.el);
+
+        return contentView;
+    };
+
+    /**
+     * Given a new Content instance, return an existing contentView that
+     * should be used to view the content.
+     * Current heuristic: Check content.id
+     */
+    ListView.prototype.getContentView = function (newContent) {
+        var existingContentView;
+        for (var i=0; i < this.contentViews.length; i++) {
+            var contentView = this.contentViews[i];
+            if (newContent.id && contentView.content.id === newContent.id) {
+                return contentView;
+            }
+        }
     };
 
     return ListView;

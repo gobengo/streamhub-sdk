@@ -69,3 +69,4 @@ function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRevers
 
     return getLivefyreStreamManager;
 });
+

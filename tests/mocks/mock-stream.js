@@ -14,6 +14,7 @@ define([
         opts = opts || {};
         this.interval = opts.interval || 1000;
         this.timeout = null;
+        this.writeLatency = opts.writeLatency || 0;
     };
     $.extend(MockStream.prototype, Stream.prototype);
 
@@ -26,6 +27,22 @@ define([
         this._endRead();
         var self = this;
         this.timeout = setTimeout(function () { self._read(); }, self.interval);
+    };
+
+    MockStream.prototype._write = function (content, onWritten) {
+        var self = this;
+        function write () {
+            content.set({
+                id: Math.floor(999999999 * Math.random())
+            });
+            self._push(content);
+            onWritten && onWritten.call(self, null, content);
+        }
+        if (this.writeLatency) {
+            setTimeout(write, this.writeLatency);
+        } else {
+            write();
+        }
     };
 
     /**
