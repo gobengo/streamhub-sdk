@@ -124,7 +124,7 @@ LivefyreWriteClient) {
 
             it("can write a TwitterContent instance", function () {
                 var twitterContent = new TwitterContent({
-                        body: 'New Monster Headphones CES 2012: Check out Today’s best deals on gadgets HERE – amzn.to SUBSCRIBE FOR MORE CES... <a href="http://t.co/KRrJEnchKM" target="_blank" rel="nofollow">bit.ly/YZcYO9</a>',
+                        body: 'New Monster Headphones CES 2012: Check out Today\'s best deals on gadgets HERE - amzn.to SUBSCRIBE FOR MORE CES... <a href="http://t.co/KRrJEnchKM" target="_blank" rel="nofollow">bit.ly/YZcYO9</a>',
                         tweetId: '308386119479861248'
                     }),
                     onWriteSpy = jasmine.createSpy();

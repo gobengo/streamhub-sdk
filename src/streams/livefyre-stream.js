@@ -61,7 +61,8 @@ define([
                 self.emit('error', err);
                 self._endRead();
                 return;
-            } else if (!this._isReading) {
+            } else if (self._isReading === false) {
+                self._endRead();
                 return;
             } else if (data && !err) {
                 var authors = data.authors;

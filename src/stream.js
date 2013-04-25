@@ -20,8 +20,8 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
      */
     Stream.prototype.start = function() {
         if (!this._isReading) {
-            this._read();
             this._isReading = true;
+            this._read();
         }
     };
 
