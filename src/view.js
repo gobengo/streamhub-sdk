@@ -80,6 +80,13 @@ define([
     View.prototype.initialize = function () {};
 
     /**
+     * Add a piece of Content to the View. Subclasses should implement this
+     * @param content {Content} A Content instance to render in the View
+     * @returns {ContentView} By convention, .add should return any new ContentView created to render the content
+     */
+    View.prototype.add = function(content) { return null; };
+
+    /**
      * Creates a content view from the given piece of content, by looking in this view's
      * content registry for the supplied content type.
      * @param content {Content} A content object to create the corresponding view for.
