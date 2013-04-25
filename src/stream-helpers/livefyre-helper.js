@@ -21,7 +21,6 @@ function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRevers
             starting = true;
             getLivefyreStreamManager.createLivefyreStreams(opts, function (err, streams) {
                 if (err) {
-                    console.log("Error creating LivefyreStreamManager. Check your options", opts);
                     throw new Error("Error creating LivefyreStreamManager", err);
                 }
                 streamManager.set(streams);
