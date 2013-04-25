@@ -15,8 +15,6 @@ define([
     'streamhub-sdk/content/types/livefyre-twitter-content',
     'streamhub-sdk/content/types/oembed',
     'streamhub-sdk/content/types/twitter-content',
-    'streamhub-sdk/content/types/twitter-search-content',
-    'streamhub-sdk/content/types/twitter-streaming-content',
     'streamhub-sdk/content/views/content-view',
     'streamhub-sdk/content/views/facebook-content-view',
     'streamhub-sdk/content/views/twitter-content-view',
@@ -24,7 +22,6 @@ define([
     'streamhub-sdk/streams/livefyre-reverse-stream',
     'streamhub-sdk/stream-helpers/livefyre-helper',
     'streamhub-sdk/views/list-view',
-    'streamhub-sdk/views/media-wall-view',
     'text!streamhub-sdk/version.txt'
 ], function(
     Auth,
@@ -43,8 +40,6 @@ define([
     LivefyreTwitterContent,
     Oembed,
     TwitterContent,
-    TwitterSearchContent,
-    TwitterStreamingContent,
     ContentView,
     FacebookContentView,
     TwitterContentView,
@@ -52,7 +47,6 @@ define([
     LivefyreReverseStream,
     LivefyreHelper,
     ListView,
-    MediaWallView,
     VersionInfo
 ) {
     var Hub = {};
@@ -77,8 +71,6 @@ define([
     Hub.Content.Types.LivefyreTwitterContent = LivefyreTwitterContent;
     Hub.Content.Types.Oembed = Oembed;
     Hub.Content.Types.TwitterContent = TwitterContent;
-    Hub.Content.Types.TwitterSearchContent = TwitterSearchContent;
-    Hub.Content.Types.TwitterStreamingContent = TwitterStreamingContent;
 
     Hub.Content.Views = {};
     Hub.Content.Views.ContentView = ContentView;
@@ -94,7 +86,6 @@ define([
 
     Hub.Views = {};
     Hub.Views.ListView = ListView;
-    Hub.Views.MediaWallView = MediaWallView;
     
     Hub.version = VersionInfo.trim();
 

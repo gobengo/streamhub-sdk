@@ -12,8 +12,6 @@ define([
     'streamhub-sdk/content/types/livefyre-facebook-content',
     'streamhub-sdk/content/types/oembed',
     'streamhub-sdk/content/types/twitter-content',
-    'streamhub-sdk/content/types/twitter-search-content',
-    'streamhub-sdk/content/types/twitter-streaming-content',
     'streamhub-sdk/content/views/content-view',
     'streamhub-sdk/content/views/twitter-content-view',
     'streamhub-sdk/content/views/facebook-content-view'
@@ -27,8 +25,6 @@ define([
     LivefyreFacebookContent,
     Oembed,
     TwitterContent,
-    TwitterSearchContent,
-    TwitterStreamingContent, 
     ContentView,
     TwitterContentView,
     FacebookContentView
@@ -63,8 +59,6 @@ define([
         { type: LivefyreTwitterContent, view: TwitterContentView },
         { type: LivefyreFacebookContent, view: FacebookContentView },
         { type: TwitterContent, view: TwitterContentView },
-        { type: TwitterSearchContent, view: TwitterContentView },
-        { type: TwitterStreamingContent, view: TwitterContentView },
         { type: LivefyreContent, view: ContentView },
         { type: Content, view: ContentView }
     ];

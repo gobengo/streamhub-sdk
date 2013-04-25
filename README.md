@@ -35,8 +35,6 @@ Along with the Content base class, this SDK is bundled with:
 * `streamhub-sdk/content/types/livefyre-twitter-content`: Tweets sourced from Livefyre StreamHub
 * `streamhub-sdk/content/types/oembed`: oEmbed Content
 * `streamhub-sdk/content/types/twitter-content`: Base class for Twitter Content
-* `streamhub-sdk/content/types/twitter-streaming-content`: Twitter Content constructed from Twitter Streaming API response JSON
-* `streamhub-sdk/content/types/twitter-search-content`: Twitter Content constructed from Twitter Search API response JSON
 
 ### ContentViews
 
