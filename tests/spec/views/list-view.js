@@ -91,7 +91,7 @@ function (jasmine, jasmineJquery, $, ListView, Content, ContentView, Stream, Jas
 
                 it("is returned later by .getExistingContentView", function () {
                     content.id = '11';
-                    var contentView = listView.getExistingContentView(content);
+                    var contentView = listView.getContentView(content);
                     expect(contentView).toBeDefined();
                     expect(contentView.content).toBe(content);
                 });

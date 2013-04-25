@@ -17,7 +17,6 @@ function($, View, ContentView) {
         View.call(this, opts);
 
         this.contentViews = [];
-        this.contentViewsAddedWithoutId = [];
 
         var self = this;
         self.on('add', function(content, stream) {
@@ -36,7 +35,7 @@ function($, View, ContentView) {
      * @return the newly created ContentView
      */
     ListView.prototype.add = function(content, stream) {
-        var contentView = this.getExistingContentView(content);
+        var contentView = this.getContentView(content);
 
         if (contentView) {
             return contentView;
@@ -44,9 +43,6 @@ function($, View, ContentView) {
 
         contentView = this.createContentView(content);
         this.contentViews.push(contentView);
-        if ( ! content.id) {
-            this.contentViewsAddedWithoutId.push(contentView);
-        }
         contentView.render();
 
         $(contentView.el).prependTo(this.el);
@@ -59,10 +55,10 @@ function($, View, ContentView) {
      * should be used to view the content.
      * Current heuristic: Check content.id
      */
-    ListView.prototype.getExistingContentView = function (newContent) {
+    ListView.prototype.getContentView = function (newContent) {
         var existingContentView;
-        for (var i=0; i < this.contentViewsAddedWithoutId.length; i++) {
-            var contentView = this.contentViewsAddedWithoutId[i];
+        for (var i=0; i < this.contentViews.length; i++) {
+            var contentView = this.contentViews[i];
             if (newContent.id && contentView.content.id === newContent.id) {
                 return contentView;
             }
