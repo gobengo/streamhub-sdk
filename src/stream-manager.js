@@ -88,7 +88,7 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
      * Binds a view to this stream, whose .add will be called every time data is received.
      * @params view {View} The view to bind.
      */
-    StreamManager.prototype.bind= function(view) {
+    StreamManager.prototype.bind = function(view) {
        this._views.push(view);
        return this;
     };
