@@ -64,15 +64,11 @@
                         console.log("Error writing to main stream", err);
                         return;
                     }
-                    content.set({
-                        id: writtenContent.id
-                    });
-                    // See if a view already exists for this ID
-                    var existingContentView = listView.getExistingContentView(content);
-                    if (existingContentView) {
-                        $(contentView.el).remove();
-                    }
-                    $contentViewEl.removeClass('content-loading')
+                    // Just remove the placeholder
+                    // @todo implement fanciness so that LivefyreStream
+                    // can recognize the next thing down the stream
+                    // as this guy
+                    $contentViewEl.remove();
                 });
 
                 // Clear the form

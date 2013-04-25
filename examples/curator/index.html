@@ -87,15 +87,7 @@
                         console.log("Error writing to main stream", err);
                         return;
                     }
-                    content.set({
-                        id: writtenContent.id
-                    });
-                    // See if a view already exists for this ID
-                    var existingContentView = listView.getExistingContentView(content);
-                    if (existingContentView) {
-                        $(contentView.el).remove();
-                    }
-                    $contentViewEl.removeClass('content-loading')
+                    $(contentView.el).remove();
                 });
 
                 // Clear the form
