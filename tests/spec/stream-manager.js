@@ -109,21 +109,25 @@ function ($, jasmine, Hub, jasmineJquery, JasmineSpyStream, MockStream) {
         });
 
         describe("when dealing with views", function () {
-            it("reads from readable streams and emits add on any bound views", function () {
+            it("reads from readable streams and calls .add on any bound views", function () {
                 var streamManager = new Hub.StreamManager({
                     main: new MockStream()
                 });
 
-                var view1 = { emit: jasmine.createSpy() };
-                var view2 = { emit: jasmine.createSpy() };
-                streamManager.bindView(view1).bindView(view2);
+                var view1 = { add: jasmine.createSpy() };
+                var view2 = { add: jasmine.createSpy() };
+                streamManager.bind(view1).bind(view2);
 
                 streamManager.start();
 
-                expect(view1.emit).toHaveBeenCalled();
-                expect(view1.emit.mostRecentCall.args[0]).toBe('add');
-                expect(view2.emit).toHaveBeenCalled();
-                expect(view2.emit.mostRecentCall.args[0]).toBe('add');
+                expect(view1.add).toHaveBeenCalled();
+                // First arg is a Content instance
+                expect(view1.add.mostRecentCall.args[0].body).toBeDefined();
+                // Second arg is the stream
+                expect(view1.add.mostRecentCall.args[1]).toBe(streamManager.get().main);
+                expect(view2.add).toHaveBeenCalled();
+                expect(view2.add.mostRecentCall.args[0].body).toBeDefined();
+                expect(view2.add.mostRecentCall.args[1]).toBeDefined(streamManager.get().main);
             });
 
             it("doesn't read from a stream if there are no views", function () {

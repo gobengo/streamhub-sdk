@@ -45,7 +45,7 @@
                     writeLatency: 2000
                 })
             })
-            streams.bindView(listView).start();
+            streams.bind(listView).start();
         });
         require(['jquery', 'streamhub-sdk'], function ($, Hub) {
             var $contentForm = $('.content-form');

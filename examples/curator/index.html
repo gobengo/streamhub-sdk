@@ -55,7 +55,7 @@
                 "siteId": "320568",
                 "articleId": "home_fromthefloor"
             });
-            streams.bindView(listView).start();
+            streams.bind(listView).start();
 
             tweetListView = new ListView({
                 el: document.getElementById("tweetListView")
@@ -65,7 +65,7 @@
                 "siteId": "320568",
                 "articleId": "products_audio"
             });
-            tweetStreams.bindView(tweetListView).start();            
+            tweetStreams.bind(tweetListView).start();            
         });
         require(['jquery', 'streamhub-sdk', 'streamhub-sdk/content/types/twitter-content', 'streamhub-sdk/storage'], 
         function ($, Hub, TwitterContent, Storage) {
