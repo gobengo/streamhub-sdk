@@ -165,33 +165,15 @@ define([
             callback.call(self, null, content);
         });
     };
-    
-    LivefyreStream.SOURCES = [
-        "livefyre", 
-        "twitter",
-        "twitter",
-        "facebook",
-        "livefyre",
-        "livefyre",
-        "facebook",
-        "twitter",
-        "livefyre",
-        "unknown",
-        "unknown",
-        "unknown",
-        "unknown",
-        "feed",
-        "facebook"
-    ];
 
     LivefyreStream.createContent = function(state) {
-        state.sourceName = LivefyreStream.SOURCES[state.source];
-        
+        var sourceName = LivefyreContent.SOURCES[state.source];
+
         if (state.type === 3) {
             return new LivefyreOembed(state);
-        } else if (state.sourceName === 'twitter') {
+        } else if (sourceName === 'twitter') {
             return new LivefyreTwitterContent(state);
-        } else if (state.sourceName === 'facebook') {
+        } else if (sourceName === 'facebook') {
             return new LivefyreFacebookContent(state);
         } else {
             return new LivefyreContent(state);
