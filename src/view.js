@@ -84,7 +84,7 @@ define([
      * Creates a content view from the given piece of content, by looking in this view's
      * content registry for the supplied content type.
      * @param content {Content} A content object to create the corresponding view for.
-     * @return {ContentView} A new content view object for the given piece of content.
+     * @returns {ContentView} A new content view object for the given piece of content.
      */
     View.prototype.createContentView = function(content) {
         for (var i in this.contentRegistry) {

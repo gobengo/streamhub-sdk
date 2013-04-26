@@ -52,8 +52,9 @@ function($, View, ContentView) {
 
     /**
      * Given a new Content instance, return an existing contentView that
-     * should be used to view the content.
-     * Current heuristic: Check content.id
+     * should be used to update the content (based on content.id).
+     * @param newContent {Content} The piece of content to find the view for.
+     * @returns {ContentView | null} The contentView for the content, or null.
      */
     ListView.prototype.getContentView = function (newContent) {
         var existingContentView;
@@ -63,6 +64,7 @@ function($, View, ContentView) {
                 return contentView;
             }
         }
+        return null;
     };
 
     return ListView;
