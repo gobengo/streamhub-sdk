@@ -15,6 +15,6 @@ define(['jquery', 'streamhub-sdk/content/content'], function($, Content) {
         this.meta = json;
     };
     $.extend(LivefyreContent.prototype, Content.prototype);
-         
+
     return LivefyreContent;
  });
