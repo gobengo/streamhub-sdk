@@ -25,6 +25,11 @@ function ($, jasmine, jasmineJquery, Oembed) {
 				var oembed = new Oembed({});
 		    }).toThrow();
 		});
+		it("throws when constructed without an invalid type", function () {
+			expect(function () {
+				var oembed = new Oembed({ type: 'none' });
+		    }).toThrow();
+		});
 	});
 
 });
