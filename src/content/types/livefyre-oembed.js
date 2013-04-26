@@ -12,6 +12,11 @@ function($, Oembed, LivefyreContent) {
     var LivefyreOembed = function(json) {
         LivefyreContent.call(this, json);
         Oembed.call(this, json.content.oembed);
+        
+        /*if (this.provider_name === "Facebook" && this.url &&
+            this.thumbnail_url && this.html === "") {
+            this.html = "<a href='"+this.url+"'/><img src='"+this.thumbnail_url+"'/></a>";
+        }*/
     };
     LivefyreOembed.prototype = $.extend(new Oembed(), LivefyreContent.prototype);
 

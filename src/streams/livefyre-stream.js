@@ -79,6 +79,14 @@ define([
         });
     };
 
+    /**
+     * Handles the creation of a piece of content from a given json "state".
+     * @param state {Object} The "state" of a piece of content as retrieved from the stream.
+     * @param authors {Object} A key-value pair of author name/details retrieved from the current
+     *        stream request.
+     * @returns {Content} The new piece of content created from the given state.
+     * @private
+     */
     LivefyreStream.prototype._handleState = function (state, authors) {
         var self = this,
             content,
@@ -166,6 +174,11 @@ define([
         });
     };
 
+    /**
+     * Creates the correct content type given the supplied "state".
+     * @param state {Object} The livefyre content "state" as received by the client.
+     * @return {LivefyreContent} A new, correctly typed, content object. 
+     */
     LivefyreStream.createContent = function(state) {
         var sourceName = LivefyreContent.SOURCES[state.source];
 

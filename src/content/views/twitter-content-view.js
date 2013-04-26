@@ -4,7 +4,11 @@ define([
 	'jquery'],
 function (ContentView, TwitterContentTemplate, $) {
 	
-	// Construct a TwitterContentView
+    /**
+     * A view for rendering twitter content into an element.
+     * @param opts {Object} The set of options to configure this view with (See ContentView).
+     */
+
 	var TwitterContentView = function TwitterContentView (opts) {
 		ContentView.call(this, opts);
 	};
