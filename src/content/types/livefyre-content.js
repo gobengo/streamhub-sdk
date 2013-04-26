@@ -1,5 +1,11 @@
 define(['jquery', 'streamhub-sdk/content/content'], function($, Content) {
 
+    /**
+     * Base class for any piece of Livefyre content. Extracts the details of the content
+     * from the json object passed in via the Livefyre stream.
+     * @param json {Object} An object obtained via a Livefyre stream that represents the
+     *        state of the content. 
+     */
     var LivefyreContent = function(json) {
         Content.call(this);
         if ( ! json) {
@@ -16,6 +22,9 @@ define(['jquery', 'streamhub-sdk/content/content'], function($, Content) {
     };
     $.extend(LivefyreContent.prototype, Content.prototype);
 
+    /**
+     * The set of sources as defined by Livefyre's Stream API
+     */
     LivefyreContent.SOURCES = [
         "livefyre", 
         "twitter",

@@ -3,7 +3,13 @@ define([
     'streamhub-sdk/util'
 ], function (ContentTemplate, Util) {
     
-    // Construct a ContentView
+    /**
+     * Defines the base class for all content-views. Handles updates to attachments
+     * and loading of images.
+     * @param opts {Object} The set of options to configure this view with.
+     * @param opts.content {Content} The content object to use when rendering. 
+     * @param opts.el {?HTMLElement} The element to render this object in.
+     */
     var ContentView = function ContentView (opts) {
         opts = opts || {};
         this.content = opts.content;
@@ -46,13 +52,19 @@ define([
         }
     };
     
-    // Render the content inside of the ContentView's element
+    /**
+     * Render the content inside of the ContentView's element.
+     */
     ContentView.prototype.render = function () {
         var context = this.getTemplateContext();
         context.formattedCreatedAt = Util.formatDate(this.content.createdAt);
         this.el.innerHTML = this.template(context);
     };
     
+    /**
+     * Gets the template rendering context. By default, returns "this.content".
+     * @return {Content} The content object this view was instantiated with.
+     */  
     ContentView.prototype.getTemplateContext = function () {
         return this.content;
     };

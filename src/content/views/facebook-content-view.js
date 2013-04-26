@@ -4,7 +4,10 @@ define([
     'jquery'],
 function (ContentView, FacebookContentTemplate, $) {
 
-    // Construct a FacebookContentView
+    /**
+     * A view for rendering facebook content into an element.
+     * @param opts {Object} The set of options to configure this view with (See ContentView).
+     */
     var FacebookContentView = function FacebookContentView (opts) {
         ContentView.call(this, opts);
     };
