@@ -13,10 +13,10 @@ function($, Oembed, LivefyreContent) {
         LivefyreContent.call(this, json);
         Oembed.call(this, json.content.oembed);
         
-        /*if (this.provider_name === "Facebook" && this.url &&
-            this.thumbnail_url && this.html === "") {
-            this.html = "<a href='"+this.url+"'/><img src='"+this.thumbnail_url+"'/></a>";
-        }*/
+        if (this.provider_name === "Facebook" && this.url &&
+            this.thumbnail_url && (this.html === "" || this.html === null)) {
+            this.html = "<a href='"+this.url+"' target='_blank'/><img src='"+this.thumbnail_url+"'/></a>";
+        }
     };
     LivefyreOembed.prototype = $.extend(new Oembed(), LivefyreContent.prototype);
 

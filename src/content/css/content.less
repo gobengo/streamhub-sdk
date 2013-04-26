@@ -61,6 +61,7 @@
     .content-attachment {
         display: inline-block;
         margin-top:5px;
+        max-width: 100%;
     }
     
     .content-attachment > * {
@@ -71,9 +72,10 @@
         border:none;
     }
 
-    .content-attachment > img {
+    .content-attachment > img, .content-attachment > a > img {
         border-radius:2px;
         margin: 0 auto;
+        max-width:100%;
     }
     .content-actions {
         list-style-type:none;
