@@ -5,7 +5,9 @@
 define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
 
     /**
-     * Manages a collection of Streams 
+     * Manages a collection of Streams
+     * @param streamObj {?Object<string, Stream>} A set of streams, keyed by name to add to this
+     *        manager.
      * @alias module:streamhub-sdk/stream-manager
      */
     var StreamManager = function(streamObj) {
@@ -48,9 +50,11 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
     };
 
     /**
-     * Add a Stream to the StreamManager object
-     * Can call as `.set(name, stream)` or
-     * `.set({ name1: stream1, name2: stream2 })`
+     * Add a Stream to the StreamManager object. Can call as `.set(name, stream)` or
+     * `.set({ name1: stream1, name2: stream2 })`.
+     * @param nameOrStreamObj {Object<string, Stream> | string} Either a set of streams
+     *         keyed by name - with no argument 2, or the name of the stream in argument 2.
+     * @param stream {?Stream} Optionally the stream as named by argument 1.
      */
     StreamManager.prototype.set = function (nameOrStreamObj, stream) {
         var self = this;
@@ -79,7 +83,8 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
 
     /**
      * Get all the streams inside this StreamManager object
-     * @param name {?String} Get only a stream with this name
+     * @param name {?String} Get only a stream with this name.
+     * @returns {Stream} The stream requested by name, or the whole set, or null.
      */
     StreamManager.prototype.get = function (name) {
         if (name) {
@@ -91,6 +96,7 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
     /**
      * Binds a view to this stream, whose .add will be called every time data is received.
      * @params view {View} The view to bind.
+     * @returns {StreamManager} "this", useful for chaining.
      */
     StreamManager.prototype.bind = function(view) {
        this._views.push(view);
@@ -100,7 +106,7 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
     /**
      * Iterate over the StreamManager in the StreamManager object
      * @param cb {Function} A callback that will be called for each Stream with
-     *     `(stream, streamName)`
+     *        `(stream, streamName)`
      */
     StreamManager.prototype.forEach = function (cb) {
         for (var key in this._streams) {
