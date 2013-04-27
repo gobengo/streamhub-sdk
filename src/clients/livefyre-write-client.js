@@ -8,6 +8,7 @@ define(['jquery', 'base64'], function($) {
 
     /**
      * Posts a piece of content to a Livefyre collection.
+     * @param opts {Object} The livefyre collection options.
      * @param opts.network {string} The name of the network in the livefyre platform
      * @param opts.collectionId {string} The livefyre collectionId for the conversation
      * @param opts.lftoken {string} The livefyre user auth token
@@ -45,6 +46,7 @@ define(['jquery', 'base64'], function($) {
 
     /**
      * Posts a tweet to a Livefyre collection.
+     * @param opts {Object} The livefyre collection options.
      * @param opts.network {string} The name of the network in the livefyre platform
      * @param opts.collectionId {string} The livefyre collectionId for the conversation
      * @param opts.lftoken {string} The livefyre user auth token

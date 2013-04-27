@@ -1,7 +1,3 @@
-/** 
- * A module that provides a Base View to render Streams of Content
- * @module streamhub-sdk/view
- */
 define([
     'jquery',
     'streamhub-sdk/event-emitter',
@@ -34,10 +30,10 @@ define([
      * Defines a base view object that can be bound to any number of stream-managers. Content is
      * passed into a view via "add" event on "this". Subclasses are responsible for listening to
      * the "add" events and using them to display streamed content.
-     * @alias module:streamhub-sdk/view
      * @param opts {Object} A set of options to config the view with
      * @param opts.streams {Object.<string, Stream>} A dictionary of streams to listen to
      * @param opts.el {HTMLElement} The element in which to render the streamed content
+     * @exports streamhub-sdk/view
      * @constructor
      */
     var View = function(opts) {

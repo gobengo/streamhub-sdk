@@ -5,8 +5,8 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
      * will emit events when there is more content available, then one final "end" event when the
      * read completes.
      * @param opts {Object} A set of options to config the stream with
-     * @constructor
      * @exports streamhub-sdk/stream
+     * @constructor
      */
     var Stream = function(opts) {
         EventEmitter.call(this);

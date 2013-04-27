@@ -8,6 +8,7 @@ define(['jquery', 'streamhub-sdk/util'], function($, util) {
 
     /**
      * Fetches content from the livefyre conversation stream with the supplied arguments.
+     * @param opts {Object} The livefyre collection options.
      * @param opts.network {string} The name of the network in the livefyre platform
      * @param opts.collectionId {string} The livefyre collectionId for the conversation stream
      * @param opts.commentId {?string} The commentId to fetch content from (default "0")

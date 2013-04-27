@@ -1,3 +1,7 @@
+/** 
+ * A module to Stream new Content in a Livefyre Collection
+ * @module streamhub-sdk/stream-helpers/livefyre-helper
+ */
 define([
     'streamhub-sdk/stream-manager',
     'streamhub-sdk/clients/livefyre-bootstrap-client',
@@ -49,7 +53,7 @@ function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRevers
      * @param opts.articleId {string} The name of the article to configure.
      * @param opts.environment {?string} The name of the environment (prod/dev/uat/etc) to connect
      *        to. 
-     * @exports streamhub-sdk/streams/livefyre-collection-streams
+     * @exports streamhub-sdk/stream-helpers/livefyre-helper
      */
     getLivefyreStreamManager.createLivefyreStreams = function (opts, callback) {
         var self = this;
@@ -77,6 +81,9 @@ function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRevers
         });
     };
 
+    /**
+     * @exports streamhub-sdk/stream-helpers/livefyre-helper
+     */
     StreamManager.addHelper(function(create) {
         create.livefyreStreams = getLivefyreStreamManager;
     });

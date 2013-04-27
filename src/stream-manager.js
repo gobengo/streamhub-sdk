@@ -1,14 +1,11 @@
-/** 
- * A module wrap a Set of named Stream instances
- * @module streamhub-sdk/StreamManager
- */
 define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
 
     /**
      * Manages a collection of Streams
      * @param streamObj {?Object<string, Stream>} A set of streams, keyed by name to add to this
      *        manager.
-     * @alias module:streamhub-sdk/stream-manager
+     * @exports streamhub-sdk/stream-manager
+     * @constructor
      */
     var StreamManager = function(streamObj) {
         EventEmitter.call(this);
@@ -105,12 +102,12 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function ($, EventEmitter) {
 
     /**
      * Iterate over the StreamManager in the StreamManager object
-     * @param cb {Function} A callback that will be called for each Stream with
+     * @param callback {Function} A callback that will be called for each Stream with
      *        `(stream, streamName)`
      */
-    StreamManager.prototype.forEach = function (cb) {
+    StreamManager.prototype.forEach = function(callback) {
         for (var key in this._streams) {
-            cb.apply(this, [this._streams[key], key]);
+            callback.apply(this, [this._streams[key], key]);
         }
     };
 

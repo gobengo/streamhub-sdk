@@ -9,6 +9,8 @@ define([
      * @param json {Object} A state response from a StreamHub API
      * @param json.id {String} A Livefyre Message ID for this Content
      * @param [json.author.id] {String} A Livefyre Author ID for the tweeter
+     * @exports streamhub-sdk/content/types/livefyre-twitter-content
+     * @constructor
      */
     var LivefyreTwitterContent = function (json) {
         LivefyreContent.call(this, json);

@@ -9,6 +9,8 @@ define([
      * @param opts {Object} The set of options to configure this view with.
      * @param opts.content {Content} The content object to use when rendering. 
      * @param opts.el {?HTMLElement} The element to render this object in.
+     * @exports streamhub-sdk/content/views/content-view
+     * @constructor
      */
     var ContentView = function ContentView (opts) {
         opts = opts || {};

@@ -4,7 +4,9 @@ define(['jquery', 'streamhub-sdk/content/content'], function($, Content) {
      * Base class for any piece of Livefyre content. Extracts the details of the content
      * from the json object passed in via the Livefyre stream.
      * @param json {Object} An object obtained via a Livefyre stream that represents the
-     *        state of the content. 
+     *        state of the content.
+     * @exports streamhub-sdk/content/types/livefyre-content
+     * @constructor
      */
     var LivefyreContent = function(json) {
         Content.call(this);

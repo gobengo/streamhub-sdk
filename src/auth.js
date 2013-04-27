@@ -1,19 +1,22 @@
 define([], function() {
 
-    /**
-     * This module is extremely EXPERIMENTAL. Currently, it provides a simple oauth login
-     * against Livefyre's QA environment, to test oauth. It should not be used in a production
-     * environment.
-     * To use, add "require('streamhub-sdk').Auth.login(<<siteId>>)" to a login click event to
-     * request an oauth token, which can be used to post to the current site's comment stream
-     * for an hour.
-     * To get/check existance of the current token, call "require('streamhub-sdk').Auth.getToken()"
-     * which will return the lftoken or null if not available.
-     * To enable a successful token callback, be sure to include
-     * "require('streamhub-sdk').Auth.checkToken()" on the window.load event, which ensures the
-     * default oauth callback is enabled for the current url.
-     * @experimental
-     */
+	/**
+	 * This module is extremely EXPERIMENTAL. Currently, it provides a simple oauth login
+	 * against Livefyre's QA environment, to test oauth. It should not be used in a production
+	 * environment.
+	 *
+	 * To use, add "require('streamhub-sdk').Auth.login(_siteId_)" to a login click event to
+	 * request an oauth token, which can be used to post to the current site's comment stream
+	 * for an hour.
+	 *
+	 * To get/check existance of the current token, call "require('streamhub-sdk').Auth.getToken()"
+	 * which will return the lftoken or null if not available.
+	 * 
+	 * To enable a successful token callback, be sure to include
+	 * "require('streamhub-sdk').Auth.checkToken()" on the window.load event, which ensures the
+	 * default oauth callback is enabled for the current url.
+	 * @exports streamhub-sdk/auth
+	 */
     var Auth = {};
     
     Auth._loginWindow = null;
@@ -29,7 +32,7 @@ define([], function() {
      * a supplied callback.
      * @param siteId {String} The siteId to authenticate against the livefyre oauth server with.
      * @param redirectUrl {?String} optional redirectUrl to override the default (that being the
-     *        current window.location.href + ?sh_cb=_<<random callback id>>).
+     *        current window.location.href + ?sh_cb=_random_callback_id).
      * @param userCallback {?function} optional callback to fire after a token is successfully
      *        retrieved. 
      * @returns false

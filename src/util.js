@@ -1,8 +1,9 @@
-/** 
- * A module to render tiled walls of Content
- * @module streamhub-sdk/util
- */
 define(['jquery'], function ($) {
+
+	/** 
+	 * A module containing utility methods.
+	 * @module streamhub-sdk/util
+	 */
     var exports = {};
 
     /**

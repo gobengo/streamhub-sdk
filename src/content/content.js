@@ -7,6 +7,8 @@ define([
      * A piece of Web Content
      * @param body {String|Object} A string of HTML, the Content body.
      *     If an object, it should have a .body property
+     * @exports streamhub-sdk/content/content
+     * @constructor
      */
     var Content = function(bodyOrObj) {
         var body = bodyOrObj;
@@ -46,7 +48,7 @@ define([
      * Set some properties and emit 'change' and 'change:{property}' events
      * @param newProperties {Object} An object of properties to set on this Content
      * @fires Content#change
-     * @fires Content#change:{property}
+     * @fires Content#event:change:_property_
      */
     Content.prototype.set = function (newProperties) {
         newProperties = newProperties || {};
