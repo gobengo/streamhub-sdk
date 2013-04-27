@@ -7,6 +7,8 @@ function (ContentView, TwitterContentTemplate, $) {
     /**
      * A view for rendering twitter content into an element.
      * @param opts {Object} The set of options to configure this view with (See ContentView).
+     * @exports streamhub-sdk/content/views/twitter-content-view
+     * @constructor
      */
 
 	var TwitterContentView = function TwitterContentView (opts) {

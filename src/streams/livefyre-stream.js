@@ -1,7 +1,3 @@
-/** 
- * A module to Stream new Content in a Livefyre Collection
- * @module streamhub-sdk/streams/livefyre-stream
- */
 define([
     'jquery',
     'streamhub-sdk/stream',
@@ -28,8 +24,8 @@ define([
 
     /**
      * Defines a livefyre stream that is readable and writable from and to a livefyre conversation.
-     * @alias module:streamhub-sdk/streams/livefyre-stream
      * @param opts {Object} A set of options to config the stream client with
+     * @exports streamhub-sdk/streams/livefyre-stream
      * @constructor
      */
     var LivefyreStream = function(opts) {

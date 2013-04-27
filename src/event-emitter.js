@@ -4,6 +4,7 @@ define(function() {
 
     /**
      * Defines the base class for all event emitting objects to extend.
+     * @exports streamhub-sdk/event-emitter
      * @constructor
      */
     var EventEmitter = function() {

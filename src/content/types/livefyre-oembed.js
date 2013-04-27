@@ -8,6 +8,8 @@ function($, Oembed, LivefyreContent) {
      * An Oembed constructed from a StreamHub state of oEmbed type
      * @param json {Object} A state object from StreamHub APIs
      * @param json.content.oembed {Object} An Object conforming to the oEmbed spec
+     * @exports streamhub-sdk/content/types/livefyre-oembed
+     * @constructor
      */
     var LivefyreOembed = function(json) {
         LivefyreContent.call(this, json);

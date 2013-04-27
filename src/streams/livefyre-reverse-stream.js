@@ -1,7 +1,3 @@
-/** 
- * A module to Stream a Livefyre Collection in reverse chronological order
- * @module streamhub-sdk/streams/livefyre-reverse-stream
- */
 define([
     'jquery',
     'streamhub-sdk/stream',
@@ -28,8 +24,8 @@ define([
      * Defines a livefyre stream that is readable in reverse time order from a livefyre
      * conversation.
      * @param opts {Object} A set of options to config the stream client with
+     * @exports streamhub-sdk/streams/livefyre-reverse-stream
      * @constructor
-     * @alias module:streamhub-sdk/streams/livefyre-reverse-stream
      */
     var LivefyreReverseStream = function(opts) {
         Stream.call(this);

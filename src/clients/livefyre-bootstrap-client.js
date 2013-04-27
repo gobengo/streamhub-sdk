@@ -8,6 +8,7 @@ define(['streamhub-sdk/util', 'jquery', 'base64'], function(util, $) {
 
     /**
      * Fetches data from the livefyre bootstrap service with the arguments given.
+     * @param opts {Object} The livefyre collection options.
      * @param opts.network {string} The name of the network in the livefyre platform
      * @param opts.siteId {string} The livefyre siteId for the conversation
      * @param opts.articleId {string} The livefyre articleId for the conversation

@@ -3,6 +3,8 @@ define(['jquery', 'streamhub-sdk/content/content'], function($, Content) {
     /**
      * An Oembed Object. As specified by http://oembed.com/
      * @param json {Object} An Oembed-valid Object
+     * @exports streamhub-sdk/content/types/oembed
+     * @constructor
      */
     var Oembed = function(json) {
         Content.call(this);

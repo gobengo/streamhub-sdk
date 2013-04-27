@@ -1,15 +1,11 @@
-/** 
- * A module to render lists of Content
- * @module streamhub-sdk/views/list-view
- */
 define(['jquery', 'streamhub-sdk/view', 'streamhub-sdk/content/views/content-view'],
 function($, View, ContentView) {
     
     /**
      * A simple View that displays Content in a list (`<ul>` by default).
-     * @alias module:streamhub-sdk/views/list-view
      * @param opts {Object} A set of options to config the view with
      * @param opts.el {HTMLElement} The element in which to render the streamed content
+     * @exports streamhub-sdk/views/list-view
      * @constructor
      */
     var ListView = function(opts) {

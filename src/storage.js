@@ -1,5 +1,9 @@
 define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
-
+    
+	/**
+	 * A module to use for storing state.
+	 * @exports streamhub-sdk/storage
+	 */
     var Storage = {
         cache: {}
     };
@@ -24,7 +28,7 @@ define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
     /**
      * Sets an object to a key in storage, using sync or async
      * @param key {String} the key to store this under
-     * @param key {Object} the value to store
+     * @param value {Object} the value to store
      * @param callback {?function} optional callback to fire in async mode when complete
      */
     Storage.set = function(key, value, callback) {
