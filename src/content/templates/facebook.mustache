@@ -18,12 +18,7 @@
 <div class="content-attachments">
 {{#attachments}}
     <div class="content-attachment">
-        {{#html}}
-            {{{html}}}
-        {{/html}}
-        {{^html}}
-            <img src="{{ url }}" />
-        {{/html}}
+        {{{renderAttachment}}}
     </div>
 {{/attachments}}
 </div>
