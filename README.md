@@ -34,6 +34,10 @@ Run a web server for the project
 
 Then check out [http://localhost:8080/examples/listview](http://localhost:8080/examples/listview) for an example of `streamhub-sdk/views/list-view`
 
+## Design Overview
+
+![streamhub-sdk block diagram](https://drive.google.com/uc?id=0BwAX440-rUypOFJfVU1LTElZUUU "streamhub-sdk block diagram")
+
 ## Content
 
 `streamhub-sdk/content/content` provides a structured base class to represent any Content on the web. Content must only have a `.body`, which is an HTML string.
