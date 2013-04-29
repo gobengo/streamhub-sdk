@@ -128,6 +128,10 @@ Views can render a Stream of Content into ContentViews to create real-time socia
 
     view.add(new Content('<p>Hello</p>'));
 
+Views should implement a `.add(content)` method so they can be used with StreamManager's `.bind()`.
+
+    streamManager.bind(view).start();
+
 ## CSS
 
 The following CSS files are included as good defaults for your embedded Content experiences:
