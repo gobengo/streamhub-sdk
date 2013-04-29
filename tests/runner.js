@@ -16,5 +16,10 @@ phantom.create(function(ph) {
         });
         
         page.open('http://localhost:64646/tests/index.html');
+        setTimeout(function() {
+            serverProcess.kill();
+            process.exit();
+            return;
+        }, 1000 * 60);
     });
 });
