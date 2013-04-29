@@ -1,7 +1,8 @@
 define([
+    'jquery',
     'hgn!streamhub-sdk/content/templates/Content',
     'streamhub-sdk/util'
-], function (ContentTemplate, Util) {
+], function ($, ContentTemplate, Util) {
     
     /**
      * Defines the base class for all content-views. Handles updates to attachments
@@ -68,8 +69,38 @@ define([
      * @return {Content} The content object this view was instantiated with.
      */  
     ContentView.prototype.getTemplateContext = function () {
-        return this.content;
+        var context = $.extend({}, this.content);
+        context.renderAttachment = this.renderAttachment;
+        return context;
     };
+
+    ContentView.prototype.renderAttachment = function () {
+        var linkHtml;
+        switch (this.type) {
+            case 'photo':
+                return '<img src="{url}" />'.replace('{url}', this.url);
+            case 'video':
+                return this.html;
+            case 'link':
+                /** @todo show thumbnails */
+                linkHtml = '<a href="{href}"><p>OMFGOMFG</p>{body}</a>'
+                    .replace("{href}", this.url)
+                    .replace("{body}", linkAttachmentBody(this));
+                return linkHtml;
+            case 'rich':
+                return this.html;
+            default:
+                return '';
+        }
+    };
+
+    function linkAttachmentBody (oembed) {
+        var body = oembed.title;
+        if (oembed.thumbnail_url) {
+            body = '<img src="'+oembed.thumbnail_url+'" />';
+        }
+        return body;
+    }
     
     return ContentView;
 });
