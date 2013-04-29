@@ -1,6 +1,6 @@
 define([
     'jquery',
-    'hgn!streamhub-sdk/content/templates/Content',
+    'hgn!streamhub-sdk/content/templates/content',
     'streamhub-sdk/util'
 ], function ($, ContentTemplate, Util) {
     
