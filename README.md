@@ -22,7 +22,23 @@ To render Content from a StreamHub Collection as a list
 
 ## Getting Started
 
-Make sure you have NPM. It is bundled with [node.js](http://nodejs.org/)
+You can use streamhub-sdk either by including a built version from a CDN or using this repository locally.
+
+### CDN
+
+To include it in your page from the CDN, add a script tag to your HTML file.
+
+    <script src="http://cdn.livefyre.com/libs/sdk/v1.0.0/streamhub-sdk.min.gz.js"></script>
+
+You can also include the default stylesheet
+
+    <link rel="stylesheet" href="http://cdn.livefyre.com/libs/sdk/v1.0.0/streamhub-sdk.gz.css" />
+
+See this in action in this jsfiddle: http://jsfiddle.net/K9qH3/
+
+### Local Development
+
+To run locally, make sure you have NPM. It is bundled with [node.js](http://nodejs.org/)
 
     npm install
 
