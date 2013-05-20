@@ -87,7 +87,7 @@ define([
         var self = this,
             content,
             thisContentBeingWritten;
-        if (state.content && !state.erefs) {
+        if (state.content && !state.content.authorId) {
             state.author = authors[state.content.authorId];
             content = LivefyreStream.createContent(state);
             thisContentBeingWritten = self.contentBeingWritten[state.content.id];
