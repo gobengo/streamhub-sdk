@@ -99,19 +99,19 @@ define([
             }
             if (state.content.targetId) {
                 if (Storage.get(state.content.targetId)) {
-	                parentContent = Storage.get(state.content.targetId);
-	            
-	                if (content instanceof LivefyreOembed) { // oembed
-	                    parentContent.addAttachment(content);
-	                } else {
-	                    parentContent.addReply(content);
-	                }
-	            } else {
-	               // put this oembed/reply in storage for later if we receive the parent
-	               var children = Storage.get('children_' + state.content.targetId) || [];
-	               children.push(content);
-	               Storage.set('children_' + state.content.targetId, children); 
-	            }
+                    parentContent = Storage.get(state.content.targetId);
+                
+                    if (content instanceof LivefyreOembed) { // oembed
+                        parentContent.addAttachment(content);
+                    } else {
+                        parentContent.addReply(content);
+                    }
+                } else {
+                   // put this oembed/reply in storage for later if we receive the parent
+                   var allChildren = Storage.get('children_' + state.content.targetId) || [];
+                   allChildren.push(content);
+                   Storage.set('children_' + state.content.targetId, allChildren); 
+                }
             } else if (state.type === 0) {
                 if (content.id) {
                     // check to see if we've previously received children for this content
