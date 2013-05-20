@@ -21,17 +21,6 @@ define([
             var self = this;
             this.content.on("attachment", function(content) {
                 self.render();
-                var newImg = $(self.el).find('img').last();
-                newImg.hide();
-                newImg.on('load', function() {
-                    newImg.fadeIn();
-                    $(self.el).trigger('imageLoaded');
-                });
-                newImg.on('error', function() {
-                    self.content.attachments.pop();
-                    newImg.remove();
-                    self.render();
-                });
             });
         }
         
@@ -62,6 +51,19 @@ define([
         var context = this.getTemplateContext();
         context.formattedCreatedAt = Util.formatDate(this.content.createdAt);
         this.el.innerHTML = this.template(context);
+
+        // handle oembed loading gracefully
+        var newImg = $(this.el).find('.content-attachments img').last();
+        newImg.hide();
+        newImg.on('load', function() {
+            newImg.fadeIn();
+            $(self.el).trigger('imageLoaded');
+        });
+        newImg.on('error', function() {
+            self.content.attachments.pop();
+            newImg.remove();
+            self.render();
+        });
     };
     
     /**

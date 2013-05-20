@@ -97,15 +97,34 @@ define([
                 content = thisContentBeingWritten;
                 delete self.contentBeingWritten[state.content.id];
             }
-            if (state.content.targetId && Storage.get(state.content.targetId)) {
-                parentContent = Storage.get(state.content.targetId);
-            
-                if (content instanceof LivefyreOembed) { // oembed
-                    parentContent.addAttachment(content);
-                } else {
-                    parentContent.addReply(content);
-                }
+            if (state.content.targetId) {
+                if (Storage.get(state.content.targetId)) {
+	                parentContent = Storage.get(state.content.targetId);
+	            
+	                if (content instanceof LivefyreOembed) { // oembed
+	                    parentContent.addAttachment(content);
+	                } else {
+	                    parentContent.addReply(content);
+	                }
+	            } else {
+	               // put this oembed/reply in storage for later if we receive the parent
+	               var children = Storage.get('children_' + state.content.targetId) || [];
+	               children.push(content);
+	               Storage.set('children_' + state.content.targetId, children); 
+	            }
             } else if (state.type === 0) {
+                if (content.id) {
+                    // check to see if we've previously received children for this content
+                    var children = Storage.get('children_' + content.id);
+                    for (var i in children) {
+                        if (children[i] instanceof LivefyreOembed) {
+                            content.addAttachment(children[i]);
+                        } else {
+                            content.addReply(children[i]);
+                        }
+                    }
+                    Storage.set('children_' + content.id, []);
+                }
                 self._push(content);
             }
 
