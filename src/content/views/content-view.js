@@ -53,6 +53,7 @@ define([
         this.el.innerHTML = this.template(context);
 
         // handle oembed loading gracefully
+        var self = this;
         var newImg = $(this.el).find('.content-attachments img').last();
         newImg.hide();
         newImg.on('load', function() {
@@ -62,6 +63,7 @@ define([
         newImg.on('error', function() {
             self.content.attachments.pop();
             newImg.remove();
+            // todo: (gene) review this line...
             self.render();
         });
     };
