@@ -25,6 +25,46 @@ define(['jquery', 'streamhub-sdk/content/content'], function($, Content) {
     $.extend(LivefyreContent.prototype, Content.prototype);
 
     /**
+     * Attach an Oembed to the Content while first checking for an existing attachment.
+     * @param obj {Oembed} An Oembed Content instance to attach
+     * @fires Content#addAttachment
+     */
+    LivefyreContent.prototype.addAttachment = function(obj) {
+        var found = false;
+        if (obj.id) {
+            for (var i in this.attachments) {
+                if (this.attachments[i].id === obj.id) {
+                   found = true;
+                }
+            }
+        }
+        if (!found) {
+            this.attachments.push(obj);
+            this.emit('attachment', obj);
+        }
+    };
+
+    /**
+     * Add a reply to the Content while first checking for an existing reply.
+     * @param obj {Content} A piece of Content in reply to this one
+     * @fires Content#addReply
+     */
+    LivefyreContent.prototype.addReply = function(obj) {
+        var found = false;
+        if (obj.id) {
+            for (var i in this.replies) {
+                if (this.replies[i].id === obj.id) {
+                   found = true;
+                }
+            }
+        }
+        if (!found) {
+            this.replies.push(obj);
+            this.emit('reply', obj);
+        }
+    };
+    
+    /**
      * The set of sources as defined by Livefyre's Stream API
      */
     LivefyreContent.SOURCES = [

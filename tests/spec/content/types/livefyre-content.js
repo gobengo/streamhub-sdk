@@ -35,5 +35,26 @@ function ($, jasmine, LivefyreContent) {
             });
         }
 
+        it("should not allow duplicate attachments to be added", function () {
+            var spy = jasmine.createSpy();
+            content = new LivefyreContent(mockData.livefyreStreamContent);
+            content.on('attachment', spy);
+            content.addAttachment({id: '12345'});
+            content.addAttachment({id: '12345'});
+            
+            expect(spy.callCount).toBe(1);
+            expect(content.attachments.length).toBe(1);
+        });
+        it("should not allow duplicate replies to be added", function () {
+            var spy = jasmine.createSpy();
+            content = new LivefyreContent(mockData.livefyreStreamContent);
+            content.on('reply', spy);
+            content.addReply({id: '12345'});
+            content.addReply({id: '12345'});
+            
+            expect(spy.callCount).toBe(1);
+            expect(content.replies.length).toBe(1);
+        });
+
     });
 });
