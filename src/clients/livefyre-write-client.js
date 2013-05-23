@@ -42,9 +42,6 @@ define(['jquery', 'base64'], function($) {
             type: "POST",
             url: url,
             data: postData,
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Vary', 'Origin');
-            },
             success: function(data, status, jqXhr) {
                 // todo: (genehallman) check livefyre stream status in data.status
                 callback(null, data);
@@ -82,9 +79,6 @@ define(['jquery', 'base64'], function($) {
             type: "POST",
             url: url,
             data: postData,
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Vary', 'Origin');
-            },
             success: function(data, status, jqXhr) {
                 // todo: (genehallman) check livefyre stream status in data.status
                 callback(null, data);
