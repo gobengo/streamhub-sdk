@@ -42,6 +42,9 @@ define(['streamhub-sdk/util', 'jquery', 'base64'], function(util, $) {
             type: "GET",
             url: url,
             dataType: "json",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Vary', 'Origin');
+            },
             success: function(data, status, jqXhr) {
                 // todo: (genehallman) check livefyre stream status in data.status
                 callback(null, data);
