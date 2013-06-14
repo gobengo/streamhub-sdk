@@ -11,28 +11,16 @@
     name: "streamhub-sdk",
     location: "src"
   }],
-  shim: {
-    jquery: {
-      exports: '$',
-      init: function() {
-        console.log('here gene', window, this);
-        return this.Zepto;
-      }
-    }
-  },
   baseUrl: '.',
   name: "streamhub-sdk",
   include: ['almond'],
   stubModules: ['text', 'hgn'],
-  //exclude: ['almond', 'jquery', 'base64'],
-  skipModuleInsertion: false,
-  //todo: make this streamhub-sdk-$SDK_VERSION+build.$BUILD_NUMBER.min.js
   out: "streamhub-sdk.min.js",
   namespace: 'Livefyre',
   pragmasOnSave: {
     excludeHogan: true
   },
-  optimize: "none", //"uglify2",
+  optimize: "uglify2",
   uglify2: {
     compress: {
       unsafe: true

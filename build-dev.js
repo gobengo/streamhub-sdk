@@ -6,17 +6,12 @@
     text: 'lib/requirejs-text/text',
     hogan: 'lib/hogan/web/builds/2.0.0/hogan-2.0.0.amd',
     hgn: 'lib/requirejs-hogan-plugin/hgn'
-    'streamhub-zepto': 'lib/zepto/build/zepto.min'
+    'streamhub-zepto': 'lib/streamhub-zepto/build/zepto.min'
   },
   packages: [{
      name: "streamhub-sdk",
      location: "src"
   }],
-  shim: {
-    jquery: {
-        exports: '$'
-    }
-  },
   baseUrl: '.',
   name: "streamhub-sdk",
   exclude: ['jquery', 'almond', 'base64'],
