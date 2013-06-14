@@ -1,5 +1,5 @@
 define([
-    'jquery',
+    'streamhub-zepto',
     'jasmine',
     'streamhub-sdk/clients/livefyre-write-client',
     'jasmine-jquery'],

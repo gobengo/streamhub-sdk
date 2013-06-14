@@ -11,7 +11,7 @@ require.config({
     jasmine: 'lib/jasmine/lib/jasmine-core/jasmine',
     'jasmine-html': 'lib/jasmine/lib/jasmine-core/jasmine-html',
     'jasmine-jquery': 'lib/jasmine-jquery/lib/jasmine-jquery',
-    'streamhub-zepto': 'lib/zepto/build/zepto.min'
+    'streamhub-zepto': 'lib/streamhub-zepto/build/zepto.min'
   },
   packages: [{
      name: "streamhub-sdk",
