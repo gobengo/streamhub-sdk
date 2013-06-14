@@ -1,5 +1,5 @@
 define([
-    'jquery',
+    'streamhub-zepto',
     'streamhub-sdk/content/types/livefyre-content'
 ], function($, LivefyreContent) {
 

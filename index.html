@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="lib/requirejs/require.js"></script>
-    <script type="text/javascript" src="/requirejs.conf.js"></script>
+    <!-- <script type="text/javascript" src="lib/requirejs/require.js"></script> -->
+    <!-- <script type="text/javascript" src="/requirejs.conf.js"></script>  -->
+    <script type="text/javascript" src="/streamhub-sdk.min.js"></script>
 </head>
 <body>
     <div id="stream"></div>
     <script type="text/javascript">
-        require(['streamhub-sdk'], function(Hub) {
-            console.log(new Hub.Clients.Stream());
-        });
+        var Hub = Livefyre.require(['streamhub-sdk']);
+        var $ = "blah";
+        console.log("Zepto  as $:", window.$ == window.Zepto && window.Zepto != undefined)
+        console.log("null   as $:", window.$ == null);
+        console.log("'blah' as $:", window.$ == "blah");
     </script>
 </body>
 </html>

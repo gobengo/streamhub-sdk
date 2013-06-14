@@ -1,4 +1,4 @@
-define(['jquery', 'streamhub-sdk/view', 'streamhub-sdk/content/views/content-view'],
+define(['streamhub-zepto', 'streamhub-sdk/view', 'streamhub-sdk/content/views/content-view'],
 function($, View, ContentView) {
     
     /**

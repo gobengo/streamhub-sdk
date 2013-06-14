@@ -1,7 +1,7 @@
 define([
     'streamhub-sdk/content/views/content-view',
     'hgn!streamhub-sdk/content/templates/facebook',
-    'jquery'],
+    'streamhub-zepto'],
 function (ContentView, FacebookContentTemplate, $) {
 
     /**

@@ -3,11 +3,12 @@
  * @module streamhub-sdk/stream-helpers/livefyre-helper
  */
 define([
+    'streamhub-zepto',
     'streamhub-sdk/stream-manager',
     'streamhub-sdk/clients/livefyre-bootstrap-client',
     'streamhub-sdk/streams/livefyre-stream',
     'streamhub-sdk/streams/livefyre-reverse-stream'],
-function (StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreReverseStream) {
+function ($, StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreReverseStream) {
 
     /**
      * Get a StreamManager that will later be bound to a Livefyre Collection. No HTTP requests

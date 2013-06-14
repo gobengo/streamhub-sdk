@@ -1,5 +1,5 @@
 define([
-    'jquery',
+    'streamhub-zepto',
     'hgn!streamhub-sdk/content/templates/content',
     'streamhub-sdk/util'
 ], function ($, ContentTemplate, Util) {

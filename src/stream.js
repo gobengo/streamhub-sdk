@@ -1,4 +1,4 @@
-define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
+define(['streamhub-zepto', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
     
     /**
      * Defines a base stream object that can be "started", which reads from its source and

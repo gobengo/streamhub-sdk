@@ -1,4 +1,4 @@
-define(['streamhub-sdk/util', 'jquery', 'base64'], function(util, $) {
+define(['streamhub-sdk/util', 'streamhub-zepto', 'base64'], function(util, $) {
 
     /**
      * A Client for requesting Livefyre's Bootstrap Service
