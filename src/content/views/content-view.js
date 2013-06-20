@@ -87,7 +87,7 @@ define([
                 return this.html;
             case 'link':
                 /** @todo show thumbnails */
-                linkHtml = '<a href="{href}"><p>OMFGOMFG</p>{body}</a>'
+                linkHtml = '<a style="display:block;" href="{href}">{body}</a>'
                     .replace("{href}", this.url)
                     .replace("{body}", linkAttachmentBody(this));
                 return linkHtml;
