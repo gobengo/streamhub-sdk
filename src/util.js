@@ -105,5 +105,9 @@ define(['streamhub-sdk/jquery'], function ($) {
 	    };
 	})();
 
+    Array.prototype.indexOf = Array.prototype.indexOf || function(val) {
+        return $.inArray(val, this);
+    };
+
 	return exports;
 });
