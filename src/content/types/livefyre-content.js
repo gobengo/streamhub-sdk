@@ -13,7 +13,7 @@ define(['streamhub-sdk/jquery', 'streamhub-sdk/content/content'], function($, Co
         if ( ! json) {
             return this;
         }
-        this.body = json.content.bodyHtml;
+        this.body = json.content.bodyHtml || "";
         this.source = LivefyreContent.SOURCES[json.source];
         this.id = json.content.id;
         this.author = json.author;
