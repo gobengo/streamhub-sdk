@@ -1,4 +1,4 @@
-define(['streamhub-zepto', 'streamhub-sdk/content/content'], function($, Content) {
+define(['jquery', 'streamhub-sdk/content/content'], function($, Content) {
 
     /**
      * An Oembed Object. As specified by http://oembed.com/

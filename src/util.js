@@ -1,4 +1,4 @@
-define(['streamhub-zepto'], function ($) {
+define(['jquery'], function ($) {
 
 	/** 
 	 * A module containing utility methods.

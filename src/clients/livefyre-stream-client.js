@@ -1,4 +1,4 @@
-define(['streamhub-zepto', 'streamhub-sdk/util'], function($, util) {
+define(['jquery', 'streamhub-sdk/util'], function($, util) {
 
     /**
      * A Client for requesting Livefyre's Stream Service

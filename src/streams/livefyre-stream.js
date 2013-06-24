@@ -1,5 +1,5 @@
 define([
-    'streamhub-zepto',
+    'jquery',
     'streamhub-sdk/stream',
     'streamhub-sdk/clients/livefyre-stream-client',
     'streamhub-sdk/clients/livefyre-write-client',

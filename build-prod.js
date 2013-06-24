@@ -1,11 +1,11 @@
 ({
   paths: {
+    jquery: 'lib/jquery/jquery.min',
     base64: 'lib/base64/base64',
     almond: 'lib/almond/almond',
     text: 'lib/requirejs-text/text',
     hogan: 'lib/hogan/web/builds/2.0.0/hogan-2.0.0.amd',
-    hgn: 'lib/requirejs-hogan-plugin/hgn',
-    'streamhub-zepto': 'lib/zepto/build/zepto.min'
+    hgn: 'lib/requirejs-hogan-plugin/hgn'
   },
   packages: [{
     name: "streamhub-sdk",
@@ -26,5 +26,11 @@
       unsafe: true
     },
     mangle: true
+  },
+  onBuildRead: function(moduleName, path, contents) {
+    if (moduleName == "jquery") {
+      contents = "define([], function(require, exports, module) {" + contents + "});";
+    }
+    return contents;
   }
 })

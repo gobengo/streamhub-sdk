@@ -1,7 +1,7 @@
 define([
 	'streamhub-sdk/content/views/content-view',
 	'hgn!streamhub-sdk/content/templates/twitter',
-	'streamhub-zepto'],
+	'jquery'],
 function (ContentView, TwitterContentTemplate, $) {
 	
     /**

@@ -1,4 +1,4 @@
-define(['streamhub-zepto', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
+define(['jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
     
 	/**
 	 * A module to use for storing state.

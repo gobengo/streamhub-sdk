@@ -1,5 +1,5 @@
 define([
-    'streamhub-zepto',
+    'jquery',
     'streamhub-sdk/event-emitter',
     'streamhub-sdk/util',
     'streamhub-sdk/content/content',

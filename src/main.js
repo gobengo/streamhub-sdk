@@ -1,4 +1,5 @@
 define([
+    'jquery',
     'streamhub-sdk/auth',
     'streamhub-sdk/event-emitter',
     'streamhub-sdk/storage',
@@ -24,6 +25,7 @@ define([
     'streamhub-sdk/views/list-view',
     'text!streamhub-sdk/version.txt'
 ], function(
+    $,
     Auth,
     EventEmitter,
     Storage,
