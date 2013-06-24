@@ -1,4 +1,4 @@
-define([], function() {
+define(['streamhub-sdk/jquery'], function($) {
 
 	/**
 	 * This module is extremely EXPERIMENTAL. Currently, it provides a simple oauth login
@@ -93,7 +93,7 @@ define([], function() {
                 var token = null;
                 var expirey = null;
                 for (var i = 0; i < hashParts.length; i++) {
-                    if (hashParts[i].trim().length != 0 && hashParts[i].split('=').length == 2) {
+                    if ($.trim(hashParts[i]).length != 0 && hashParts[i].split('=').length == 2) {
                         var key = hashParts[i].split('=')[0];
                         var value = hashParts[i].split('=')[1];
                         if (key == "token") {

@@ -18,7 +18,7 @@ define(['streamhub-sdk/jquery', 'streamhub-sdk/content/content'], function($, Co
 
         $.extend(this, json);
 
-        if (this.html != undefined && this.html.trim() === "") {
+        if (this.html != undefined && $.trim(this.html) === "") {
             this.html = null;
         }
     };

@@ -89,7 +89,7 @@ define([
     Hub.Views = {};
     Hub.Views.ListView = ListView;
     
-    Hub.version = VersionInfo.trim();
+    Hub.version = $.trim(VersionInfo);
 
     return Hub;
 });
