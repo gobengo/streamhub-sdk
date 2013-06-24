@@ -1,4 +1,4 @@
-define(['jquery', 'streamhub-sdk/content/content'], function($, Content) {
+define(['streamhub-sdk/jquery', 'streamhub-sdk/content/content'], function($, Content) {
 
     /**
      * Base class for any piece of Livefyre content. Extracts the details of the content

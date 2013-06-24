@@ -3,7 +3,7 @@
  * @module streamhub-sdk/stream-helpers/livefyre-helper
  */
 define([
-    'jquery',
+    'streamhub-sdk/jquery',
     'streamhub-sdk/stream-manager',
     'streamhub-sdk/clients/livefyre-bootstrap-client',
     'streamhub-sdk/streams/livefyre-stream',

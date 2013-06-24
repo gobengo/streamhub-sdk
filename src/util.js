@@ -1,4 +1,4 @@
-define(['jquery'], function ($) {
+define(['streamhub-sdk/jquery'], function ($) {
 
 	/** 
 	 * A module containing utility methods.

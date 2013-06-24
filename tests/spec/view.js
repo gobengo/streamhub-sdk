@@ -1,11 +1,11 @@
 define([
-    'jquery',
+    'streamhub-sdk/jquery',
     'jasmine',
     'streamhub-sdk/view',
     'streamhub-sdk/stream',
     'jasmine-jquery',
     'streamhub-sdk-tests/mocks/jasmine-spy-stream'],
-function ($, jasmine, View, Stream, jasmineJquery, JasmineSpyStream) {
+function ($, jasmine, View, Stream, jasminejquery, JasmineSpyStream) {
     describe('A base View', function () {
         var view, opts;
 

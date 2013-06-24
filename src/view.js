@@ -1,5 +1,5 @@
 define([
-    'jquery',
+    'streamhub-sdk/jquery',
     'streamhub-sdk/event-emitter',
     'streamhub-sdk/util',
     'streamhub-sdk/content/content',

@@ -1,5 +1,5 @@
 define([
-    'jquery',
+    'streamhub-sdk/jquery',
     'jasmine',
     'streamhub-sdk/stream',
     'jasmine-jquery'],

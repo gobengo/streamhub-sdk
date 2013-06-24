@@ -1,5 +1,5 @@
 define([
-    'jquery',
+    'streamhub-sdk/jquery',
     'streamhub-sdk/content/types/oembed',
     'streamhub-sdk/content/types/livefyre-content'],
 function($, Oembed, LivefyreContent) {

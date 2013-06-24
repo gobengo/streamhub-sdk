@@ -1,11 +1,11 @@
 define([
-    'jquery',
+    'streamhub-sdk/jquery',
     'jasmine',
     'streamhub-sdk',
     'jasmine-jquery',
     'streamhub-sdk-tests/mocks/jasmine-spy-stream',
     'streamhub-sdk-tests/mocks/mock-stream'],
-function ($, jasmine, Hub, jasmineJquery, JasmineSpyStream, MockStream) {
+function ($, jasmine, Hub, jasminejquery, JasmineSpyStream, MockStream) {
     describe('A StreamManager', function () {
 
         it ('can be constructed with no args', function () {

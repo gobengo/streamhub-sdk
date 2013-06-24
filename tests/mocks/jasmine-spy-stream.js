@@ -1,4 +1,4 @@
-define(['jquery', 'streamhub-sdk/stream', 'jasmine'], function($, Stream, jasmine) {
+define(['streamhub-sdk/jquery', 'streamhub-sdk/stream', 'jasmine'], function($, Stream, jasmine) {
 
     /**
      * Defines a livefyre stream that is readable and writable from and to a livefyre conversation.

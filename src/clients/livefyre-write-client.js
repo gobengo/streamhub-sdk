@@ -1,4 +1,4 @@
-define(['jquery', 'base64'], function($) {
+define(['streamhub-sdk/jquery', 'base64'], function($) {
 
     /**
      * A Client for requesting Livefyre's Quill/Write Service

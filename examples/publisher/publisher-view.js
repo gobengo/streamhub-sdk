@@ -1,4 +1,4 @@
-define(['jquery', 'streamhub-sdk/view'], function($, View) {
+define(['streamhub-sdk/jquery', 'streamhub-sdk/view'], function($, View) {
     
     /**
      * A view that allows you to write to the stream.

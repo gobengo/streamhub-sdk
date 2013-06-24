@@ -1,5 +1,5 @@
 define([
-    'jquery',
+    'streamhub-sdk/jquery',
     'jasmine',
     'streamhub-sdk',
     'jasmine-jquery',
@@ -7,7 +7,7 @@ define([
     'streamhub-sdk/clients/livefyre-bootstrap-client',
     'streamhub-sdk/streams/livefyre-stream',
     'streamhub-sdk/streams/livefyre-reverse-stream'],
-function ($, jasmine, Hub, jasmineJquery, JasmineSpyStream, LivefyreBootstrapClient,
+function ($, jasmine, Hub, jasminejquery, JasmineSpyStream, LivefyreBootstrapClient,
 LivefyreStream, LivefyreReverseStream) {
     describe('Livefyre StreamManager Helper', function () {
         it('is registered with StreamManager.create on require', function () {
