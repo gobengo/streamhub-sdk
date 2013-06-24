@@ -33,6 +33,8 @@ define([
      * @param opts {Object} A set of options to config the view with
      * @param opts.streams {Object.<string, Stream>} A dictionary of streams to listen to
      * @param opts.el {HTMLElement} The element in which to render the streamed content
+     * @param opts.contentRegistry {Array.<Object>} An optional content registry to use in this
+     * view instance.
      * @exports streamhub-sdk/view
      * @constructor
      */
@@ -42,14 +44,16 @@ define([
         this.opts = opts;
 
         this.el = opts.el;
-        this.contentRegistry = View.DEFAULT_REGISTRY;
+        this.contentRegistry = opts.contentRegistry || View.DEFAULT_REGISTRY.slice(0);
         this.initialize.apply(this, arguments);
     };
     $.extend(View.prototype, EventEmitter.prototype);
 
     /**
      * The default registry for Content -> ContentView rendering.
-     * Expects entries to always contain a "type" property, and either a view property (the type function itself) or a viewFunction property (a function that returns a type function, useful for conditional view selection.).
+     * Expects entries to always contain a "type" property, and either a view property
+     * (the type function itself) or a viewFunction property (a function that returns a
+     * type function, useful for conditional view selection.).
      */
     View.DEFAULT_REGISTRY = [
         { type: LivefyreTwitterContent, view: TwitterContentView },
