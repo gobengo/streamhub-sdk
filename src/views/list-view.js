@@ -42,7 +42,7 @@ function($, View, ContentView) {
      *     .createContentView(content)
      *     add newContentView to this.contentViews[]
      *     render the newContentView
-     *     insert the newContentView into this.el
+     *     insert the newContentView into this.el according to this.comparator
      * @param content {Content} A Content model to add to the ListView
      * @return the newly created ContentView
      */
@@ -54,13 +54,37 @@ function($, View, ContentView) {
         }
 
         contentView = this.createContentView(content);
-        this.contentViews.push(contentView);
         contentView.render();
 
-        // @todo implement more excellent logic for sorting
-        $(contentView.el).prependTo(this.el);
+        // Add to DOM
+        this._insert(contentView);
 
         return contentView;
+    };
+
+    /**
+     * @private
+     * Insert a contentView into the ListView's .el
+     * Get insertion index based on this.comparator
+     */
+    ListView.prototype._insert = function (contentView) {
+        var newContentViewIndex,
+            $previousEl;
+
+        // Push and sort. #TODO Insert in sorted order
+        this.contentViews.push(contentView);
+        this.contentViews.sort(this.comparator);
+
+        newContentViewIndex = this.contentViews.indexOf(contentView);
+
+        if (newContentViewIndex === 0) {
+            // Beginning!
+            contentView.$el.prependTo(this.el);
+        } else {
+            // Find it's previous contentView and insert new contentView after
+            $previousEl = this.contentViews[newContentViewIndex - 1].$el;
+            contentView.$el.insertAfter($previousEl);
+        }
     };
 
 
