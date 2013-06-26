@@ -20,6 +20,20 @@ function($, View, ContentView) {
     };
     $.extend(ListView.prototype, View.prototype);
 
+
+    /**
+     * Comparator function to determine ordering of ContentViews.
+     * ContentView elements indexes in this.el will be ordered by this
+     * By default, order on contentView.content.createdAt in descending order (new first)
+     * @param a {ContentView}
+     * @param b {ContentView}
+     * @return {Number} < 0 if a before b, 0 if same ordering, > 0 if b before a
+     */
+    ListView.prototype.comparator = function (a, b) {
+        return b.content.createdAt - a.content.createdAt;
+    };
+
+
     /**
      * Add a piece of Content to the ListView
      *     .createContentView(content)

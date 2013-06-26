@@ -50,6 +50,26 @@ function (jasmine, jasmineJquery, $, ListView, Content, ContentView, Stream, Jas
             });
         });
 
+        describe("when the default comparator is pased ContentViews a, b", function () {
+            var baseDate = new Date(1372269035737),
+                earlierDate = new Date(baseDate - 1000),
+                laterDate = new Date(baseDate + 1000),
+                earlyContent = new Content({ body: 'early' }),
+                lateContent = new Content({ body: 'later' }),
+                earlyContentView = new ContentView({ content: earlyContent }),
+                lateContentView = new ContentView({ content: lateContent });
+
+            earlyContent.createdAt = earlierDate;
+            lateContent.createdAt = laterDate;
+
+            it("returns < 0 if a.content was created after b.content", function () {
+                expect(listView.comparator(lateContentView, earlyContentView)).toBeLessThan(0);
+            });
+            it("returns > 0 if a.content was created before b.content", function () {
+                expect(listView.comparator(earlyContentView, lateContentView)).toBeGreaterThan(0);
+            });
+        });
+
         describe("when adding Content", function () {
             var content,
                 newContentView;
