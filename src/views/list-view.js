@@ -1,6 +1,6 @@
 define(['streamhub-zepto', 'streamhub-sdk/view', 'streamhub-sdk/content/views/content-view'],
 function($, View, ContentView) {
-    
+
     /**
      * A simple View that displays Content in a list (`<ul>` by default).
      * @param opts {Object} A set of options to config the view with
@@ -24,13 +24,16 @@ function($, View, ContentView) {
     /**
      * Comparator function to determine ordering of ContentViews.
      * ContentView elements indexes in this.el will be ordered by this
-     * By default, order on contentView.content.createdAt in descending order (new first)
+     * By default, order on contentView.content.createdAt or contentView.createdAt
+     *     in descending order (new first)
      * @param a {ContentView}
      * @param b {ContentView}
      * @return {Number} < 0 if a before b, 0 if same ordering, > 0 if b before a
      */
     ListView.prototype.comparator = function (a, b) {
-        return b.content.createdAt - a.content.createdAt;
+        var aDate = a.content.createdAt || a.createdAt,
+            bDate = b.content.createdAt || b.createdAt;
+        return bDate - aDate;
     };
 
 
@@ -59,6 +62,7 @@ function($, View, ContentView) {
 
         return contentView;
     };
+
 
     /**
      * Given a new Content instance, return an existing contentView that

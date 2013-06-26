@@ -16,7 +16,9 @@ define([
     var ContentView = function ContentView (opts) {
         opts = opts || {};
         this.content = opts.content;
-        
+        // store construction time to use for ordering if this.content has no dates
+        this.createdAt = new Date();
+
         if (this.content) {
             var self = this;
             this.content.on("attachment", function(content) {
