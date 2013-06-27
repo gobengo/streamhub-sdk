@@ -44,6 +44,7 @@ define([
         if (this.content && this.content.id) {
             this.$el.attr('data-content-id', this.content.id);
         }
+        return this;
     };
     
     /**
@@ -70,6 +71,8 @@ define([
             // todo: (gene) review this line...
             self.render();
         });
+
+        return this;
     };
     
     /**
