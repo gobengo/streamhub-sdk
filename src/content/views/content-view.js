@@ -16,7 +16,9 @@ define([
     var ContentView = function ContentView (opts) {
         opts = opts || {};
         this.content = opts.content;
-        
+        // store construction time to use for ordering if this.content has no dates
+        this.createdAt = new Date();
+
         if (this.content) {
             var self = this;
             this.content.on("attachment", function(content) {
@@ -49,7 +51,9 @@ define([
      */
     ContentView.prototype.render = function () {
         var context = this.getTemplateContext();
-        context.formattedCreatedAt = Util.formatDate(this.content.createdAt);
+        if (this.content.createdAt) {
+            context.formattedCreatedAt = Util.formatDate(this.content.createdAt);
+        }
         this.el.innerHTML = this.template(context);
 
         // handle oembed loading gracefully
