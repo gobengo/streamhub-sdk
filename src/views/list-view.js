@@ -68,7 +68,7 @@ function($, View, ContentView) {
      * @param content {Content|ContentView} The ContentView or Content to be removed
      * @returns {boolean} true if Content was removed, else false
      */
-    StoryListView.prototype.remove = function (content) {
+    ListView.prototype.remove = function (content) {
         var contentView = content instanceof ContentView ? content : this.getContentView(content);
         if (! contentView) {
             return false;
