@@ -90,7 +90,9 @@ function($, View, ContentView) {
             $previousEl;
 
         // Push and sort. #TODO Insert in sorted order
-        this.contentViews.push(contentView);
+        if (this.contentViews.indexOf(contentView) === -1) {
+            this.contentViews.push(contentView);
+        }
         this.contentViews.sort(this.comparator);
 
         newContentViewIndex = this.contentViews.indexOf(contentView);
