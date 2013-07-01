@@ -33,6 +33,10 @@ define(['streamhub-sdk/jquery', 'base64'], function($) {
             body: opts.body,
             lftoken: opts.lftoken
         };
+        
+        if (opts.parent_id) {
+            postData.parent_id = opts.parent_id;
+        }
 
         if (opts.media) {
             postData.media = JSON.stringify(opts.media);
