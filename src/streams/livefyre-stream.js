@@ -100,17 +100,22 @@ define([
             if (state.content.targetId) {
                 if (Storage.get(state.content.targetId)) {
                     parentContent = Storage.get(state.content.targetId);
-                
-                    if (content instanceof LivefyreOembed) { // oembed
-                        parentContent.addAttachment(content);
-                    } else {
-                        parentContent.addReply(content);
-                    }
+                    parentContent.addAttachment(content);
                 } else {
                    // put this oembed/reply in storage for later if we receive the parent
                    var allChildren = Storage.get('children_' + state.content.targetId) || [];
                    allChildren.push(content);
                    Storage.set('children_' + state.content.targetId, allChildren); 
+                }
+            } else if (state.content.parentId) {
+                if (Storage.get(state.content.parentId)) {
+                    parentContent = Storage.get(state.content.parentId);
+                    parentContent.addReply(content);
+                } else {
+                   // put this oembed/reply in storage for later if we receive the parent
+                   var allChildren = Storage.get('children_' + state.content.parentId) || [];
+                   allChildren.push(content);
+                   Storage.set('children_' + state.content.parentId, allChildren);
                 }
             } else if (state.type === 0) {
                 if (content.id) {
