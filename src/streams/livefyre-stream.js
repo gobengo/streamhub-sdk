@@ -165,6 +165,10 @@ define([
             lftoken: opts.lftoken,
             body: content.body
         };
+        
+        if (content.parentId) {
+            params.parent_id = content.parentId;
+        }
 
         if (content.attachments && content.attachments.length) {
             params.media = [];

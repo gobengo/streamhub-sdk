@@ -20,6 +20,7 @@ define(['streamhub-sdk/jquery', 'streamhub-sdk/content/content'], function($, Co
         this.createdAt = new Date(1000 * json.content.createdAt);
         this.updatedAt = new Date(1000 * json.content.updatedAt);
         this.visibility = json.vis;
+        this.parentId = json.content.parentId;
         this.meta = json;
     };
     $.extend(LivefyreContent.prototype, Content.prototype);
