@@ -24,6 +24,9 @@ define([
             this.content.on("attachment", function(content) {
                 self.render();
             });
+            this.content.on("reply", function(content) {
+                self.render();
+            });
         }
         
         this.setElement(opts.el || document.createElement(this.elTag));
