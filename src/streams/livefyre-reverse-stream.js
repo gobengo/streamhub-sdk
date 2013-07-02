@@ -81,7 +81,13 @@ define([
 
                 // todo: make this recursive for nested replies
                 for (var j in state.childContent) {
-                    var childContent = LivefyreStream.createContent(state.childContent[j]);
+                    var child = state.childContent[j];
+
+                    if (child.content && child.content.authorId) {
+                        child.author = authors[child.content.authorId];
+                    }
+                    var childContent = LivefyreStream.createContent(child);
+                    
                     if (childContent instanceof Oembed) {
                         content.addAttachment(childContent);
                     } else {
