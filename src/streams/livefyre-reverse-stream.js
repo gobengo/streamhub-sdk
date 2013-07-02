@@ -52,7 +52,7 @@ define([
             network: this.network,
             siteId: this.siteId,
             articleId: this.articleId,
-            page: this.page
+            page: this.page.toString()
         };
         if (this.environment) {
             opts.environment = this.environment;
