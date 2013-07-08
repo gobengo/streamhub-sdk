@@ -9,7 +9,7 @@ define([
      *        state of the content.
      * @exports streamhub-sdk/content/types/livefyre-facebook-content
      * @constructor
-     */ 
+     */
     var LivefyreFacebookContent = function (json) {
         LivefyreContent.call(this, json);
 
@@ -18,12 +18,21 @@ define([
         try {
             var bodyEl = $(this.body);
             bodyEl.find('.fyre-image, .fyre-link').remove();
-            this.body = bodyEl.html();
+            this.body = outerHtml(bodyEl);
         } catch(e) {
             // Pass
         }
     };
     $.extend(LivefyreFacebookContent.prototype, LivefyreContent.prototype);
-    
+
+    /**
+     * Get a jQuery Element as HTML
+     */
+    function outerHtml ($el) {
+        var $tmp = $('<div></div>');
+        $tmp.append($el);
+        return $tmp.html();
+    }
+
     return LivefyreFacebookContent;
 });
