@@ -66,6 +66,7 @@ function ($, StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRev
 
             var pages = data.archiveInfo.pageInfo;
             var pageKeys = Object.keys(pages);
+            pageKeys.sort();
             var lastPageNum = pageKeys[pageKeys.length - 1];
             var collectionId = data.collectionId;
             var commentId = data.event;
