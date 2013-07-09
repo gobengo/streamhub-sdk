@@ -76,5 +76,27 @@ LivefyreStream, LivefyreReverseStream) {
             expect(LivefyreBootstrapClient.getContent).toHaveBeenCalled()
             expect(LivefyreBootstrapClient.getContent.callCount).toBe(1);
         });
+
+        it("creates a LivefyreReverseStream with the proper latest page", function () {
+            // Previously this test failed because livefyre-helper did not properly sort the keys
+            // of pageInfo before choosing the latestPage. Before then, this test passed in Chrome
+            // but failed in Firefox. Never trust ordering of object props
+            var mockData = {"networkId": "labs-t402.fyre.co", "archiveInfo": {"nPages": 4632, "pageInfo": {"1": {"url": "/t402.livefyre.com/labs-t402.fyre.co/303827/bGFic19kZW1vX2ZpcmU=/1.json", "last": 1364851975, "first": 1364851721}, "0": {"url": "/t402.livefyre.com/labs-t402.fyre.co/303827/bGFic19kZW1vX2ZpcmU=/0.json", "last": 1364851720, "first": 1364851464}, "4631": {"url": "/t402.livefyre.com/labs-t402.fyre.co/303827/bGFic19kZW1vX2ZpcmU=/4631.json", "last": 1366506807, "first": 1366506470}, "4630": {"url": "/t402.livefyre.com/labs-t402.fyre.co/303827/bGFic19kZW1vX2ZpcmU=/4630.json", "last": 1366506470, "first": 1366506185}, "4627": {"url": "/t402.livefyre.com/labs-t402.fyre.co/303827/bGFic19kZW1vX2ZpcmU=/4627.json", "last": 1366505515, "first": 1366505297}, "4628": {"url": "/t402.livefyre.com/labs-t402.fyre.co/303827/bGFic19kZW1vX2ZpcmU=/4628.json", "last": 1366505871, "first": 1366505517}, "4629": {"url": "/t402.livefyre.com/labs-t402.fyre.co/303827/bGFic19kZW1vX2ZpcmU=/4629.json", "last": 1366506168, "first": 1366505883}}, "pathBase": "/t402.livefyre.com/labs-t402.fyre.co/303827/bGFic19kZW1vX2ZpcmU=/"}, "allowEditComments": false, "collectionId": "10683466", "url": "", "checksum": "686caf5982899005a219a89dedb2d09b", "bootstrapUrl": "/t402.livefyre.com/labs-t402.fyre.co/303827/bGFic19kZW1vX2ZpcmU=/head.json", "title": "", "numVisible": 232353, "nestLevel": 0, "siteId": "303827", "commentsDisabled": false, "allowGuestComments": false, "followers": 1, "config": {"nestLevel": 4, "__modified__": 1366506831.857396}, "data": [], "event": 1366506809817028, "editCommentInterval": 0}
+
+            spyOn(LivefyreBootstrapClient, 'getContent').andCallFake(function (opts, cb) {
+                cb.call(this, null, mockData);
+            });
+
+            // Don't actually do anything when starting individual streams
+            // prevents tests from causing ajax requests and decrementing pageNum
+            spyOn(LivefyreStream.prototype, 'start').andCallFake(function () {});
+            spyOn(LivefyreReverseStream.prototype, 'start').andCallFake(function () {});
+
+            var sm = Hub.StreamManager.create.livefyreStreams({});
+            expect(LivefyreBootstrapClient.getContent).not.toHaveBeenCalled();
+
+            sm.start();
+            expect(sm.get().reverse.page).toBe('4631');
+        });
     });
 });
