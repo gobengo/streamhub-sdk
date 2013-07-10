@@ -34,7 +34,7 @@ define(['streamhub-sdk/util', 'streamhub-sdk/jquery', 'base64'], function(util, 
             btoa(opts.articleId),
             "/",
             opts.page || "init",
-            opts.extension || ".json"
+            opts.extension || (opts.page ? ".json" : "")
         ].join("");
 
 
@@ -44,6 +44,15 @@ define(['streamhub-sdk/util', 'streamhub-sdk/jquery', 'base64'], function(util, 
             dataType: "json",
             success: function(data, status, jqXhr) {
                 // todo: (genehallman) check livefyre stream status in data.status
+                
+                // this is an indication that we're going to load the init document, and 
+                // meta data restructuring needs to occur to allow for back compatability.
+                if (!opts.page) {
+                    var tmpData = $.extend(true, {}, data);
+                    delete tmpData.collectionSettings;
+                    data = data.collectionSettings;
+                    data.meta = tmpData;
+                }
                 callback(null, data);
             },
             error: function(jqXhr, status, err) {
