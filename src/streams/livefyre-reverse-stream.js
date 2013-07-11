@@ -34,6 +34,7 @@ define([
         this.siteId = opts.siteId;
         this.articleId = opts.articleId;
         this.environment = opts.environment;
+        this.followers = opts.followers || [];
         this.page = opts.page;
     };
     $.extend(LivefyreReverseStream.prototype, Stream.prototype);

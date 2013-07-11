@@ -25,7 +25,7 @@ define(['streamhub-sdk/jquery', 'streamhub-sdk/event-emitter'], function ($, Eve
             for (var i=0; i < self._views.length; i++) {
                 view = self._views[i];
                 if (typeof view.add === 'function') {
-                    view.add(content, stream)
+                    view.add(content, stream);
                 }
             }
         });
@@ -76,6 +76,7 @@ define(['streamhub-sdk/jquery', 'streamhub-sdk/event-emitter'], function ($, Eve
         stream.on('readable', function () {
             self.emit('readable', stream);
         });
+        self.emit('add', name, stream);
     };
 
     /**
