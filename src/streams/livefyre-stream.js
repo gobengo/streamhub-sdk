@@ -81,8 +81,8 @@ define([
                 }
 
                 var authors = data.authors;
-                for (var i in data.states) {
-                    var state = data.states[i];
+                for (var j in data.states) {
+                    var state = data.states[j];
                     self._handleState(state, authors);
                 }
                 
