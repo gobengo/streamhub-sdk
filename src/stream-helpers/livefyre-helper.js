@@ -37,7 +37,7 @@ function ($, StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRev
             var lastPageNum = pageKeys[pageKeys.length - 1];
             var collectionId = data.collectionId;
             var commentId = data.event;
-            var followers = data.meta.headDocument.followers || [];
+            var followers = ((data.meta || {}).headDocument || {}).followers || [];
 
             var mainStream = new LivefyreStream($.extend({
                 collectionId: collectionId,
