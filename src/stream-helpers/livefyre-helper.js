@@ -30,14 +30,15 @@ function ($, StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRev
             if (err) {
                 return callback(err);
             }
-
-            var pages = data.archiveInfo.pageInfo;
+            var collectionSettings = data.collectionSettings;
+            var pages = collectionSettings.archiveInfo.pageInfo;
             var pageKeys = Object.keys(pages);
             pageKeys.sort();
             var lastPageNum = pageKeys[pageKeys.length - 1];
-            var collectionId = data.collectionId;
-            var commentId = data.event;
+            debugger;
             var followers = ((data.meta || {}).headDocument || {}).followers || [];
+            var collectionId = collectionSettings.collectionId;
+            var commentId = collectionSettings.event;
 
             var mainStream = new LivefyreStream($.extend({
                 collectionId: collectionId,
