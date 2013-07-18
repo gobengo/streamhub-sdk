@@ -19,22 +19,23 @@ define(['streamhub-sdk/util', 'streamhub-sdk/jquery', 'base64'], function(util, 
      *     bootstrap request. Callback signature is "function(error, data)".
      */
     LivefyreBootstrapClient.getContent = function(opts, callback) {
+        var isLocaldev;
         opts = opts || {};
         callback = callback || function() {};
+        isLocaldev = opts.environment && opts.environment === 'fyre';
 
         var url = [
             'http://bootstrap.',
             (opts.network === 'livefyre.com') ? opts.environment || 'livefyre.com' : opts.network,
             "/bs3/",
-            opts.environment ? opts.environment + "/" : "",
+            (opts.environment && ! isLocaldev) ? opts.environment + "/" : "",
             opts.network,
             "/",
             opts.siteId,
             "/",
             btoa(opts.articleId),
             "/",
-            opts.page || "init",
-            opts.extension || ".json"
+            opts.page ? opts.page+'.json' : "init"
         ].join("");
 
 
@@ -44,6 +45,7 @@ define(['streamhub-sdk/util', 'streamhub-sdk/jquery', 'base64'], function(util, 
             dataType: "json",
             success: function(data, status, jqXhr) {
                 // todo: (genehallman) check livefyre stream status in data.status
+                debugger;
                 callback(null, data);
             },
             error: function(jqXhr, status, err) {

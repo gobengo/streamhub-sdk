@@ -67,6 +67,7 @@ define([
                 self._endRead();
                 return;
             }
+            debugger;
             var authors = data.authors;
             for (var i in data.content) {
                 var state = data.content[i];
