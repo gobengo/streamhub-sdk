@@ -47,8 +47,8 @@ function ($, StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRev
             }, opts));
             
             var reverseStream = new LivefyreReverseStream($.extend({
-                page: lastPageNum,
-                followers: followers
+                followers: followers,
+                headDocument: data.headDocument
             }, opts));
 
             streamManager.set({ 'main': mainStream, 'reverse': reverseStream });
