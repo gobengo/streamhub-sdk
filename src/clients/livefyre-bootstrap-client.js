@@ -45,7 +45,6 @@ define(['streamhub-sdk/util', 'streamhub-sdk/jquery', 'base64'], function(util, 
             dataType: "json",
             success: function(data, status, jqXhr) {
                 // todo: (genehallman) check livefyre stream status in data.status
-                debugger;
                 callback(null, data);
             },
             error: function(jqXhr, status, err) {

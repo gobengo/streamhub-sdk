@@ -76,6 +76,7 @@ function ($, StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRev
                 commentId: commentId
             }, opts));
             var reverseStream = new LivefyreReverseStream($.extend({
+                headDocument: data.headDocument,
                 page: lastPageNum
             }, opts));
 
