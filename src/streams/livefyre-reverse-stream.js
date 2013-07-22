@@ -90,7 +90,7 @@ define([
             var state = data.content[i];
             // Don't re-emit content that was already in the headDocument
             if (this._pushedHeadDocument && this._headDocumentContentIds.indexOf(state.content.id) !== -1) {
-                //continue;
+                continue;
             }
 
             state.author = authors[state.content.authorId];

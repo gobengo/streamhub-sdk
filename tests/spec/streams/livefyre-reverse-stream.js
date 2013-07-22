@@ -103,8 +103,9 @@ function ($, jasmine, LivefyreReverseStream, LivefyreBootstrapClient) {
                     expect(stream._push).toHaveBeenCalled();
                 });
                 describe("and on subsequent start", function () {
-                    var pushCallCountBeforeSecondStart = stream._push.callCount;
+                    var pushCallCountBeforeSecondStart;
                     beforeEach(function () {
+                        pushCallCountBeforeSecondStart = stream._push.callCount;
                         stream.start();
                     });
                     it("calls LivefyreBootstrapClient for the first time", function () {
