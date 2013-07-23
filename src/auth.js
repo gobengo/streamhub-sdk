@@ -41,6 +41,9 @@ define(['streamhub-sdk/jquery', 'streamhub-sdk/event-emitter'], function($, Even
      * @returns false
      */
     Auth.login = function(network) {
+        if (typeof network != "string") {
+            network = "livefyre.com";
+        }
         if (Auth._loginInterval != null) {
             clearInterval(Auth._loginInterval);
             Auth._loginInterval = null;
