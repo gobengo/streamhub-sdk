@@ -1,4 +1,4 @@
-define(['streamhub-sdk/jquery'], function($) {
+define(['streamhub-sdk/jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
 
 	/**
 	 * This module is extremely EXPERIMENTAL. Currently, it provides a simple oauth login

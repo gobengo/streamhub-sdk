@@ -91,14 +91,9 @@ function ($, jasmine, Hub, jasminejquery, JasmineSpyStream, MockStream) {
                 expect(streamManager.get('main').start).toHaveBeenCalled();
                 expect(streamManager.get('reverse').start).toHaveBeenCalled();
             });
-            it("doesn't start newly added streams once started", function () {
+            it("does start newly added streams once started", function () {
                 streamManager.start();
                 streamManager.set('new', new JasmineSpyStream());
-                expect(streamManager.get('new').start).not.toHaveBeenCalled();
-
-                if (streamManager.isStarted) {
-                    streamManager.get('new').start();
-                }
                 expect(streamManager.get('new').start).toHaveBeenCalled();
             });
             it(".isStarted returns started status", function () {
