@@ -22,7 +22,7 @@ define(['streamhub-sdk/jquery', 'streamhub-sdk/event-emitter'], function($, Even
     };
     $.extend(_Auth.prototype, EventEmitter.prototype);
 
-    var Auth = new Auth();
+    var Auth = new _Auth();
     
     Auth._loginInterval = null;
     Auth._loginWindow = null;
