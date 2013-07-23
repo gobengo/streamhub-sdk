@@ -76,6 +76,9 @@ define(['streamhub-sdk/jquery', 'streamhub-sdk/event-emitter'], function ($, Eve
         stream.on('readable', function () {
             self.emit('readable', stream);
         });
+        if (self.isStarted) {
+            stream.start();
+        }
         self.emit('add', name, stream);
     };
 
