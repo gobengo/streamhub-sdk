@@ -29,7 +29,7 @@ define([
      */
     var LivefyreReverseStream = function(opts) {
         Stream.call(this);
-        this.opts = opts || {};
+        opts = opts || {};
         this.network = opts.network;
         this.siteId = opts.siteId;
         this.articleId = opts.articleId;
@@ -39,6 +39,7 @@ define([
         this.headDocument = opts.headDocument;
         this._headDocumentContentIds = this.getContentIdsFromBootstrapDocument(this.headDocument);
         this._pushedHeadDocument = false;
+        this.plugins = [];
     };
     $.extend(LivefyreReverseStream.prototype, Stream.prototype);
 
@@ -80,8 +81,11 @@ define([
         }
     };
 
+    /**
+     * Process a bootstrap response, creating content and ._pushing along the way
+     */
     LivefyreReverseStream.prototype._handleBootstrapDocument = function (data) {
-        var authors = data.authors;
+        var authors = data.authors || {};
         if (this._isReading === false) {
             this._endRead();
             return;
@@ -97,12 +101,15 @@ define([
 
             // Ignore non-publicly-visible messages
             // vis 1 means public content
-            if (state.vis !== 1) {
+            if ((typeof state.vis !== 'undefined') && state.vis !== 1) {
                 continue;
             }
 
-            var content = LivefyreStream.createContent(state);
+            var content = this.createContent(state);
 
+            if ( ! content) {
+                continue;
+            }
             if (content && content.id) {
                 Storage.set(content.id, content);
             }
@@ -115,7 +122,7 @@ define([
                 if (child.content && child.content.authorId) {
                     child.author = authors[child.content.authorId];
                 }
-                var childContent = LivefyreStream.createContent(child);
+                var childContent = this.createContent(child);
                 
                 if (childContent instanceof Oembed) {
                     content.addAttachment(childContent);
@@ -128,7 +135,32 @@ define([
             }
         }
     };
-    
+
+    /**
+     * Create a Content instance from a state in the stream
+     * @param state {object} A JSON state from StreamHub Bootstrap API
+     * @returns {Content}
+     */
+    LivefyreReverseStream.prototype.createContent = function (state) {
+        var content = LivefyreStream.createContent(state),
+            plugins = this.plugins;
+        if (content) {
+            return content;
+        }
+        for (var i=0; i < plugins.length; i++) {
+            var plugin = plugins[i];
+            try {
+                return plugin(state);
+            } catch (e) {
+                continue;
+            }
+        }
+    };
+
+    /**
+     * Get the Content Ids from a JSON object response from StreamHub's Bootstrap Service
+     * @returns {string[]}
+     */
     LivefyreReverseStream.prototype.getContentIdsFromBootstrapDocument = function (data) {
         data = data || {};
         var states = data.content || [];
