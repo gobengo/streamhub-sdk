@@ -17,8 +17,12 @@ define(['streamhub-sdk/jquery', 'streamhub-sdk/event-emitter'], function($, Even
 	 * default oauth callback is enabled for the current url.
 	 * @exports streamhub-sdk/auth
 	 */
-    var Auth = {};
-    $.extend(Auth, EventEmitter.prototype);
+    var _Auth = function() {
+        EventEmitter.call(this);
+    };
+    $.extend(_Auth.prototype, EventEmitter.prototype);
+
+    var Auth = new Auth();
     
     Auth._loginInterval = null;
     Auth._loginWindow = null;
