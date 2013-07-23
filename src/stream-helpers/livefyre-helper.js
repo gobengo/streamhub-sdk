@@ -30,13 +30,8 @@ function ($, StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRev
             if (err) {
                 return callback(err);
             }
+            var followers = ((data || {}).headDocument || {}).followers || [];
             var collectionSettings = data.collectionSettings;
-            var pages = collectionSettings.archiveInfo.pageInfo;
-            var pageKeys = Object.keys(pages);
-            pageKeys.sort();
-            var lastPageNum = pageKeys[pageKeys.length - 1];
-            debugger;
-            var followers = ((data.meta || {}).headDocument || {}).followers || [];
             var collectionId = collectionSettings.collectionId;
             var commentId = collectionSettings.event;
 
@@ -48,7 +43,7 @@ function ($, StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRev
             
             var reverseStream = new LivefyreReverseStream($.extend({
                 followers: followers,
-                headDocument: data.headDocument
+                initData: data
             }, opts));
 
             streamManager.set({ 'main': mainStream, 'reverse': reverseStream });
