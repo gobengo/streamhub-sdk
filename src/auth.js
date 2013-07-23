@@ -90,7 +90,7 @@ define(['streamhub-sdk/jquery', 'streamhub-sdk/event-emitter'], function($, Even
      */
     Auth.setToken = function(token) {
         Auth._token = token;
-        Auth.emit('loggedin');
+        Auth.emit('loggedin', token);
     };
     
     /**
@@ -104,7 +104,7 @@ define(['streamhub-sdk/jquery', 'streamhub-sdk/event-emitter'], function($, Even
 
             for (var i = 0; i < parts.length; i++) {
                 if (/_lftoken=/.test(parts[i])) {
-                    Auth._token = parts[i].substr(9);
+                    Auth.setToken(parts[i].substr(9));
                     break;
                 }
             }
