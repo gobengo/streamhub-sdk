@@ -35,10 +35,10 @@ define([
         this.articleId = opts.articleId;
         this.environment = opts.environment;
         this.page = opts.page;
-        this.headDocument = opts.headDocument;
-        this._headDocumentContentIds = this.getContentIdsFromBootstrapDocument(this.headDocument);
-        this._pushedHeadDocument = false;
         this.plugins = [];
+        if (opts.initData) {
+            this._setInitData(opts.initData);
+        }
     };
     $.extend(LivefyreReverseStream.prototype, Stream.prototype);
 
@@ -73,11 +73,42 @@ define([
                     self._endRead();
                     return;
                 }
+                if (data.headDocument) {
+                    self._setInitData(data);
+                    return self._read();
+                }
                 self._handleBootstrapDocument(data);
                 self.page--;
                 self._endRead();
             });
         }
+    };
+
+    /**
+     * Pass a Bootstrap Init JSON document to the stream to set its internal state
+     * Including headDocument and the latest page
+     * @param initData {object} An object like the response here:
+     *     http://bootstrap.labs-t402.fyre.co/bs3/t402.livefyre.com/labs-t402.fyre.co/303827/Y29udGV4dHVhbF8x/init
+     */
+    LivefyreReverseStream.prototype._setInitData = function (initData) {
+        var collectionSettings = initData.collectionSettings,
+            pages = collectionSettings.archiveInfo.pageInfo,
+            pageKeys = Object.keys(pages);
+        pageKeys.sort();
+        this.page = pageKeys[pageKeys.length - 1];
+        this._setHeadDocument(initData.headDocument);
+    };
+
+    /**
+     * Tell the stream about a headDocument. On ._read(), the headDocument Content
+     * will be emitted before everything else. The Stream will also get its page from here
+     * @param headDocument {object] An object like the headDocument property in this response:
+     *     http://bootstrap.labs-t402.fyre.co/bs3/t402.livefyre.com/labs-t402.fyre.co/303827/Y29udGV4dHVhbF8x/init
+     */
+    LivefyreReverseStream.prototype._setHeadDocument = function (headDocument) {
+        this.headDocument = headDocument;
+        this._pushedHeadDocument = false;
+        this._headDocumentContentIds = this.getContentIdsFromBootstrapDocument(this.headDocument);
     };
 
     /**
