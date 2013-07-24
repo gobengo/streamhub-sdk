@@ -36,7 +36,7 @@ define([
         this.environment = opts.environment;
         this.followers = opts.followers || [];
         this.page = opts.page;
-        this.plugins = [];
+        this.plugins = this.plugins || [];
         if (opts.initData) {
             this._setInitData(opts.initData);
         }
