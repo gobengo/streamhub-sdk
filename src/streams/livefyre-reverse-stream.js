@@ -35,7 +35,7 @@ define([
         this.articleId = opts.articleId;
         this.environment = opts.environment;
         this.page = opts.page;
-        this.plugins = [];
+        this.plugins = this.plugins || [];
         if (opts.initData) {
             this._setInitData(opts.initData);
         }
