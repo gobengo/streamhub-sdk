@@ -72,7 +72,7 @@ define([
      */
     View.prototype.render = function () {
         if (typeof this.template === 'function') {
-            this.el.innerHTML = this.template();
+            this.el.innerHTML = this.template(this);
         }
     };
 
