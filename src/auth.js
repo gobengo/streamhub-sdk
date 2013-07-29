@@ -1,4 +1,4 @@
-define(['streamhub-sdk/jquery'], function($) {
+define(['streamhub-sdk/jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
 
 	/**
 	 * This module is extremely EXPERIMENTAL. Currently, it provides a simple oauth login
@@ -17,49 +17,58 @@ define(['streamhub-sdk/jquery'], function($) {
 	 * default oauth callback is enabled for the current url.
 	 * @exports streamhub-sdk/auth
 	 */
-    var Auth = {};
+    var _Auth = function() {
+        EventEmitter.call(this);
+    };
+    $.extend(_Auth.prototype, EventEmitter.prototype);
+
+    var Auth = new _Auth();
     
+    Auth._loginInterval = null;
     Auth._loginWindow = null;
+    Auth._locationHash = null;
     Auth._token = null;
     Auth._expirey = null;
     
-    Auth._oauthHost = "54.236.217.50";
-    Auth._oauthPort = 8080;
-    Auth._oauthPath = "/oauth/authorize";
+    Auth._oauthHost = "zuul.livefyre.com";
+    Auth._oauthPort = 80;
+    Auth._oauthPath = "/";
 
     /**
      * Logs in a user via oauth and sets their token on this object, optionally calls
      * a supplied callback.
-     * @param siteId {String} The siteId to authenticate against the livefyre oauth server with.
-     * @param redirectUrl {?String} optional redirectUrl to override the default (that being the
-     *        current window.location.href + ?sh_cb=_random_callback_id).
-     * @param userCallback {?function} optional callback to fire after a token is successfully
-     *        retrieved. 
+     * @param network {String} The network to authenticate against the livefyre oauth server with.
      * @returns false
      */
-    Auth.login = function(siteId, redirectUrl, userCallback) {
-        var callback;
-        while (!callback || window[callback]) {
-            callback = "_" + (Math.floor(Math.random() * Math.pow(10, 12) ) + 1);
+    Auth.login = function(network) {
+        if (typeof network != "string") {
+            network = "livefyre.com";
         }
-
-        window[callback] = function(token, expirey) {
-            expirey = expirey || 3600;
-            Auth._token = token;
-            Auth._expirey = new Date(((Date.now() / 1000) + expirey) * 1000);
-            
-            window[callback] = null;
-            if (userCallback) {
-                userCallback(token, expirey);
-            }
-        };
-
-        var redirectUrl = redirectUrl || window.location.href + "?sh_cb=" + callback;
+        if (Auth._loginInterval != null) {
+            clearInterval(Auth._loginInterval);
+            Auth._loginInterval = null;
+        }
+        if (Auth._token != null) {
+	        Auth._token = null;
+        }
+        if (Auth._loginWindow != null) {
+            Auth._loginWindow.close();
+            Auth._loginWindow = null;
+        }
         
-        var url = "http://" + Auth._oauthHost + ":" + Auth._oauthPort + Auth._oauthPath + "?redirect_uri=" + redirectUrl + 
-            "&response_type=token&client_id=" + siteId + "&scope=all";
-        
-        Auth._loginWindow = window.open(url, 'name','height=400,width=600');
+        var url = ["http://",
+            Auth._oauthHost,
+            ":",
+            Auth._oauthPort,
+            Auth._oauthPath,
+            "?redirect=",
+            encodeURIComponent(window.location.toString()), 
+            "&network=",
+            network].join("");
+
+        Auth._locationHash = window.location.hash;
+        Auth._loginInterval = setInterval(Auth.checkLogin, 100);
+        Auth._loginWindow = window.open(url, 'Login', 'height=270,width=408');
         
         if (window.focus) {
             Auth._loginWindow.focus();
@@ -70,43 +79,44 @@ define(['streamhub-sdk/jquery'], function($) {
     
     /**
      * Gets the token for the currently authenticated user.
-     * @returns false
+     * @returns The token
      */
     Auth.getToken = function() {
         return Auth._token;
     };
+
+    /**
+     * Sets the token for the currently authenticated user.
+     */
+    Auth.setToken = function(token) {
+        Auth._token = token;
+        Auth.emit('loggedin', token);
+    };
     
     /**
-     * Checks for a token response in the current window, by examining both window.opener and 
-     * the current window.location.hash and retreiving and storing the token parameter, calling
-     * the callback as retreived via the "sh_cb" callback query param (on the window object),
-     * which will trigger the user callback. Useful in window.onload callback if you intend on
-     * making use of the simplest form of authentication.
+     * Checks for a token response in the current window, by examining the current
+     * window.location.hash and retreiving and storing the _lftoken parameter.
      */
-    Auth.checkToken = function() {
-        if (window.opener) {
-            var hash = window.location.hash || "";
-            var hashParts = hash.split(/[#&]+/);
-            var callbackParts = window.location.search.match(/[?&]sh_cb=(_\d*)/);
-            if (callbackParts && callbackParts.length >= 2) {
-                var callback = callbackParts[1];
-                var token = null;
-                var expirey = null;
-                for (var i = 0; i < hashParts.length; i++) {
-                    if ($.trim(hashParts[i]).length != 0 && hashParts[i].split('=').length == 2) {
-                        var key = hashParts[i].split('=')[0];
-                        var value = hashParts[i].split('=')[1];
-                        if (key == "token") {
-                            token = value;
-                        } else if (key == "expirey") {
-                            expirey = parseInt(value);
-                        }
-                    }
+    Auth.checkLogin = function() {
+        if (!Auth._locationHash || window.location.hash != Auth._locationHash) {
+            var parsedHash = window.location.hash.substr(1);
+            var parts = parsedHash.split('&');
+
+            for (var i = 0; i < parts.length; i++) {
+                if (/_lftoken=/.test(parts[i])) {
+                    Auth.setToken(parts[i].substr(9));
+                    break;
                 }
-                if (callback && window.opener[callback] && token) {
-                    window.opener[callback](token, expirey);
-                    window.close();
-                }
+            }
+        }
+        if (Auth._token != null) {
+            if (Auth._locationHash != null) {
+                window.location.hash = Auth._locationHash;
+                Auth._locationHash = null;
+            }
+            if (Auth._loginInterval != null) {
+                clearInterval(Auth._loginInterval);
+                Auth._loginInterval = null
             }
         }
     };

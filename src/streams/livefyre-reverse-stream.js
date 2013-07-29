@@ -34,6 +34,7 @@ define([
         this.siteId = opts.siteId;
         this.articleId = opts.articleId;
         this.environment = opts.environment;
+        this.followers = opts.followers || [];
         this.page = opts.page;
         this.plugins = this.plugins || [];
         if (opts.initData) {
@@ -126,6 +127,7 @@ define([
             if (this._pushedHeadDocument && this._headDocumentContentIds.indexOf(state.content.id) !== -1) {
                 continue;
             }
+
             state.author = authors[state.content.authorId];
 
             // Ignore non-publicly-visible messages
@@ -152,7 +154,7 @@ define([
                     child.author = authors[child.content.authorId];
                 }
                 var childContent = this.createContent(child);
-                
+
                 if (childContent instanceof Oembed) {
                     content.addAttachment(childContent);
                 } else {

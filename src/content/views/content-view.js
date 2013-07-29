@@ -29,7 +29,7 @@ define([
             });
         }
 
-        this.template = opts.template || ContentView.prototype.template;
+        this.template = opts.template || this.template;
         
         this.setElement(opts.el || document.createElement(this.elTag));
     };

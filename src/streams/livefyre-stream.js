@@ -34,6 +34,8 @@ define([
         this.collectionId = opts.collectionId;
         this.commentId = opts.commentId;
         this.environment = opts.environment;
+        this.followers = opts.followers || [];
+        this.articleId = opts.articleId || "";
         this.contentBeingWritten = {};
     };
     $.extend(LivefyreStream.prototype, Stream.prototype);
@@ -60,12 +62,29 @@ define([
                 self._endRead();
                 return;
             } else if (data && !err) {
-                var authors = data.authors;
+                var followersChanged = false;
+                for (var i in data.followers) {
+                    var follower = data.followers[i];
+                    var index = self.followers.indexOf(follower.authorId);
+                    
+                    if (follower.following && index < 0) {
+                        self.followers.push(follower.authorId);
+                        followersChanged = true;
+                    } else if (!follower.following && index >= 0) {
+                        self.followers.splice(index, 1);
+                        followersChanged = true;
+                    }
+                }
+                if (followersChanged) {
+                    self.emit('followers', self);
+                }
 
-                for (var i in data.states) {
-                    var state = data.states[i];
+                var authors = data.authors;
+                for (var j in data.states) {
+                    var state = data.states[j];
                     self._handleState(state, authors);
                 }
+                
                 self.commentId = data.maxEventId || 0;
             }
             // continually read until error

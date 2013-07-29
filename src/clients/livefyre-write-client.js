@@ -92,6 +92,58 @@ define(['streamhub-sdk/jquery', 'base64'], function($) {
             }
         });
     };
+    
+    LivefyreWriteClient.follow = function(opts, callback) {
+        opts = opts || {};
+        callback = callback || function() {};
+        var url = [
+            "http://quill.",
+            opts.network,
+            "/api/v3.0/collection/",
+            opts.collectionId,
+            "/follow/"
+        ].join("");
+
+        var postData = {lftoken: opts.lftoken};
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: postData,
+            success: function(data, status, jqXhr) {
+                callback(null, data);
+            },
+            error: function(jqXhr, status, err) {
+                callback(err);
+            }
+        });
+    };
+
+    LivefyreWriteClient.unfollow = function(opts, callback) {
+        opts = opts || {};
+        callback = callback || function() {};
+        var url = [
+            "http://quill.",
+            opts.network,
+            "/api/v3.0/collection/",
+            opts.collectionId,
+            "/unfollow/"
+        ].join("");
+
+        var postData = {lftoken: opts.lftoken};
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: postData,
+            success: function(data, status, jqXhr) {
+                callback(null, data);
+            },
+            error: function(jqXhr, status, err) {
+                callback(err);
+            }
+        });
+    };
 
     return LivefyreWriteClient;
 
