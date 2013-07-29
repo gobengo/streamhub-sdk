@@ -1,22 +1,22 @@
 define(['streamhub-sdk/jquery', 'streamhub-sdk/event-emitter'], function($, EventEmitter) {
 
-	/**
-	 * This module is extremely EXPERIMENTAL. Currently, it provides a simple oauth login
-	 * against Livefyre's QA environment, to test oauth. It should not be used in a production
-	 * environment.
-	 *
-	 * To use, add "require('streamhub-sdk').Auth.login(_siteId_)" to a login click event to
-	 * request an oauth token, which can be used to post to the current site's comment stream
-	 * for an hour.
-	 *
-	 * To get/check existance of the current token, call "require('streamhub-sdk').Auth.getToken()"
-	 * which will return the lftoken or null if not available.
-	 * 
-	 * To enable a successful token callback, be sure to include
-	 * "require('streamhub-sdk').Auth.checkToken()" on the window.load event, which ensures the
-	 * default oauth callback is enabled for the current url.
-	 * @exports streamhub-sdk/auth
-	 */
+    /**
+     * This module is extremely EXPERIMENTAL. Currently, it provides a simple oauth login
+     * against Livefyre's QA environment, to test oauth. It should not be used in a production
+     * environment.
+     *
+     * To use, add "require('streamhub-sdk').Auth.login(_siteId_)" to a login click event to
+     * request an oauth token, which can be used to post to the current site's comment stream
+     * for an hour.
+     *
+     * To get/check existance of the current token, call "require('streamhub-sdk').Auth.getToken()"
+     * which will return the lftoken or null if not available.
+     * 
+     * To enable a successful token callback, be sure to include
+     * "require('streamhub-sdk').Auth.checkToken()" on the window.load event, which ensures the
+     * default oauth callback is enabled for the current url.
+     * @exports streamhub-sdk/auth
+     */
     var _Auth = function() {
         EventEmitter.call(this);
     };
@@ -44,14 +44,14 @@ define(['streamhub-sdk/jquery', 'streamhub-sdk/event-emitter'], function($, Even
         if (typeof network != "string") {
             network = "livefyre.com";
         }
-        if (Auth._loginInterval != null) {
+        if (Auth._loginInterval !== null) {
             clearInterval(Auth._loginInterval);
             Auth._loginInterval = null;
         }
-        if (Auth._token != null) {
-	        Auth._token = null;
+        if (Auth._token !== null) {
+            Auth._token = null;
         }
-        if (Auth._loginWindow != null) {
+        if (Auth._loginWindow !== null) {
             Auth._loginWindow.close();
             Auth._loginWindow = null;
         }
@@ -109,14 +109,14 @@ define(['streamhub-sdk/jquery', 'streamhub-sdk/event-emitter'], function($, Even
                 }
             }
         }
-        if (Auth._token != null) {
-            if (Auth._locationHash != null) {
+        if (Auth._token !== null) {
+            if (Auth._locationHash !== null) {
                 window.location.hash = Auth._locationHash;
                 Auth._locationHash = null;
             }
-            if (Auth._loginInterval != null) {
+            if (Auth._loginInterval !== null) {
                 clearInterval(Auth._loginInterval);
-                Auth._loginInterval = null
+                Auth._loginInterval = null;
             }
         }
     };

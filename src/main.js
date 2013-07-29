@@ -84,7 +84,7 @@ define([
     Hub.Streams.LivefyreReverseStream = LivefyreReverseStream;
     
     Hub.Streams.Helpers = {};
-    Hub.Streams.Helpers.LivefyreHelper = LivefyreHelper
+    Hub.Streams.Helpers.LivefyreHelper = LivefyreHelper;
 
     Hub.Views = {};
     Hub.Views.ListView = ListView;
