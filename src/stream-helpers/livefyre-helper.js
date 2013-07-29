@@ -30,6 +30,7 @@ function ($, StreamManager, LivefyreBootstrapClient, LivefyreStream, LivefyreRev
             if (err) {
                 return callback(err);
             }
+
             var followers = ((data || {}).headDocument || {}).followers || [];
             var collectionSettings = data.collectionSettings;
             var collectionId = collectionSettings.collectionId;

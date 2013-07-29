@@ -154,7 +154,7 @@ define([
                     child.author = authors[child.content.authorId];
                 }
                 var childContent = this.createContent(child);
-                
+
                 if (childContent instanceof Oembed) {
                     content.addAttachment(childContent);
                 } else {
